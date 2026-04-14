@@ -37,3 +37,16 @@ bun.lock
 .claude/memory/
 career-dashboard
 package-lock.json
+
+# Backend
+backend/.env
+backend/data/*.db
+backend/data/
+backend/node_modules/
+
+# Frontend
+frontend/.env.local
+frontend/.env*.local
+frontend/node_modules/
+frontend/.next/
+frontend/out/
