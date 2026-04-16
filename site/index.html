@@ -1119,6 +1119,185 @@
     .terminal-body { font-size: 11.5px; padding: 10px; }
     .terminal-title { font-size: 11.5px; }
   }
+
+  /* ---------- Results feed ---------- */
+  .results-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 12.5px;
+    color: var(--text2);
+  }
+  .results-summary .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+  }
+  .results-summary .pill strong {
+    color: var(--text);
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .results-summary .pill.new strong   { color: var(--green); }
+  .results-summary .pill.dup strong   { color: var(--text2); }
+  .results-summary .pill.skip strong  { color: var(--text3); }
+  .results-summary .pill.error strong { color: var(--red); }
+  .results-summary .pill::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.55;
+  }
+  .results-summary .pill.new   { color: var(--green); }
+  .results-summary .pill.dup   { color: var(--text2); }
+  .results-summary .pill.skip  { color: var(--text3); }
+  .results-summary .pill.error { color: var(--red); }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .result-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 14px 12px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color var(--trans), transform var(--trans);
+    animation: cardIn 280ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  .result-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-1px);
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-card.is-new::before {
+    content: 'NEW';
+    position: absolute;
+    top: -6px;
+    right: 10px;
+    padding: 2px 7px;
+    font-family: var(--font-head);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: var(--green);
+    color: #0a0b10;
+    border-radius: 3px;
+  }
+
+  .result-card-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .result-company {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+  }
+  .result-source {
+    padding: 2px 7px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--bg3);
+    color: var(--text2);
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .result-source[data-source="greenhouse"] { color: hsl(135, 55%, 65%); }
+  .result-source[data-source="ashby"]      { color: hsl(210, 70%, 70%); }
+  .result-source[data-source="lever"]      { color: hsl(28, 85%, 65%); }
+  .result-source[data-source="websearch"]  { color: var(--purple-fg); }
+
+  .result-role {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .result-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11.5px;
+    color: var(--text3);
+    font-family: var(--font-mono);
+    flex-wrap: wrap;
+  }
+  .result-meta .dot { color: var(--border2); }
+
+  .result-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .result-actions .btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .results-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 48px 20px;
+    text-align: center;
+    color: var(--text3);
+    font-size: 13px;
+    background: var(--bg2);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+  }
+  .results-empty svg {
+    width: 34px;
+    height: 34px;
+    opacity: 0.45;
+  }
+  .results-empty .title {
+    color: var(--text2);
+    font-family: var(--font-head);
+    font-weight: 500;
+  }
 </style>
 </head>
 <body>
@@ -1467,7 +1646,61 @@
         </div>
       </div>
 
-      <!-- Step 8 will add the results feed here -->
+      <div class="panel-card" id="scan-results" data-results="scan">
+        <div class="panel-card-head">
+          <div class="panel-card-title">
+            Results
+            <small>new matches appear here as the scan streams · <span data-results-total="scan">0</span> total</small>
+          </div>
+          <div class="results-actions">
+            <button class="btn btn-sm btn-ghost" type="button" data-results-action="clear" title="Clear the list on screen (doesn't remove from pipeline.md)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Clear view
+            </button>
+          </div>
+        </div>
+
+        <div class="results-summary">
+          <span class="pill new"><strong data-results-count="new">0</strong> new</span>
+          <span class="pill dup"><strong data-results-count="dup">0</strong> duplicates</span>
+          <span class="pill skip"><strong data-results-count="skip">0</strong> filtered</span>
+          <span class="pill error"><strong data-results-count="error">0</strong> errors</span>
+        </div>
+
+        <div class="results-grid" id="scan-results-grid" data-results-grid="scan"></div>
+
+        <div class="results-empty" data-results-empty="scan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <div class="title">No scan results yet</div>
+          <div>Trigger a scan above — new matches will appear here as cards and land in <code>data/pipeline.md</code>.</div>
+        </div>
+      </div>
+
+      <!-- Template used by Step 17's SSE handler to clone a result card per new match -->
+      <template id="tpl-result-card">
+        <article class="result-card is-new" data-result-url="">
+          <div class="result-card-head">
+            <div class="result-company" data-result-field="company"></div>
+            <span class="result-source" data-result-field="source" data-source=""></span>
+          </div>
+          <div class="result-role" data-result-field="role"></div>
+          <div class="result-meta">
+            <span data-result-field="location"></span>
+            <span class="dot">·</span>
+            <span data-result-field="time"></span>
+          </div>
+          <div class="result-actions">
+            <a class="btn btn-sm" target="_blank" rel="noopener" data-result-field="open">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open JD
+            </a>
+            <button class="btn btn-sm btn-primary" type="button" data-result-action="evaluate">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Evaluate
+            </button>
+          </div>
+        </article>
+      </template>
     </section>
 
     <!-- ============ PIPELINE / TRACKER / REPORTS tabs ============
