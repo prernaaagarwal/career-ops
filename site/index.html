@@ -2466,6 +2466,220 @@
     .rich-content h1 { font-size: 22px; }
     .rich-content h2 { font-size: 18px; }
   }
+
+  /* ---------- Insight tiles (Patterns + Follow-ups) ---------- */
+  .insight-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .insight-tile {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 10px;
+    padding: 18px 18px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color var(--trans);
+  }
+  .insight-tile::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent, var(--cyan));
+    opacity: 0.7;
+  }
+  .insight-tile:hover { border-color: var(--border2); }
+
+  .insight-tile.accent-purple { --accent: var(--purple); --accent-dim: var(--purple-dim); --accent-fg: var(--purple-fg); }
+  .insight-tile.accent-yellow { --accent: var(--yellow); --accent-dim: var(--yellow-dim); --accent-fg: var(--yellow); }
+
+  .insight-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .insight-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    background: var(--accent-dim, var(--cyan-dim));
+    color: var(--accent-fg, var(--cyan-fg));
+    display: grid;
+    place-items: center;
+  }
+  .insight-icon svg { width: 20px; height: 20px; }
+
+  .insight-title-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .insight-title {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .insight-tagline {
+    font-size: 12px;
+    color: var(--text2);
+  }
+
+  .insight-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+  .insight-desc code {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    background: var(--bg3);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  .insight-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .insight-actions .btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .insight-last-run {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-left: auto;
+  }
+
+  /* Insight panel — expands below when the action runs */
+  .insight-panel {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 300ms ease, opacity 200ms ease, margin-top 200ms ease;
+    margin-top: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+  }
+  .insight-panel.open {
+    max-height: 640px;
+    opacity: 1;
+    padding: 14px 16px;
+    border-color: var(--border);
+    margin-top: 10px;
+  }
+
+  .insight-panel-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 580px;
+  }
+
+  .insight-empty {
+    padding: 18px 8px;
+    text-align: center;
+    color: var(--text3);
+    font-size: 12.5px;
+  }
+
+  .insight-stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 8px 0 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .insight-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .insight-stat-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+  .insight-stat-value {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .insight-stat-value small {
+    font-size: 11px;
+    color: var(--text2);
+    font-weight: 400;
+    margin-left: 3px;
+  }
+
+  .insight-list {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .insight-list li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 6px 10px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+  }
+  .insight-list .item-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text);
+  }
+  .insight-list .item-value {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text2);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .insight-list .item-value.urgent { color: var(--red); font-weight: 600; }
+  .insight-list .item-value.soon   { color: var(--yellow); }
+  .insight-list .item-value.ok     { color: var(--green); }
+
+  .insight-section-title {
+    font-family: var(--font-head);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text2);
+    margin: 8px 0 2px;
+  }
 </style>
 </head>
 <body>
@@ -3119,7 +3333,121 @@
         </div>
       </div>
 
-      <!-- Step 15 will add patterns + follow-up quick-actions here -->
+      <div class="insight-tiles">
+
+        <div class="insight-tile accent-purple" id="tile-patterns">
+          <div class="insight-head">
+            <div class="insight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="7 15 11 11 15 13 21 7"/></svg>
+            </div>
+            <div class="insight-title-row">
+              <div class="insight-title">Rejection patterns</div>
+              <div class="insight-tagline">Where you're losing and why</div>
+            </div>
+          </div>
+
+          <div class="insight-desc">
+            Runs <code>analyze-patterns.mjs --summary</code> across every rejected application to surface recurring flags: over-qualification, location mismatch, seniority, industry drift.
+          </div>
+
+          <div class="insight-actions">
+            <button class="btn btn-primary" type="button" data-action="run-patterns">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Analyze patterns
+            </button>
+            <span class="insight-last-run" data-insight-last="patterns"></span>
+          </div>
+
+          <div class="insight-panel" id="panel-patterns" data-insight-panel="patterns" aria-live="polite">
+            <div class="insight-panel-body">
+              <div class="insight-empty" data-insight-empty="patterns">
+                No analysis yet. Click <strong>Analyze patterns</strong> to crunch your rejections.
+              </div>
+
+              <!-- Populated by Step 17 when the job completes -->
+              <div class="insight-stat-row" data-insight-stats="patterns" hidden>
+                <div class="insight-stat">
+                  <span class="insight-stat-label">Rejected</span>
+                  <span class="insight-stat-value" data-patterns-field="rejected-count">0</span>
+                </div>
+                <div class="insight-stat">
+                  <span class="insight-stat-label">Top flag</span>
+                  <span class="insight-stat-value" data-patterns-field="top-flag">—</span>
+                </div>
+                <div class="insight-stat">
+                  <span class="insight-stat-label">Avg score</span>
+                  <span class="insight-stat-value" data-patterns-field="avg-score">—<small>/5</small></span>
+                </div>
+              </div>
+
+              <div data-insight-results="patterns" hidden>
+                <div class="insight-section-title">Most common flags</div>
+                <ul class="insight-list" data-patterns-list="flags"></ul>
+
+                <div class="insight-section-title">Recommended focus</div>
+                <ul class="insight-list" data-patterns-list="recommendations"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight-tile accent-yellow" id="tile-followup">
+          <div class="insight-head">
+            <div class="insight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="insight-title-row">
+              <div class="insight-title">Follow-up cadence</div>
+              <div class="insight-tagline">Who you should ping this week</div>
+            </div>
+          </div>
+
+          <div class="insight-desc">
+            Runs <code>followup-cadence.mjs --summary</code> to flag applications stalled past the recommended window based on their current status and history in <code>data/follow-ups.md</code>.
+          </div>
+
+          <div class="insight-actions">
+            <button class="btn btn-primary btn-accent-purple" type="button" data-action="run-followup" style="background: var(--yellow); border-color: var(--yellow); color: #1a1400;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+              Compute cadence
+            </button>
+            <span class="insight-last-run" data-insight-last="followup"></span>
+          </div>
+
+          <div class="insight-panel" id="panel-followup" data-insight-panel="followup" aria-live="polite">
+            <div class="insight-panel-body">
+              <div class="insight-empty" data-insight-empty="followup">
+                No cadence yet. Click <strong>Compute cadence</strong> to see who's overdue for a nudge.
+              </div>
+
+              <div class="insight-stat-row" data-insight-stats="followup" hidden>
+                <div class="insight-stat">
+                  <span class="insight-stat-label">Overdue</span>
+                  <span class="insight-stat-value" data-followup-field="overdue">0</span>
+                </div>
+                <div class="insight-stat">
+                  <span class="insight-stat-label">Due soon</span>
+                  <span class="insight-stat-value" data-followup-field="due-soon">0</span>
+                </div>
+                <div class="insight-stat">
+                  <span class="insight-stat-label">On track</span>
+                  <span class="insight-stat-value" data-followup-field="on-track">0</span>
+                </div>
+              </div>
+
+              <div data-insight-results="followup" hidden>
+                <div class="insight-section-title">Action this week</div>
+                <ul class="insight-list" data-followup-list="urgent"></ul>
+
+                <div class="insight-section-title">Upcoming</div>
+                <ul class="insight-list" data-followup-list="upcoming"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
 
       <div class="panel-card">
         <div class="reports-toolbar">
