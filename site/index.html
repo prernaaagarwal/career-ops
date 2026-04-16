@@ -3558,5 +3558,295 @@
       </template>
     </section>
   </main>
+
+<script>
+/* ==========================================================================
+   career-ops control panel — client-side logic
+
+   Organized as a single global `App` object with three phases of init,
+   matching the HTML build steps:
+
+     Step 16 (this file) — api helpers, tab switching, hash routing,
+                           keyboard shortcuts, tiny DOM + formatting utils.
+     Step 17             — SSE streaming for /api/run/* jobs, action button
+                           wiring (scan, pipeline add/remove, tracker edit,
+                           patterns, followup), modal open/close.
+     Step 18             — data loading orchestration from /api/* endpoints,
+                           dashboard stats / chart / funnel, tracker rendering,
+                           pipeline rendering, reports rendering.
+   ========================================================================== */
+(() => {
+  'use strict';
+
+  // ---------- tiny DOM utils ----------
+  const $  = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  const on = (el, ev, sel, fn) => {
+    if (typeof sel === 'function') {
+      el.addEventListener(ev, sel);
+      return;
+    }
+    el.addEventListener(ev, (e) => {
+      const target = e.target.closest(sel);
+      if (target && el.contains(target)) fn(e, target);
+    });
+  };
+
+  const el = (tag, attrs = {}, ...children) => {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v === undefined || v === null || v === false) continue;
+      if (k === 'class')   node.className = v;
+      else if (k === 'dataset') Object.assign(node.dataset, v);
+      else if (k === 'style' && typeof v === 'object') Object.assign(node.style, v);
+      else if (k.startsWith('on') && typeof v === 'function') {
+        node.addEventListener(k.slice(2).toLowerCase(), v);
+      } else if (k === 'html') {
+        node.innerHTML = v;
+      } else {
+        node.setAttribute(k, v === true ? '' : String(v));
+      }
+    }
+    for (const c of children.flat()) {
+      if (c == null || c === false) continue;
+      node.append(c.nodeType ? c : document.createTextNode(String(c)));
+    }
+    return node;
+  };
+
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
+    { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
+  ));
+
+  // ---------- formatting ----------
+  const fmt = {
+    date(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      if (isNaN(d)) return String(iso);
+      return d.toISOString().slice(0, 10);
+    },
+    relative(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d)) return '';
+      const diffSec = Math.round((Date.now() - d.getTime()) / 1000);
+      if (diffSec < 60)         return 'just now';
+      if (diffSec < 3600)       return `${Math.round(diffSec/60)}m ago`;
+      if (diffSec < 86400)      return `${Math.round(diffSec/3600)}h ago`;
+      if (diffSec < 86400 * 30) return `${Math.round(diffSec/86400)}d ago`;
+      return d.toISOString().slice(0, 10);
+    },
+    scoreBand(score) {
+      const n = Number(score);
+      if (!Number.isFinite(n))  return 'na';
+      if (n >= 4)               return 'high';
+      if (n >= 3)               return 'mid';
+      return 'low';
+    },
+    scoreClass(score) {
+      return 's-' + fmt.scoreBand(score);
+    },
+    n(v) {
+      const x = Number(v);
+      return Number.isFinite(x) ? x.toLocaleString() : '—';
+    },
+    pct(v) {
+      const x = Number(v);
+      return Number.isFinite(x) ? `${Math.round(x)}%` : '—';
+    }
+  };
+
+  // ---------- toast (lightweight, reuses existing feedback pattern) ----------
+  let toastRoot;
+  function toast(msg, tone = 'success', ms = 2600) {
+    if (!toastRoot) {
+      toastRoot = el('div', { class: 'toast-root', style: {
+        position: 'fixed', bottom: '20px', right: '20px', zIndex: 300,
+        display: 'flex', flexDirection: 'column', gap: '8px',
+        pointerEvents: 'none', maxWidth: '380px'
+      }});
+      document.body.append(toastRoot);
+    }
+    const t = el('div', { style: {
+      padding: '10px 14px',
+      background: tone === 'error' ? 'var(--red-dim)' :
+                  tone === 'warn'  ? 'var(--yellow-dim)' : 'var(--green-dim)',
+      color: tone === 'error' ? 'hsl(0,75%,85%)' :
+             tone === 'warn'  ? 'hsl(45,90%,85%)' : 'hsl(150,70%,82%)',
+      border: `1px solid var(--${tone === 'error' ? 'red' : tone === 'warn' ? 'yellow' : 'green'})`,
+      borderRadius: 'var(--radius-sm)',
+      fontSize: '13px',
+      boxShadow: 'var(--shadow)',
+      pointerEvents: 'auto',
+      opacity: '0',
+      transform: 'translateY(6px)',
+      transition: 'opacity 180ms ease, transform 180ms ease'
+    }}, msg);
+    toastRoot.append(t);
+    requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateY(0)'; });
+    setTimeout(() => {
+      t.style.opacity = '0'; t.style.transform = 'translateY(6px)';
+      setTimeout(() => t.remove(), 200);
+    }, ms);
+  }
+
+  // ---------- API helpers ----------
+  async function apiFetch(path, opts = {}) {
+    const res = await fetch(path, {
+      headers: { 'Accept': 'application/json' },
+      ...opts
+    });
+    const ct = res.headers.get('content-type') || '';
+    const body = ct.includes('application/json') ? await res.json().catch(() => null) : await res.text();
+    if (!res.ok) {
+      const msg = (body && body.error) || (typeof body === 'string' ? body : res.statusText);
+      const err = new Error(`${res.status} ${res.statusText}: ${msg}`);
+      err.status = res.status;
+      err.body = body;
+      throw err;
+    }
+    return body;
+  }
+
+  const api = {
+    get: (path)            => apiFetch(path),
+    post: (path, data)     => apiFetch(path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data ?? {})
+    }),
+    // Subscribe to a job's SSE stream. Handlers: { onLine, onError, onDone }.
+    // Returns an EventSource so the caller can close it.
+    stream(jobId, handlers = {}) {
+      const src = new EventSource(`/api/stream/${encodeURIComponent(jobId)}`);
+      src.addEventListener('data', (ev) => {
+        try { handlers.onLine?.(JSON.parse(ev.data)); }
+        catch { handlers.onLine?.({ stream: 'stdout', text: ev.data }); }
+      });
+      src.addEventListener('error', (ev) => {
+        handlers.onError?.(ev);
+      });
+      src.addEventListener('done', (ev) => {
+        let payload = null;
+        try { payload = JSON.parse(ev.data); } catch {}
+        handlers.onDone?.(payload);
+        src.close();
+      });
+      // 'error' when stream closes unexpectedly
+      src.onerror = () => {
+        if (src.readyState === EventSource.CLOSED) {
+          handlers.onDone?.({ closed: true });
+        }
+      };
+      return src;
+    },
+    // Convenience: POST /api/run/{name} then subscribe to its stream.
+    async run(name, body, handlers) {
+      const { jobId } = await api.post(`/api/run/${name}`, body || {});
+      return { jobId, source: api.stream(jobId, handlers) };
+    }
+  };
+
+  // ---------- Tab switching ----------
+  const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports'];
+
+  function activateTab(name, { updateHash = true } = {}) {
+    if (!TABS.includes(name)) name = 'dashboard';
+
+    $$('.tab').forEach((btn) => {
+      const active = btn.dataset.tab === name;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      btn.setAttribute('tabindex', active ? '0' : '-1');
+    });
+
+    $$('.tab-panel').forEach((panel) => {
+      panel.classList.toggle('active', panel.id === `panel-${name}`);
+    });
+
+    if (updateHash) {
+      const newHash = name === 'dashboard' ? '' : `#${name}`;
+      if (location.hash !== newHash) {
+        // replaceState so tab switches don't spam browser history
+        history.replaceState(null, '', newHash || location.pathname);
+      }
+    }
+
+    // Scroll to top of the main area on tab change for cleaner UX
+    document.getElementById('app-main')?.scrollIntoView({ block: 'start', behavior: 'instant' });
+
+    // Let other modules (Step 17/18) know the tab changed
+    document.dispatchEvent(new CustomEvent('tab:change', { detail: { tab: name } }));
+  }
+
+  function initTabs() {
+    // Click switches tabs
+    on(document, 'click', '.tab', (e, btn) => {
+      e.preventDefault();
+      activateTab(btn.dataset.tab);
+    });
+
+    // Arrow-key navigation along the tab bar (WAI-ARIA)
+    on(document, 'keydown', '.tab', (e, btn) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+      e.preventDefault();
+      const tabs = $$('.tab');
+      const i = tabs.indexOf(btn);
+      let next = i;
+      if (e.key === 'ArrowLeft')  next = (i - 1 + tabs.length) % tabs.length;
+      if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+      if (e.key === 'Home')       next = 0;
+      if (e.key === 'End')        next = tabs.length - 1;
+      tabs[next].focus();
+      activateTab(tabs[next].dataset.tab);
+    });
+
+    // Number-key shortcuts (1-5) — only when no input is focused
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (['input', 'textarea', 'select'].includes(tag) || e.target.isContentEditable) return;
+      const n = parseInt(e.key, 10);
+      if (!Number.isInteger(n) || n < 1 || n > TABS.length) return;
+      e.preventDefault();
+      activateTab(TABS[n - 1]);
+    });
+
+    // Browser back/forward restores the tab
+    window.addEventListener('hashchange', () => {
+      const fromHash = location.hash.replace(/^#/, '');
+      activateTab(fromHash || 'dashboard', { updateHash: false });
+    });
+
+    // Initial activation from URL hash
+    const initial = location.hash.replace(/^#/, '');
+    activateTab(initial || 'dashboard', { updateHash: false });
+  }
+
+  // ---------- Global error capture (non-fatal) ----------
+  window.addEventListener('unhandledrejection', (e) => {
+    console.error('[career-ops]', e.reason);
+    const msg = e?.reason?.message || String(e?.reason || 'Unknown error');
+    toast(msg, 'error', 3400);
+  });
+
+  // ---------- Expose to window for Step 17/18 ----------
+  window.App = {
+    $, $$, on, el, esc,
+    fmt, toast, api,
+    activateTab,
+    TABS
+  };
+
+  // ---------- Boot ----------
+  document.addEventListener('DOMContentLoaded', () => {
+    initTabs();
+    // Step 17 and Step 18 will register their own listeners onto App below.
+    document.dispatchEvent(new CustomEvent('app:ready'));
+  });
+})();
+</script>
 </body>
 </html>
