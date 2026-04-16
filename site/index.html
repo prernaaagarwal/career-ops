@@ -300,6 +300,139 @@
     .tab { padding: 8px 10px; font-size: 12.5px; }
     .header-actions .status-dot span { display: none; }
   }
+
+  /* ---------- Main + tab panels ---------- */
+  main#app-main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 28px 24px 64px;
+  }
+
+  .tab-panel {
+    display: none;
+    animation: fadeIn 180ms ease;
+  }
+  .tab-panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .panel-title {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .panel-subtitle {
+    color: var(--text2);
+    font-size: 13px;
+  }
+
+  /* ---------- Stat cards ---------- */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    position: relative;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 18px 16px;
+    transition: border-color var(--trans), transform var(--trans);
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent, var(--cyan));
+    opacity: 0.7;
+  }
+  .stat-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-1px);
+  }
+
+  .stat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: grid;
+    place-items: center;
+    background: var(--accent-dim, var(--cyan-dim));
+    color: var(--accent, var(--cyan-fg));
+  }
+  .stat-icon svg { width: 16px; height: 16px; }
+
+  .stat-value {
+    font-family: var(--font-head);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+  .stat-value .stat-unit {
+    font-size: 15px;
+    color: var(--text2);
+    font-weight: 400;
+    margin-left: 2px;
+  }
+
+  .stat-sub {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--text3);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .stat-sub .trend-up   { color: var(--green); }
+  .stat-sub .trend-down { color: var(--red); }
+  .stat-sub .trend-flat { color: var(--text2); }
+
+  /* Accent variants for stat cards */
+  .stat-card.accent-cyan   { --accent: var(--cyan);   --accent-dim: var(--cyan-dim);   }
+  .stat-card.accent-purple { --accent: var(--purple); --accent-dim: var(--purple-dim); }
+  .stat-card.accent-green  { --accent: var(--green);  --accent-dim: var(--green-dim);  }
+  .stat-card.accent-yellow { --accent: var(--yellow); --accent-dim: var(--yellow-dim); }
+  .stat-card.accent-red    { --accent: var(--red);    --accent-dim: var(--red-dim);    }
+  .stat-card.accent-orange { --accent: var(--orange); --accent-dim: var(--red-dim);    }
+
+  @media (max-width: 600px) {
+    main#app-main { padding: 20px 14px 48px; }
+    .stat-value { font-size: 26px; }
+    .stat-card { padding: 14px; }
+  }
 </style>
 </head>
 <body>
@@ -343,7 +476,91 @@
   </header>
 
   <main id="app-main">
-    <!-- Step 3+ will add tab panels here -->
+    <!-- ============ DASHBOARD TAB ============ -->
+    <section class="tab-panel active" id="panel-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Overview</div>
+          <div class="panel-subtitle">Your job search at a glance — refreshed from data files on every load.</div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+
+        <div class="stat-card accent-cyan">
+          <div class="stat-head">
+            <div class="stat-label">Applications</div>
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+          </div>
+          <div class="stat-value" data-stat="applications-total">—</div>
+          <div class="stat-sub"><span data-stat="applications-applied">—</span> applied · <span data-stat="applications-evaluated">—</span> evaluated</div>
+        </div>
+
+        <div class="stat-card accent-purple">
+          <div class="stat-head">
+            <div class="stat-label">Pipeline</div>
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+            </div>
+          </div>
+          <div class="stat-value" data-stat="pipeline-pending">—<span class="stat-unit">pending</span></div>
+          <div class="stat-sub">URLs waiting to be evaluated</div>
+        </div>
+
+        <div class="stat-card accent-green">
+          <div class="stat-head">
+            <div class="stat-label">Avg Score</div>
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="stat-value" data-stat="avg-score">—<span class="stat-unit">/5</span></div>
+          <div class="stat-sub"><span data-stat="high-score-count">—</span> above 4.0</div>
+        </div>
+
+        <div class="stat-card accent-yellow">
+          <div class="stat-head">
+            <div class="stat-label">Response Rate</div>
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+          </div>
+          <div class="stat-value" data-stat="response-rate">—<span class="stat-unit">%</span></div>
+          <div class="stat-sub"><span data-stat="responded-count">—</span> of <span data-stat="applied-count">—</span> replied</div>
+        </div>
+
+        <div class="stat-card accent-orange">
+          <div class="stat-head">
+            <div class="stat-label">Interviews</div>
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+          </div>
+          <div class="stat-value" data-stat="interviews-count">—</div>
+          <div class="stat-sub"><span data-stat="offers-count">—</span> offers received</div>
+        </div>
+
+        <div class="stat-card accent-cyan">
+          <div class="stat-head">
+            <div class="stat-label">Companies Tracked</div>
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+            </div>
+          </div>
+          <div class="stat-value" data-stat="companies-count">—</div>
+          <div class="stat-sub"><span data-stat="queries-count">—</span> search queries</div>
+        </div>
+
+      </div>
+
+      <!-- Step 4 will add the score chart here -->
+      <!-- Step 5 will add the funnel viz here -->
+    </section>
+
+    <!-- ============ SCANNER / PIPELINE / TRACKER / REPORTS tabs ============
+         Added in Steps 6–15 -->
   </main>
 </body>
 </html>
