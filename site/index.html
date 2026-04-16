@@ -3718,36 +3718,301 @@
       body: JSON.stringify(data ?? {})
     }),
     // Subscribe to a job's SSE stream. Handlers: { onLine, onError, onDone }.
-    // Returns an EventSource so the caller can close it.
+    // Returns an EventSource-like handle with .close().
+    // Server emits default `message` events with entries:
+    //   { type: 'stdout'|'stderr'|'done'|'error', text, ts }
     stream(jobId, handlers = {}) {
       const src = new EventSource(`/api/stream/${encodeURIComponent(jobId)}`);
-      src.addEventListener('data', (ev) => {
-        try { handlers.onLine?.(JSON.parse(ev.data)); }
-        catch { handlers.onLine?.({ stream: 'stdout', text: ev.data }); }
-      });
-      src.addEventListener('error', (ev) => {
-        handlers.onError?.(ev);
-      });
-      src.addEventListener('done', (ev) => {
-        let payload = null;
-        try { payload = JSON.parse(ev.data); } catch {}
-        handlers.onDone?.(payload);
-        src.close();
-      });
-      // 'error' when stream closes unexpectedly
-      src.onerror = () => {
-        if (src.readyState === EventSource.CLOSED) {
-          handlers.onDone?.({ closed: true });
-        }
+      let closed = false;
+      const finish = (payload) => {
+        if (closed) return;
+        closed = true;
+        try { src.close(); } catch {}
+        handlers.onDone?.(payload || { closed: true });
       };
-      return src;
+      src.onmessage = (ev) => {
+        let entry = null;
+        try { entry = JSON.parse(ev.data); } catch { entry = { type: 'stdout', text: String(ev.data) }; }
+        if (!entry) return;
+        if (entry.type === 'done') {
+          handlers.onLine?.(entry);
+          finish({ type: 'done', text: entry.text, ts: entry.ts });
+          return;
+        }
+        if (entry.type === 'error') {
+          handlers.onLine?.(entry);
+          handlers.onError?.(entry);
+          finish({ type: 'error', text: entry.text, ts: entry.ts });
+          return;
+        }
+        handlers.onLine?.(entry);
+      };
+      src.onerror = () => {
+        if (src.readyState === EventSource.CLOSED) finish({ closed: true });
+      };
+      return { source: src, close: () => finish({ closed: true, aborted: true }) };
     },
     // Convenience: POST /api/run/{name} then subscribe to its stream.
     async run(name, body, handlers) {
       const { jobId } = await api.post(`/api/run/${name}`, body || {});
-      return { jobId, source: api.stream(jobId, handlers) };
+      const handle = api.stream(jobId, handlers);
+      return { jobId, source: handle.source, close: handle.close };
+    },
+    // Ask the server to terminate a job. Idempotent.
+    async stop(jobId) {
+      try { return await api.post(`/api/run/${encodeURIComponent(jobId)}/stop`, {}); }
+      catch (err) { return { stopped: false, error: err.message }; }
     }
   };
+
+  // ---------- Terminal controller ----------
+  // Wraps a `[data-terminal]` root. Auto-scroll unless the user scrolled up.
+  // Line types (semantic → CSS class):
+  //   out     → .line-stdout
+  //   err     → .line-stderr
+  //   info    → .line-info
+  //   ok      → .line-success
+  //   warn    → .line-warn
+  //   error   → .line-error
+  //   done    → .line-done
+  const TERMINAL_CLASS = {
+    out: 'line-stdout',
+    stdout: 'line-stdout',
+    err: 'line-stderr',
+    stderr: 'line-stderr',
+    info: 'line-info',
+    ok: 'line-success',
+    success: 'line-success',
+    warn: 'line-warn',
+    error: 'line-error',
+    done: 'line-done'
+  };
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function fmtTs(ts) {
+    const d = ts ? new Date(ts) : new Date();
+    return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+  }
+
+  class Terminal {
+    constructor(root) {
+      if (!root) throw new Error('Terminal: root element required');
+      this.root    = root;
+      this.body    = root.querySelector('[data-terminal-body]');
+      this.empty   = root.querySelector('[data-terminal-empty]');
+      this.status  = root.querySelector('[data-terminal-status]');
+      this.cmdEl   = root.querySelector('[data-terminal-cmd]');
+      this._autoScroll = true;
+      this._lineCount  = 0;
+
+      // Detect user scroll-away to pause auto-scroll
+      if (this.body) {
+        this.body.addEventListener('scroll', () => {
+          const gap = this.body.scrollHeight - this.body.scrollTop - this.body.clientHeight;
+          this._autoScroll = gap < 24;
+        }, { passive: true });
+      }
+    }
+
+    setCommand(text) {
+      if (this.cmdEl) this.cmdEl.textContent = text;
+    }
+
+    setState(state, label) {
+      if (!this.status) return;
+      this.status.dataset.state = state;
+      this.status.textContent = label || state;
+    }
+
+    _hideEmpty() {
+      if (this.empty && this.empty.parentNode) this.empty.remove();
+    }
+
+    write(text, opts = {}) {
+      if (!this.body || text == null) return;
+      const type = opts.type || 'out';
+      const cls  = TERMINAL_CLASS[type] || 'line-stdout';
+      const ts   = opts.ts || Date.now();
+
+      this._hideEmpty();
+
+      // Normalize: split on newlines, skip trailing empty lines from chunked stdout
+      const parts = String(text).replace(/\r\n/g, '\n').split('\n');
+      // Drop a single empty trailing segment (from \n at end of chunk)
+      if (parts.length > 1 && parts[parts.length - 1] === '') parts.pop();
+
+      const frag = document.createDocumentFragment();
+      for (const part of parts) {
+        const line = document.createElement('span');
+        line.className = `terminal-line ${cls}`;
+        if (opts.ts !== false) {
+          const tsEl = document.createElement('span');
+          tsEl.className = 'ts';
+          tsEl.textContent = fmtTs(ts);
+          line.appendChild(tsEl);
+        }
+        line.appendChild(document.createTextNode(part));
+        frag.appendChild(line);
+        this._lineCount++;
+      }
+      this.body.appendChild(frag);
+
+      if (this._autoScroll) {
+        this.body.scrollTop = this.body.scrollHeight;
+      }
+    }
+
+    // Prompt-style header line, e.g. "$ node scan.mjs --company Anthropic"
+    prompt(cmd) {
+      this.write(cmd, { type: 'info' });
+    }
+
+    clear() {
+      if (!this.body) return;
+      this.body.innerHTML = '';
+      this._lineCount = 0;
+      if (this.empty) this.body.appendChild(this.empty);
+      this.setState('idle', 'idle');
+    }
+
+    async copy() {
+      const text = Array.from(this.body?.querySelectorAll('.terminal-line') || [])
+        .map(l => l.textContent)
+        .join('\n');
+      if (!text) { toast('Nothing to copy', 'info', 1600); return; }
+      try {
+        await navigator.clipboard.writeText(text);
+        toast('Copied terminal output', 'success', 1600);
+      } catch {
+        toast('Clipboard blocked', 'error', 2200);
+      }
+    }
+
+    get isEmpty() { return this._lineCount === 0; }
+  }
+
+  // Terminal registry — one controller per [data-terminal] root, lazily created.
+  const terminalRegistry = new WeakMap();
+  function getTerminal(root) {
+    if (typeof root === 'string') root = $(`[data-terminal="${root}"]`);
+    if (!root) return null;
+    let t = terminalRegistry.get(root);
+    if (!t) { t = new Terminal(root); terminalRegistry.set(root, t); }
+    return t;
+  }
+
+  // Wire terminal header buttons globally (copy / clear).
+  on(document, 'click', '[data-terminal-action]', (e, btn) => {
+    const root = btn.closest('[data-terminal]');
+    const term = getTerminal(root);
+    if (!term) return;
+    const action = btn.dataset.terminalAction;
+    if (action === 'copy')  term.copy();
+    if (action === 'clear') term.clear();
+  });
+
+  // ---------- Job runner (SSE + Terminal bridge) ----------
+  // Tracks at most one active job per terminal. Exposes App.activeJob for
+  // Stop buttons wired in later sub-steps.
+  const activeJobs = new Map(); // key: terminal root el → { jobId, handle, endpoint }
+
+  async function runJob(endpoint, body = {}, opts = {}) {
+    const { terminal, cmd, onLine, onDone, onError, trackAs } = opts;
+    const term = terminal ? (terminal instanceof Terminal ? terminal : getTerminal(terminal)) : null;
+
+    // Guard: only one job per terminal at a time
+    if (term && activeJobs.has(term.root)) {
+      toast('A job is already running in this terminal', 'warn', 2200);
+      return null;
+    }
+
+    if (term) {
+      if (cmd) term.setCommand(cmd);
+      term.setState('running', 'running');
+      term.prompt(`$ ${cmd || endpoint}`);
+    }
+
+    let jobId = null;
+    let handle = null;
+    let hadError = false;
+
+    try {
+      const resp = await api.post(`/api/run/${encodeURIComponent(endpoint)}`, body);
+      jobId = resp?.jobId;
+      if (!jobId) throw new Error('Server did not return a jobId');
+    } catch (err) {
+      if (term) {
+        term.write(`Failed to start: ${err.message}`, { type: 'error' });
+        term.setState('error', 'error');
+      }
+      toast(`Could not start ${endpoint}: ${err.message}`, 'error', 2800);
+      onError?.(err);
+      onDone?.({ ok: false, error: err });
+      return null;
+    }
+
+    const entry = { jobId, endpoint, trackAs: trackAs || endpoint, term };
+    if (term) activeJobs.set(term.root, entry);
+    App.activeJob = entry;
+
+    const fin = (payload) => {
+      if (term) activeJobs.delete(term.root);
+      if (App.activeJob?.jobId === jobId) App.activeJob = null;
+      const ok = !hadError && !payload?.aborted;
+      if (term) {
+        term.setState(ok ? 'done' : 'error', ok ? 'done' : (payload?.aborted ? 'stopped' : 'error'));
+      }
+      onDone?.({ ok, payload, jobId });
+      document.dispatchEvent(new CustomEvent('job:done', {
+        detail: { jobId, endpoint, ok, payload }
+      }));
+    };
+
+    handle = api.stream(jobId, {
+      onLine: (ln) => {
+        if (term && ln.text) {
+          const t = (ln.type === 'stderr') ? 'err'
+                  : (ln.type === 'done')   ? 'done'
+                  : (ln.type === 'error')  ? 'error'
+                  : 'out';
+          term.write(ln.text, { type: t, ts: ln.ts });
+        }
+        onLine?.(ln);
+      },
+      onError: (err) => { hadError = true; onError?.(err); },
+      onDone: fin
+    });
+
+    entry.handle = handle;
+    return entry;
+  }
+
+  async function stopJob(target) {
+    // target can be: a jobId string, a terminal root el, or a Terminal instance
+    let entry = null;
+    if (!target) entry = App.activeJob;
+    else if (typeof target === 'string') {
+      for (const e of activeJobs.values()) if (e.jobId === target) { entry = e; break; }
+      if (!entry) entry = { jobId: target, term: null, handle: null };
+    } else {
+      const root = target instanceof Terminal ? target.root : target;
+      entry = activeJobs.get(root);
+    }
+    if (!entry) { toast('No job to stop', 'info', 1600); return false; }
+
+    try {
+      await api.stop(entry.jobId);
+      if (entry.term) {
+        entry.term.write('Stop requested — terminating process…', { type: 'warn' });
+      }
+      // Let the SSE `done`/`error` finish the UI state naturally; close proactively if we can.
+      setTimeout(() => { try { entry.handle?.close(); } catch {} }, 2500);
+      return true;
+    } catch (err) {
+      toast(`Stop failed: ${err.message}`, 'error', 2400);
+      return false;
+    }
+  }
 
   // ---------- Tab switching ----------
   const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports'];
@@ -3837,7 +4102,13 @@
     $, $$, on, el, esc,
     fmt, toast, api,
     activateTab,
-    TABS
+    TABS,
+    // Step 17a — streaming primitives
+    Terminal,
+    getTerminal,
+    runJob,
+    stopJob,
+    activeJob: null
   };
 
   // ---------- Boot ----------

@@ -224,7 +224,7 @@ function runScript(name, extraArgs = []) {
   const allArgs = [config.script, ...config.args, ...extraArgs];
   const proc = spawn('node', allArgs, { cwd: ROOT, env: { ...process.env, FORCE_COLOR: '0' } });
 
-  const job = { id: jobId, name, output: [], done: false, exitCode: null, listeners: new Set() };
+  const job = { id: jobId, name, output: [], done: false, exitCode: null, listeners: new Set(), proc, stopped: false };
   jobs.set(jobId, job);
 
   const push = (type, text) => {
@@ -347,6 +347,22 @@ function handleAPI(path, req, res) {
   }
   if (path === '/api/scan-history') return json(res, getScanHistory());
   if (path === '/api/portals-info') return json(res, getPortalsInfo());
+
+  // ── Stop a running job (POST /api/run/{jobId}/stop) ──
+  if (path.startsWith('/api/run/') && path.endsWith('/stop') && req.method === 'POST') {
+    const jobId = path.slice('/api/run/'.length, -('/stop'.length));
+    const job = jobs.get(jobId);
+    if (!job) return json(res, { stopped: false, reason: 'unknown' }, 404);
+    if (job.done) return json(res, { stopped: false, reason: 'already-done' });
+    try {
+      job.stopped = true;
+      job.proc.kill('SIGTERM');
+      setTimeout(() => { if (!job.done) { try { job.proc.kill('SIGKILL'); } catch {} } }, 2000);
+      return json(res, { stopped: true });
+    } catch (err) {
+      return json(res, { stopped: false, reason: err.message }, 500);
+    }
+  }
 
   // ── Run script (POST) ──
   if (path.startsWith('/api/run/') && req.method === 'POST') {
