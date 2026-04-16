@@ -1952,6 +1952,205 @@
   .tracker-table tbody tr.just-saved {
     animation: rowSaved 1200ms ease-out;
   }
+
+  /* ---------- Reports toolbar ---------- */
+  .reports-toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .reports-toolbar .tracker-search { width: 280px; }
+  .reports-toolbar .spacer { flex: 1; }
+
+  .score-filter {
+    display: flex;
+    gap: 4px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 3px;
+  }
+  .score-filter button {
+    padding: 5px 10px;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    border-radius: 4px;
+    transition: background var(--trans), color var(--trans);
+  }
+  .score-filter button:hover { color: var(--text); background: var(--bg2); }
+  .score-filter button.active {
+    background: var(--cyan-dim);
+    color: var(--cyan-fg);
+  }
+
+  .sort-select-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .sort-select-wrap .select {
+    width: auto;
+    padding: 6px 28px 6px 10px;
+    font-size: 12.5px;
+  }
+
+  /* ---------- Report card grid ---------- */
+  .reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .report-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 16px 14px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
+    text-align: left;
+    color: inherit;
+    font: inherit;
+    overflow: hidden;
+  }
+  .report-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent, var(--cyan));
+    opacity: 0.6;
+    transition: opacity var(--trans), height var(--trans);
+  }
+  .report-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .report-card:hover::before { height: 3px; opacity: 1; }
+
+  /* Accent color by score band */
+  .report-card[data-score-band="high"] { --accent: var(--green); }
+  .report-card[data-score-band="mid"]  { --accent: var(--yellow); }
+  .report-card[data-score-band="low"]  { --accent: var(--red); }
+  .report-card[data-score-band="na"]   { --accent: var(--text3); }
+
+  .report-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .report-num {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+  .report-score {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text3);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .report-score::after {
+    content: '/5';
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text3);
+    margin-left: 1px;
+  }
+  .report-score.s-high { background: var(--green-dim);  border-color: var(--green);  color: hsl(150,70%,75%); }
+  .report-score.s-mid  { background: var(--yellow-dim); border-color: var(--yellow); color: var(--yellow); }
+  .report-score.s-low  { background: var(--red-dim);    border-color: var(--red);    color: hsl(0,75%,78%); }
+
+  .report-company {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  .report-role {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 36px;
+  }
+
+  .report-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .report-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+  }
+
+  /* Legitimacy badge */
+  .legit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 7px;
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text3);
+  }
+  .legit-badge[data-tier="verified"] { color: var(--green); border-color: var(--green-dim); background: var(--green-dim); }
+  .legit-badge[data-tier="likely"]   { color: var(--cyan-fg); border-color: var(--cyan-dim); background: var(--cyan-dim); }
+  .legit-badge[data-tier="suspect"]  { color: var(--yellow); border-color: var(--yellow-dim); background: var(--yellow-dim); }
+  .legit-badge[data-tier="closed"]   { color: var(--red); border-color: var(--red-dim); background: var(--red-dim); }
+  .legit-badge[data-tier="unknown"]  { color: var(--text3); }
+
+  .legit-badge svg {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -2596,8 +2795,76 @@
       </template>
     </section>
 
-    <!-- ============ REPORTS tab ============
-         Added in Steps 13–15 -->
+    <!-- ============ REPORTS TAB ============ -->
+    <section class="tab-panel" id="panel-reports" role="tabpanel" aria-labelledby="tab-reports">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Reports</div>
+          <div class="panel-subtitle">Every evaluation report, sorted newest first. Click a card to read the full Block A–G breakdown.</div>
+        </div>
+      </div>
+
+      <!-- Step 15 will add patterns + follow-up quick-actions here -->
+
+      <div class="panel-card">
+        <div class="reports-toolbar">
+          <div class="tracker-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="input" type="search" id="reports-search" placeholder="Search company or role…" aria-label="Search reports">
+          </div>
+
+          <div class="score-filter" role="group" aria-label="Filter by score band">
+            <button class="active" type="button" data-score-filter="all">All</button>
+            <button type="button" data-score-filter="high">≥ 4.0</button>
+            <button type="button" data-score-filter="mid">3.0 – 4.0</button>
+            <button type="button" data-score-filter="low">&lt; 3.0</button>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div class="sort-select-wrap">
+            <span>Sort</span>
+            <select class="select" id="reports-sort" aria-label="Sort reports">
+              <option value="date-desc">Newest first</option>
+              <option value="date-asc">Oldest first</option>
+              <option value="score-desc">Score (high → low)</option>
+              <option value="score-asc">Score (low → high)</option>
+              <option value="company-asc">Company (A → Z)</option>
+              <option value="num-desc">Number (high → low)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="reports-grid" id="reports-grid" data-list="reports"></div>
+
+        <div class="results-empty" data-empty="reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+          <div class="title">No reports yet</div>
+          <div>Evaluate a job offer to generate your first report in the <code>reports/</code> folder.</div>
+        </div>
+      </div>
+
+      <!-- Step 14 will add the report modal viewer here -->
+
+      <!-- Template cloned by Step 18 for each report file -->
+      <template id="tpl-report-card">
+        <button class="report-card" type="button" data-report-num="" data-score-band="na" data-score="" data-company="" data-role="">
+          <div class="report-card-top">
+            <span class="report-num" data-report-field="num">—</span>
+            <span class="report-score" data-report-field="score">—</span>
+          </div>
+          <div class="report-company" data-report-field="company">—</div>
+          <div class="report-role" data-report-field="role">—</div>
+          <div class="report-card-bottom">
+            <span class="report-date" data-report-field="date">—</span>
+            <span class="legit-badge" data-report-field="legitimacy" data-tier="unknown">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span data-report-field="legit-label">unknown</span>
+            </span>
+          </div>
+        </button>
+      </template>
+    </section>
   </main>
 </body>
 </html>
