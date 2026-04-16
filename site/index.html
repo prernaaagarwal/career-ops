@@ -2151,6 +2151,321 @@
     height: 10px;
     flex-shrink: 0;
   }
+
+  /* ---------- Modal overlay + shell ---------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(5, 6, 11, 0.78);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5vh 24px;
+    overflow-y: auto;
+    animation: modalFade 180ms ease;
+  }
+  .modal-overlay.open { display: flex; }
+  @keyframes modalFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .modal {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalIn 220ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    flex-shrink: 0;
+  }
+  .modal-head-main {
+    min-width: 0;
+  }
+  .modal-head-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text3);
+    letter-spacing: 0.04em;
+  }
+  .modal-head-title {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .modal-head-sub {
+    margin-top: 4px;
+    font-size: 13.5px;
+    color: var(--text2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .modal-head-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    align-items: center;
+  }
+
+  .modal-head-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .modal-close {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text2);
+    cursor: pointer;
+    transition: background var(--trans), color var(--trans);
+  }
+  .modal-close:hover { background: var(--bg3); color: var(--text); border-color: var(--border); }
+  .modal-close svg { width: 18px; height: 18px; }
+
+  .modal-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 22px 26px 26px;
+    scroll-behavior: smooth;
+  }
+
+  .modal-body-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 60px 20px;
+    color: var(--text3);
+    font-size: 13px;
+  }
+  .modal-body-loading .spin {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--text3);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 700ms linear infinite;
+  }
+
+  .modal-foot {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 12px 22px;
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    flex-shrink: 0;
+  }
+  .modal-foot .spacer { flex: 1; }
+  .modal-foot .hint {
+    font-size: 11.5px;
+    color: var(--text3);
+    font-family: var(--font-mono);
+  }
+  .modal-foot .hint kbd {
+    display: inline-block;
+    padding: 1px 5px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+  }
+
+  /* ---------- Rendered markdown body (rich-content) ---------- */
+  .rich-content {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--text);
+    word-wrap: break-word;
+  }
+  .rich-content > *:first-child { margin-top: 0; }
+  .rich-content > *:last-child  { margin-bottom: 0; }
+
+  .rich-content h1, .rich-content h2, .rich-content h3,
+  .rich-content h4, .rich-content h5, .rich-content h6 {
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+  }
+  .rich-content h1 { font-size: 26px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .rich-content h2 { font-size: 20px; padding-bottom: 6px;  border-bottom: 1px solid var(--border); color: var(--cyan-fg); }
+  .rich-content h3 { font-size: 17px; color: var(--text); }
+  .rich-content h4 { font-size: 15px; color: var(--text2); }
+  .rich-content h5, .rich-content h6 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text3);
+  }
+
+  .rich-content p { margin: 0 0 1em; }
+
+  .rich-content strong { color: var(--text); font-weight: 600; }
+  .rich-content em { color: var(--text); font-style: italic; }
+
+  .rich-content a {
+    color: var(--cyan-fg);
+    text-decoration: underline;
+    text-decoration-color: var(--cyan-dim);
+    text-underline-offset: 2px;
+    transition: color var(--trans), text-decoration-color var(--trans);
+  }
+  .rich-content a:hover { color: var(--cyan); text-decoration-color: var(--cyan); }
+
+  .rich-content ul, .rich-content ol {
+    margin: 0 0 1em;
+    padding-left: 1.4em;
+  }
+  .rich-content li { margin-bottom: 0.35em; }
+  .rich-content li::marker { color: var(--text3); }
+
+  .rich-content code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--bg3);
+    color: var(--cyan-fg);
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+  .rich-content pre {
+    margin: 0 0 1em;
+    padding: 14px 16px;
+    background: #0a0b10;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    line-height: 1.55;
+    font-size: 12.5px;
+  }
+  .rich-content pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #d8dae8;
+    font-size: inherit;
+  }
+
+  .rich-content blockquote {
+    margin: 0 0 1em;
+    padding: 6px 14px;
+    border-left: 3px solid var(--cyan-dim);
+    background: var(--bg);
+    color: var(--text2);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .rich-content blockquote p:last-child { margin: 0; }
+
+  .rich-content hr {
+    border: 0;
+    height: 1px;
+    background: var(--border);
+    margin: 1.6em 0;
+  }
+
+  .rich-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1em;
+    font-size: 13px;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .rich-content thead th {
+    background: var(--bg3);
+    font-family: var(--font-head);
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .rich-content tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .rich-content tbody tr:last-child td { border-bottom: none; }
+  .rich-content tbody tr:hover { background: var(--bg3); }
+
+  .rich-content img {
+    max-width: 100%;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+
+  /* Raw markdown fallback (if server can't render) */
+  .md-content {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  @media (max-width: 720px) {
+    .modal-overlay { padding: 2vh 10px; }
+    .modal { max-height: 96vh; }
+    .modal-head { padding: 14px 16px 12px; grid-template-columns: 1fr auto; }
+    .modal-head-title { font-size: 18px; white-space: normal; }
+    .modal-body { padding: 16px 18px; }
+    .modal-foot { padding: 10px 14px; flex-wrap: wrap; }
+    .rich-content h1 { font-size: 22px; }
+    .rich-content h2 { font-size: 18px; }
+  }
 </style>
 </head>
 <body>
@@ -2844,7 +3159,56 @@
         </div>
       </div>
 
-      <!-- Step 14 will add the report modal viewer here -->
+      <div class="modal-overlay" id="report-modal" role="dialog" aria-modal="true" aria-labelledby="report-modal-title" aria-hidden="true">
+        <div class="modal" role="document">
+          <div class="modal-head">
+            <div class="modal-head-main">
+              <div class="modal-head-eyebrow">
+                <span data-modal-field="num">—</span>
+                <span>·</span>
+                <span data-modal-field="date">—</span>
+              </div>
+              <div class="modal-head-title" id="report-modal-title" data-modal-field="company">Loading report…</div>
+              <div class="modal-head-sub" data-modal-field="role"></div>
+              <div class="modal-head-meta">
+                <span class="score-badge" data-modal-field="score-badge">—</span>
+                <span class="status-pill" data-modal-field="status" data-status="">—</span>
+                <span class="legit-badge" data-modal-field="legitimacy" data-tier="unknown">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span data-modal-field="legit-label">unknown</span>
+                </span>
+              </div>
+            </div>
+            <div class="modal-head-actions">
+              <button class="modal-close" type="button" data-modal-action="close" aria-label="Close report">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="modal-body" id="report-modal-body" data-modal-field="body">
+            <div class="modal-body-loading" data-modal-field="loading">
+              <div class="spin"></div>
+              <span>Loading report…</span>
+            </div>
+            <div class="rich-content" data-modal-field="content" hidden></div>
+          </div>
+
+          <div class="modal-foot">
+            <a class="btn btn-sm" target="_blank" rel="noopener" data-modal-field="url-link" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open job URL
+            </a>
+            <button class="btn btn-sm" type="button" data-modal-action="copy-link" title="Copy link to this report">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              Copy link
+            </button>
+            <div class="spacer"></div>
+            <span class="hint"><kbd>Esc</kbd> to close</span>
+          </div>
+        </div>
+      </div>
+
 
       <!-- Template cloned by Step 18 for each report file -->
       <template id="tpl-report-card">
