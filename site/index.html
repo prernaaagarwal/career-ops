@@ -3,14 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Career-Ops Dashboard</title>
+<title>Career-Ops — Control Panel</title>
 <style>
+  /* ---------- Fonts (self-hosted) ---------- */
   @font-face {
     font-family: 'Space Grotesk';
     src: url('/fonts/space-grotesk-latin.woff2') format('woff2');
     font-weight: 300 700;
     font-style: normal;
     font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+  }
+  @font-face {
+    font-family: 'Space Grotesk';
+    src: url('/fonts/space-grotesk-latin-ext.woff2') format('woff2');
+    font-weight: 300 700;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
   }
   @font-face {
     font-family: 'DM Sans';
@@ -18,636 +28,137 @@
     font-weight: 100 1000;
     font-style: normal;
     font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-latin-ext.woff2') format('woff2');
+    font-weight: 100 1000;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* ---------- Reset ---------- */
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
+  /* ---------- Design tokens ---------- */
   :root {
-    --bg: #0f1117;
-    --bg2: #181a24;
-    --bg3: #1e2030;
-    --border: #2a2d3e;
-    --text: #e0e0e8;
-    --text2: #9a9bb0;
-    --cyan: hsl(187, 74%, 42%);
-    --cyan-dim: hsl(187, 50%, 22%);
-    --purple: hsl(270, 70%, 55%);
-    --purple-dim: hsl(270, 40%, 25%);
-    --green: hsl(150, 60%, 45%);
-    --yellow: hsl(45, 90%, 55%);
-    --red: hsl(0, 65%, 55%);
-    --orange: hsl(25, 80%, 55%);
+    /* Backgrounds */
+    --bg:        #0f1117;
+    --bg2:       #181a24;
+    --bg3:       #1e2030;
+    --bg-hover:  #23263a;
+
+    /* Borders + text */
+    --border:    #2a2d3e;
+    --border2:   #353850;
+    --text:      #e0e0e8;
+    --text2:     #9a9bb0;
+    --text3:     #6b6d82;
+
+    /* Accent colors */
+    --cyan:      hsl(187, 74%, 42%);
+    --cyan-dim:  hsl(187, 50%, 22%);
+    --cyan-fg:   hsl(187, 90%, 70%);
+    --purple:    hsl(270, 70%, 55%);
+    --purple-dim:hsl(270, 40%, 25%);
+    --purple-fg: hsl(270, 85%, 75%);
+    --green:     hsl(150, 60%, 45%);
+    --green-dim: hsl(150, 40%, 22%);
+    --yellow:    hsl(45, 90%, 55%);
+    --yellow-dim:hsl(45, 60%, 25%);
+    --red:       hsl(0, 65%, 55%);
+    --red-dim:   hsl(0, 45%, 25%);
+    --orange:    hsl(25, 80%, 55%);
+
+    /* Typography */
+    --font-head: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+    /* Spacing + radius */
+    --radius-sm: 6px;
+    --radius:    10px;
+    --radius-lg: 14px;
+    --shadow:    0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+    /* Transitions */
+    --trans: 150ms ease;
+  }
+
+  /* ---------- Base body ---------- */
+  html, body {
+    height: 100%;
   }
 
   body {
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: var(--font-body);
     font-size: 14px;
     line-height: 1.5;
     color: var(--text);
     background: var(--bg);
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3 { font-family: 'Space Grotesk', system-ui, sans-serif; }
-
-  /* ── Header ─────────────────────────────────── */
-  header {
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  header h1 { font-size: 20px; font-weight: 600; }
-  header h1 span { color: var(--cyan); }
-  .header-meta { color: var(--text2); font-size: 12px; }
-  #refresh-btn {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 6px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: border-color 0.2s;
-  }
-  #refresh-btn:hover { border-color: var(--cyan); }
-
-  /* ── Layout ─────────────────────────────────── */
-  main { max-width: 1280px; margin: 0 auto; padding: 24px; }
-  section { margin-bottom: 32px; }
-  section > h2 {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 14px;
-    color: var(--text2);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 12px;
-  }
-
-  /* ── Stats Cards ────────────────────────────── */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 12px;
-  }
-  .stat-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    text-align: center;
-    transition: border-color 0.2s;
-  }
-  .stat-card:hover { border-color: var(--cyan); }
-  .stat-card .value {
-    font-family: 'Space Grotesk', monospace;
-    font-size: 28px;
-    font-weight: 700;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-head);
+    font-weight: 600;
+    letter-spacing: -0.01em;
     line-height: 1.2;
   }
-  .stat-card .label {
-    font-size: 11px;
-    color: var(--text2);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 4px;
-  }
-  .stat-card.cyan .value { color: var(--cyan); }
-  .stat-card.purple .value { color: var(--purple); }
-  .stat-card.green .value { color: var(--green); }
-  .stat-card.yellow .value { color: var(--yellow); }
-  .stat-card.red .value { color: var(--red); }
-  .stat-card.orange .value { color: var(--orange); }
 
-  /* ── Score Distribution ─────────────────────── */
-  .score-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 8px;
-    height: 120px;
-    padding: 12px 0;
+  a {
+    color: var(--cyan-fg);
+    text-decoration: none;
+    transition: color var(--trans);
   }
-  .score-bar-wrap {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    justify-content: flex-end;
-  }
-  .score-bar {
-    width: 100%;
-    max-width: 60px;
-    border-radius: 4px 4px 0 0;
-    min-height: 4px;
-    transition: height 0.4s ease;
-  }
-  .score-bar-label {
-    font-size: 10px;
-    color: var(--text2);
-    margin-top: 6px;
-    text-align: center;
-  }
-  .score-bar-count {
-    font-size: 11px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
+  a:hover { color: var(--cyan); }
 
-  /* ── Tables ─────────────────────────────────── */
-  .table-wrap {
-    overflow-x: auto;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg2);
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  th {
-    background: var(--bg3);
-    padding: 10px 12px;
-    text-align: left;
-    font-weight: 500;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text2);
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    user-select: none;
-    white-space: nowrap;
-  }
-  th:hover { color: var(--cyan); }
-  td {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(255,255,255,0.02); }
-
-  /* ── Status badges ──────────────────────────── */
-  .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-  .badge-evaluated { background: var(--cyan-dim); color: var(--cyan); }
-  .badge-applied { background: var(--purple-dim); color: var(--purple); }
-  .badge-responded { background: hsl(45,40%,20%); color: var(--yellow); }
-  .badge-interview { background: hsl(150,30%,18%); color: var(--green); }
-  .badge-offer { background: hsl(150,40%,18%); color: hsl(150,80%,55%); }
-  .badge-rejected { background: hsl(0,30%,18%); color: var(--red); }
-  .badge-discarded { background: hsl(0,15%,18%); color: hsl(0,20%,55%); }
-  .badge-skip { background: hsl(220,15%,18%); color: hsl(220,20%,55%); }
-
-  /* ── Score pill ─────────────────────────────── */
-  .score {
-    font-family: 'Space Grotesk', monospace;
-    font-weight: 600;
-    font-size: 13px;
-  }
-  .score-high { color: var(--green); }
-  .score-mid { color: var(--yellow); }
-  .score-low { color: var(--red); }
-
-  /* ── Reports list ───────────────────────────── */
-  .report-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 10px;
-  }
-  .report-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 16px;
-    cursor: pointer;
-    transition: border-color 0.2s;
-  }
-  .report-card:hover { border-color: var(--cyan); }
-  .report-card .rc-company { font-weight: 600; font-size: 14px; }
-  .report-card .rc-meta { font-size: 11px; color: var(--text2); margin-top: 2px; }
-
-  /* ── Report modal ───────────────────────────── */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 200;
-    justify-content: center;
-    align-items: start;
-    padding: 40px 20px;
-    overflow-y: auto;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    max-width: 800px;
-    width: 100%;
-    padding: 24px;
-    position: relative;
-  }
-  .modal-close {
-    position: absolute;
-    top: 12px;
-    right: 16px;
+  button {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
     background: none;
     border: none;
-    color: var(--text2);
-    font-size: 20px;
     cursor: pointer;
   }
-  .modal-close:hover { color: var(--text); }
-  .modal pre {
-    white-space: pre-wrap;
-    font-size: 13px;
-    line-height: 1.6;
+
+  input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  code, pre {
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background: var(--cyan-dim);
     color: var(--text);
-    font-family: 'DM Sans', system-ui, sans-serif;
   }
 
-  /* ── Pipeline & Scan History ────────────────── */
-  .pipeline-list {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    max-height: 300px;
-    overflow-y: auto;
+  /* ---------- Scrollbar ---------- */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border2);
+    border-radius: 5px;
+    border: 2px solid var(--bg);
   }
-  .pipeline-list .item {
-    padding: 6px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    word-break: break-all;
-  }
-  .pipeline-list .item:last-child { border-bottom: none; }
-  .pipeline-list a { color: var(--cyan); text-decoration: none; }
-  .pipeline-list a:hover { text-decoration: underline; }
-
-  /* ── Empty state ────────────────────────────── */
-  .empty {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--text2);
-    font-size: 14px;
-  }
-  .empty .hint { margin-top: 8px; font-size: 12px; }
-
-  /* ── Filter bar ─────────────────────────────── */
-  .filter-bar {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-  }
-  .filter-bar input {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 13px;
-    flex: 1;
-    min-width: 200px;
-  }
-  .filter-bar input::placeholder { color: var(--text2); }
-  .filter-bar input:focus { outline: none; border-color: var(--cyan); }
-
-  /* ── Tabs ────────────────────────────────────── */
-  .tabs {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 16px;
-  }
-  .tab {
-    padding: 8px 16px;
-    font-size: 13px;
-    color: var(--text2);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-  }
-  .tab:hover { color: var(--text); }
-  .tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
-
-  /* ── Responsive ─────────────────────────────── */
-  @media (max-width: 640px) {
-    main { padding: 12px; }
-    .stats-grid { grid-template-columns: repeat(3, 1fr); }
-    .stat-card .value { font-size: 22px; }
-  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
 </style>
 </head>
 <body>
-
-<header>
-  <div>
-    <h1>Career-<span>Ops</span></h1>
-    <div class="header-meta">Live Dashboard &mdash; refreshes from local data files</div>
-  </div>
-  <button id="refresh-btn" onclick="loadAll()">Refresh</button>
-</header>
-
-<main>
-  <!-- Stats -->
-  <section id="stats-section">
-    <h2>Overview</h2>
-    <div class="stats-grid" id="stats-grid"></div>
-  </section>
-
-  <!-- Score Distribution -->
-  <section id="scores-section">
-    <h2>Score Distribution</h2>
-    <div class="score-chart" id="score-chart"></div>
-  </section>
-
-  <!-- Applications Table -->
-  <section id="apps-section">
-    <h2>Applications</h2>
-    <div class="filter-bar">
-      <input type="text" id="app-search" placeholder="Search company, role, status..." oninput="renderApps()">
-    </div>
-    <div class="table-wrap">
-      <table id="apps-table">
-        <thead>
-          <tr>
-            <th data-sort="num">#</th>
-            <th data-sort="date">Date</th>
-            <th data-sort="company">Company</th>
-            <th data-sort="role">Role</th>
-            <th data-sort="score">Score</th>
-            <th data-sort="status">Status</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody id="apps-tbody"></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- Reports -->
-  <section id="reports-section">
-    <h2>Evaluation Reports</h2>
-    <div class="report-list" id="report-list"></div>
-  </section>
-
-  <!-- Pipeline -->
-  <section id="pipeline-section">
-    <h2>Pending Pipeline</h2>
-    <div class="pipeline-list" id="pipeline-list"></div>
-  </section>
-
-  <!-- Scan History -->
-  <section id="scan-section">
-    <h2>Recent Scan History</h2>
-    <div class="table-wrap">
-      <table id="scan-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Company</th>
-            <th>Role</th>
-            <th>URL</th>
-          </tr>
-        </thead>
-        <tbody id="scan-tbody"></tbody>
-      </table>
-    </div>
-  </section>
-</main>
-
-<!-- Report Modal -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal" id="modal">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <pre id="modal-content"></pre>
-  </div>
-</div>
-
-<script>
-// ── State ────────────────────────────────────────
-let allApps = [];
-let allReports = [];
-let sortCol = 'num';
-let sortAsc = false;
-
-// ── API helpers ──────────────────────────────────
-async function api(path) {
-  try {
-    const r = await fetch(path);
-    if (!r.ok) return null;
-    return r.json();
-  } catch { return null; }
-}
-
-// ── Load everything ──────────────────────────────
-async function loadAll() {
-  const [stats, apps, reports, pipeline, scans] = await Promise.all([
-    api('/api/stats'),
-    api('/api/applications'),
-    api('/api/reports'),
-    api('/api/pipeline'),
-    api('/api/scan-history'),
-  ]);
-
-  if (stats) renderStats(stats);
-  if (apps) { allApps = apps; renderApps(); }
-  if (reports) { allReports = reports; renderReports(reports); }
-  if (pipeline) renderPipeline(pipeline);
-  if (scans) renderScans(scans);
-}
-
-// ── Stats cards ──────────────────────────────────
-function renderStats(s) {
-  const cards = [
-    { label: 'Total', value: s.total, cls: 'cyan' },
-    { label: 'Evaluated', value: s.evaluated, cls: 'cyan' },
-    { label: 'Applied', value: s.applied, cls: 'purple' },
-    { label: 'Interview', value: s.interview, cls: 'green' },
-    { label: 'Offer', value: s.offer, cls: 'green' },
-    { label: 'Responded', value: s.responded, cls: 'yellow' },
-    { label: 'Rejected', value: s.rejected, cls: 'red' },
-    { label: 'Discarded', value: s.discarded, cls: 'orange' },
-    { label: 'Avg Score', value: s.avgScore || '--', cls: 'cyan' },
-  ];
-  const grid = document.getElementById('stats-grid');
-  grid.innerHTML = cards.map(c => `
-    <div class="stat-card ${c.cls}">
-      <div class="value">${c.value}</div>
-      <div class="label">${c.label}</div>
-    </div>
-  `).join('');
-
-  // Score chart
-  if (s.scoreBuckets) renderScoreChart(s.scoreBuckets);
-}
-
-// ── Score distribution chart ─────────────────────
-function renderScoreChart(buckets) {
-  const chart = document.getElementById('score-chart');
-  const entries = Object.entries(buckets);
-  const max = Math.max(...entries.map(([,v]) => v), 1);
-  const colors = ['var(--red)','var(--orange)','var(--yellow)','hsl(60,60%,50%)','var(--cyan)','var(--green)'];
-
-  chart.innerHTML = entries.map(([label, count], i) => {
-    const h = Math.round((count / max) * 90);
-    return `
-      <div class="score-bar-wrap">
-        <div class="score-bar-count">${count}</div>
-        <div class="score-bar" style="height:${h}px;background:${colors[i]}"></div>
-        <div class="score-bar-label">${label}</div>
-      </div>`;
-  }).join('');
-}
-
-// ── Applications table ───────────────────────────
-function renderApps() {
-  const query = (document.getElementById('app-search').value || '').toLowerCase();
-  let filtered = allApps;
-  if (query) {
-    filtered = allApps.filter(a =>
-      (a.company + a.role + a.status + a.notes).toLowerCase().includes(query)
-    );
-  }
-
-  // Sort
-  filtered.sort((a, b) => {
-    let va = a[sortCol], vb = b[sortCol];
-    if (sortCol === 'score' || sortCol === 'num') {
-      va = Number(va) || 0; vb = Number(vb) || 0;
-    } else {
-      va = String(va || '').toLowerCase();
-      vb = String(vb || '').toLowerCase();
-    }
-    if (va < vb) return sortAsc ? -1 : 1;
-    if (va > vb) return sortAsc ? 1 : -1;
-    return 0;
-  });
-
-  const tbody = document.getElementById('apps-tbody');
-  if (!filtered.length) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty">No applications yet. Evaluate a job offer to get started.</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = filtered.map(a => {
-    const scoreCls = a.score >= 4 ? 'score-high' : a.score >= 3 ? 'score-mid' : 'score-low';
-    const statusCls = 'badge-' + (a.status || 'evaluated').toLowerCase();
-    return `<tr>
-      <td>${a.num}</td>
-      <td>${a.date}</td>
-      <td><strong>${esc(a.company)}</strong></td>
-      <td>${esc(a.role)}</td>
-      <td><span class="score ${scoreCls}">${a.score > 0 ? a.score.toFixed(1) : '--'}</span></td>
-      <td><span class="badge ${statusCls}">${esc(a.status || 'N/A')}</span></td>
-      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.notes)}</td>
-    </tr>`;
-  }).join('');
-}
-
-// ── Table sorting ────────────────────────────────
-document.querySelectorAll('#apps-table th[data-sort]').forEach(th => {
-  th.addEventListener('click', () => {
-    const col = th.dataset.sort;
-    if (sortCol === col) { sortAsc = !sortAsc; }
-    else { sortCol = col; sortAsc = true; }
-    renderApps();
-  });
-});
-
-// ── Reports ──────────────────────────────────────
-function renderReports(reports) {
-  const list = document.getElementById('report-list');
-  if (!reports.length) {
-    list.innerHTML = '<div class="empty">No reports yet. Evaluate a job offer to generate one.</div>';
-    return;
-  }
-  list.innerHTML = reports.map(r => `
-    <div class="report-card" onclick="openReport('${esc(r.filename)}')">
-      <div class="rc-company">#${r.num} ${esc(r.company)}</div>
-      <div class="rc-meta">${r.date} &middot; ${(r.size/1024).toFixed(1)} KB</div>
-    </div>
-  `).join('');
-}
-
-async function openReport(filename) {
-  const data = await api('/api/reports/' + encodeURIComponent(filename));
-  if (!data) return;
-  document.getElementById('modal-content').textContent = data.content;
-  document.getElementById('modal-overlay').classList.add('open');
-}
-
-function closeModal(e) {
-  if (e && e.target !== document.getElementById('modal-overlay')) return;
-  document.getElementById('modal-overlay').classList.remove('open');
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-// ── Pipeline ─────────────────────────────────────
-function renderPipeline(urls) {
-  const el = document.getElementById('pipeline-list');
-  if (!urls.length) {
-    el.innerHTML = '<div class="empty">Pipeline is empty. Add job URLs to data/pipeline.md<div class="hint">One URL per line</div></div>';
-    return;
-  }
-  el.innerHTML = urls.map(u => {
-    if (u.startsWith('http')) {
-      return `<div class="item"><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></div>`;
-    }
-    return `<div class="item">${esc(u)}</div>`;
-  }).join('');
-}
-
-// ── Scan History ─────────────────────────────────
-function renderScans(scans) {
-  const tbody = document.getElementById('scan-tbody');
-  if (!scans.length) {
-    tbody.innerHTML = '<tr><td colspan="4" class="empty">No scan history yet. Run <code>/career-ops scan</code> to populate.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = scans.map(s => `
-    <tr>
-      <td>${esc(s.date)}</td>
-      <td>${esc(s.company)}</td>
-      <td>${esc(s.role)}</td>
-      <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
-        ${s.url.startsWith('http')
-          ? `<a href="${esc(s.url)}" target="_blank" rel="noopener" style="color:var(--cyan)">${esc(s.url)}</a>`
-          : esc(s.url)}
-      </td>
-    </tr>
-  `).join('');
-}
-
-// ── Util ─────────────────────────────────────────
-function esc(s) {
-  const d = document.createElement('div');
-  d.textContent = s || '';
-  return d.innerHTML;
-}
-
-// ── Auto-refresh every 15s ───────────────────────
-loadAll();
-setInterval(loadAll, 15000);
-</script>
+  <!-- Step 2 will add header + tab navigation here -->
 </body>
 </html>

@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 /**
- * Career-Ops Web Dashboard — Local server
+ * Career-Ops Web Dashboard — Interactive server
  *
  * Reads the same data files the CLI writes to and serves them
  * as JSON APIs + a web dashboard frontend.
+ * Also runs CLI scripts on demand with live SSE streaming.
  *
  * Usage: node site/server.mjs
  * Then open http://localhost:3737
  */
 
 import { createServer } from 'http';
-import { readFileSync, readdirSync, existsSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'fs';
 import { join, dirname, extname } from 'path';
 import { fileURLToPath } from 'url';
+import { spawn } from 'child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -97,7 +99,6 @@ function getStats(apps) {
   const statusCounts = {};
   let totalScore = 0;
   let scoredCount = 0;
-  const archetypes = {};
   const scoreBuckets = { '0-2': 0, '2-3': 0, '3-3.5': 0, '3.5-4': 0, '4-4.5': 0, '4.5-5': 0 };
 
   for (const app of apps) {
@@ -154,8 +155,8 @@ function getReportsList() {
 
 function getReport(filename) {
   const safe = filename.replace(/[^a-zA-Z0-9._-]/g, '');
-  const path = join(ROOT, 'reports', safe);
-  return safeRead(path);
+  const fpath = join(ROOT, 'reports', safe);
+  return safeRead(fpath);
 }
 
 function getPipeline() {
@@ -189,41 +190,243 @@ function getScanHistory() {
   });
 }
 
-// ── Router ──────────────────────────────────────────────────
-function handleAPI(path, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Access-Control-Allow-Origin', '*');
+function getPortalsInfo() {
+  const content = safeRead(join(ROOT, 'portals.yml'));
+  if (!content || !yaml) return { companies: 0, queries: 0 };
+  try {
+    const data = yaml.load(content);
+    return {
+      companies: (data.tracked_companies || []).filter(c => c.enabled !== false).length,
+      queries: (data.search_queries || []).filter(q => q.enabled !== false).length,
+    };
+  } catch { return { companies: 0, queries: 0 }; }
+}
 
-  if (path === '/api/applications') {
-    return json(res, getApplications());
+// ── Job Runner (spawn CLI scripts + SSE) ───────────────────
+const jobs = new Map();
+
+const ALLOWED_SCRIPTS = {
+  'scan':       { script: 'scan.mjs', args: [] },
+  'merge':      { script: 'merge-tracker.mjs', args: [] },
+  'liveness':   { script: 'check-liveness.mjs', args: [] },
+  'patterns':   { script: 'analyze-patterns.mjs', args: ['--summary'] },
+  'followup':   { script: 'followup-cadence.mjs', args: ['--summary'] },
+  'normalize':  { script: 'normalize-statuses.mjs', args: [] },
+  'verify':     { script: 'verify-pipeline.mjs', args: [] },
+  'dedup':      { script: 'dedup-tracker.mjs', args: [] },
+};
+
+function runScript(name, extraArgs = []) {
+  const config = ALLOWED_SCRIPTS[name];
+  if (!config) return null;
+
+  const jobId = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const allArgs = [config.script, ...config.args, ...extraArgs];
+  const proc = spawn('node', allArgs, { cwd: ROOT, env: { ...process.env, FORCE_COLOR: '0' } });
+
+  const job = { id: jobId, name, output: [], done: false, exitCode: null, listeners: new Set() };
+  jobs.set(jobId, job);
+
+  const push = (type, text) => {
+    const entry = { type, text, ts: Date.now() };
+    job.output.push(entry);
+    for (const cb of job.listeners) cb(entry);
+  };
+
+  proc.stdout.on('data', d => push('stdout', d.toString()));
+  proc.stderr.on('data', d => push('stderr', d.toString()));
+  proc.on('close', code => {
+    job.done = true;
+    job.exitCode = code;
+    push('done', `Process exited with code ${code}`);
+    // Clean up after 5 minutes
+    setTimeout(() => jobs.delete(jobId), 5 * 60 * 1000);
+  });
+  proc.on('error', err => {
+    job.done = true;
+    job.exitCode = -1;
+    push('error', err.message);
+  });
+
+  return jobId;
+}
+
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', chunk => { data += chunk; if (data.length > 1e6) reject(new Error('Too large')); });
+    req.on('end', () => {
+      try { resolve(JSON.parse(data || '{}')); } catch { resolve({}); }
+    });
+  });
+}
+
+// ── Write endpoints ────────────────────────────────────────
+function addToPipeline(urls) {
+  const pipelinePath = join(ROOT, 'data/pipeline.md');
+  let content = safeRead(pipelinePath) || '# Pipeline — Pending URLs\n';
+  const toAdd = (Array.isArray(urls) ? urls : [urls]).filter(u => u && typeof u === 'string');
+  if (!toAdd.length) return 0;
+  for (const url of toAdd) {
+    content += `\n- ${url.trim()}`;
   }
-  if (path === '/api/stats') {
-    return json(res, getStats(getApplications()));
+  writeFileSync(pipelinePath, content, 'utf-8');
+  return toAdd.length;
+}
+
+function removeFromPipeline(url) {
+  const pipelinePath = join(ROOT, 'data/pipeline.md');
+  const content = safeRead(pipelinePath);
+  if (!content) return false;
+  const lines = content.split('\n');
+  const filtered = lines.filter(line => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+      return !trimmed.includes(url.trim());
+    }
+    return true;
+  });
+  if (filtered.length === lines.length) return false;
+  writeFileSync(pipelinePath, filtered.join('\n'), 'utf-8');
+  return true;
+}
+
+function updateTrackerStatus(num, newStatus) {
+  const file = resolveAppsFile();
+  if (!file) return false;
+  const content = safeRead(file);
+  if (!content) return false;
+
+  const VALID = ['Evaluated','Applied','Responded','Interview','Offer','Rejected','Discarded','SKIP'];
+  if (!VALID.includes(newStatus)) return false;
+
+  const lines = content.split('\n');
+  let changed = false;
+  for (let i = 0; i < lines.length; i++) {
+    if (!lines[i].trim().startsWith('|')) continue;
+    const cells = lines[i].split('|').map(s => s.trim());
+    const rowNum = parseInt(cells[1], 10);
+    if (rowNum === num) {
+      // Status is column 6 (index 6 in split array, 1-based pipe-delimited)
+      // Layout: | # | Date | Company | Role | Score | Status | PDF | Report | Notes |
+      // Split:  ['', '#', 'Date', 'Company', 'Role', 'Score', 'Status', 'PDF', 'Report', 'Notes', '']
+      cells[6] = ` ${newStatus} `;
+      lines[i] = cells.join('|');
+      changed = true;
+      break;
+    }
   }
-  if (path === '/api/reports') {
-    return json(res, getReportsList());
-  }
+  if (changed) writeFileSync(file, lines.join('\n'), 'utf-8');
+  return changed;
+}
+
+// ── Router ──────────────────────────────────────────────────
+function handleAPI(path, req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
+
+  // ── Read endpoints (GET) ──
+  res.setHeader('Content-Type', 'application/json');
+
+  if (path === '/api/applications') return json(res, getApplications());
+  if (path === '/api/stats') return json(res, getStats(getApplications()));
+  if (path === '/api/reports') return json(res, getReportsList());
   if (path.startsWith('/api/reports/')) {
     const filename = path.slice('/api/reports/'.length);
     const content = getReport(filename);
     if (content === null) return notFound(res);
     return json(res, { filename, content });
   }
-  if (path === '/api/pipeline') {
-    return json(res, getPipeline());
-  }
+  if (path === '/api/pipeline') return json(res, getPipeline());
   if (path === '/api/profile') {
     const profile = getProfile();
     return json(res, profile || { note: 'No profile configured. Run onboarding first.' });
   }
-  if (path === '/api/scan-history') {
-    return json(res, getScanHistory());
+  if (path === '/api/scan-history') return json(res, getScanHistory());
+  if (path === '/api/portals-info') return json(res, getPortalsInfo());
+
+  // ── Run script (POST) ──
+  if (path.startsWith('/api/run/') && req.method === 'POST') {
+    const scriptName = path.slice('/api/run/'.length);
+    return readBody(req).then(body => {
+      const extra = body.args || [];
+      if (scriptName === 'scan' && body.company) {
+        extra.push('--company', body.company);
+      }
+      if (scriptName === 'liveness' && body.urls) {
+        extra.push(...body.urls);
+      }
+      const jobId = runScript(scriptName, extra);
+      if (!jobId) return json(res, { error: `Unknown script: ${scriptName}` }, 400);
+      return json(res, { jobId });
+    }).catch(() => json(res, { error: 'Bad request' }, 400));
   }
+
+  // ── SSE stream (GET) ──
+  if (path.startsWith('/api/stream/')) {
+    const jobId = path.slice('/api/stream/'.length);
+    const job = jobs.get(jobId);
+    if (!job) { return notFound(res); }
+
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+    });
+
+    // Send buffered output
+    for (const entry of job.output) {
+      res.write(`data: ${JSON.stringify(entry)}\n\n`);
+    }
+    if (job.done) { res.end(); return; }
+
+    // Listen for new output
+    const listener = (entry) => {
+      try { res.write(`data: ${JSON.stringify(entry)}\n\n`); } catch {}
+      if (entry.type === 'done' || entry.type === 'error') {
+        job.listeners.delete(listener);
+        res.end();
+      }
+    };
+    job.listeners.add(listener);
+    req.on('close', () => job.listeners.delete(listener));
+    return;
+  }
+
+  // ── Write endpoints (POST) ──
+  if (path === '/api/pipeline/add' && req.method === 'POST') {
+    return readBody(req).then(body => {
+      const count = addToPipeline(body.urls || body.url);
+      return json(res, { added: count });
+    });
+  }
+  if (path === '/api/pipeline/remove' && req.method === 'POST') {
+    return readBody(req).then(body => {
+      const ok = removeFromPipeline(body.url);
+      return json(res, { removed: ok });
+    });
+  }
+  if (path === '/api/tracker/status' && req.method === 'POST') {
+    return readBody(req).then(body => {
+      const ok = updateTrackerStatus(body.num, body.status);
+      return json(res, { updated: ok });
+    });
+  }
+  if (path === '/api/jobs') {
+    const active = [];
+    for (const [id, job] of jobs) {
+      active.push({ id, name: job.name, done: job.done, exitCode: job.exitCode, lines: job.output.length });
+    }
+    return json(res, active);
+  }
+
   return notFound(res);
 }
 
 function serveStatic(path, res) {
-  // Map URL paths to filesystem paths
   const routes = {
     '/': join(__dirname, 'index.html'),
     '/index.html': join(__dirname, 'index.html'),
@@ -232,7 +435,6 @@ function serveStatic(path, res) {
   let fsPath = routes[path];
 
   if (!fsPath) {
-    // Serve fonts/ and docs/ from repo root
     if (path.startsWith('/fonts/')) fsPath = join(ROOT, path);
     else if (path.startsWith('/docs/')) fsPath = join(ROOT, path);
     else return false;
@@ -255,7 +457,10 @@ function serveStatic(path, res) {
   }
 }
 
-function json(res, data) { res.writeHead(200); res.end(JSON.stringify(data)); }
+function json(res, data, status = 200) {
+  if (!res.headersSent) res.writeHead(status, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify(data));
+}
 function notFound(res) { res.writeHead(404); res.end(JSON.stringify({ error: 'Not found' })); }
 
 // ── Server ──────────────────────────────────────────────────
@@ -263,15 +468,15 @@ const server = createServer((req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
   const path = url.pathname;
 
-  if (path.startsWith('/api/')) return handleAPI(path, res);
+  if (path.startsWith('/api/')) return handleAPI(path, req, res);
   if (serveStatic(path, res)) return;
   notFound(res);
 });
 
 server.listen(PORT, () => {
-  console.log(`\n  Career-Ops Dashboard`);
-  console.log(`  ────────────────────`);
+  console.log(`\n  Career-Ops Control Panel`);
+  console.log(`  ────────────────────────`);
   console.log(`  Local:   http://localhost:${PORT}`);
   console.log(`  Status:  Reading from ${ROOT}`);
-  console.log(`\n  Open in your browser while using Claude Code in another terminal.\n`);
+  console.log(`\n  Open in your browser to control the pipeline.\n`);
 });
