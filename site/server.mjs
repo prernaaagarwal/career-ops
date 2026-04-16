@@ -192,14 +192,16 @@ function getScanHistory() {
 
 function getPortalsInfo() {
   const content = safeRead(join(ROOT, 'portals.yml'));
-  if (!content || !yaml) return { companies: 0, queries: 0 };
+  if (!content || !yaml) return { companies: 0, queries: 0, companyNames: [] };
   try {
     const data = yaml.load(content);
+    const enabledCompanies = (data.tracked_companies || []).filter(c => c.enabled !== false);
     return {
-      companies: (data.tracked_companies || []).filter(c => c.enabled !== false).length,
+      companies: enabledCompanies.length,
       queries: (data.search_queries || []).filter(q => q.enabled !== false).length,
+      companyNames: enabledCompanies.map(c => c.name).filter(Boolean).sort((a, b) => a.localeCompare(b)),
     };
-  } catch { return { companies: 0, queries: 0 }; }
+  } catch { return { companies: 0, queries: 0, companyNames: [] }; }
 }
 
 // ── Job Runner (spawn CLI scripts + SSE) ───────────────────

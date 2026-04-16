@@ -4014,6 +4014,285 @@
     }
   }
 
+  // ---------- Scanner tab ----------
+  // Wires the Scanner control panel to the job runner.
+  // - Full scan / one-company scan → runJob('scan', body, …)
+  // - Stop button → stopJob(scanTerminal)
+  // - Streams output into [data-terminal="scan"], parses known markers
+  //   (✓ Company — N new matches, URLs, duplicate/filtered/error lines)
+  //   and appends cards to [data-results-grid="scan"] via #tpl-result-card.
+  const Scanner = (() => {
+    const state = {
+      running: false,
+      results: [],               // { url, company, role, source, time }
+      seen: new Set(),           // dedup by URL
+      counts: { new: 0, dup: 0, skip: 0, error: 0 },
+      lastCompany: ''            // buffered from "✓ Company — N new matches"
+    };
+
+    const elems = () => ({
+      btnAll:     $('#btn-scan-all'),
+      btnStop:    $('#btn-scan-stop'),
+      btnOne:     $('#btn-scan-company'),
+      select:     $('#scan-company-select'),
+      runStatus:  $('#scan-run-status'),
+      statusText: $('#scan-run-status-text'),
+      grid:       $('[data-results-grid="scan"]'),
+      empty:      $('[data-results-empty="scan"]'),
+      total:      $('[data-results-total="scan"]'),
+      tpl:        $('#tpl-result-card'),
+      companies:  $('[data-scanner="companies"]'),
+      queries:    $('[data-scanner="queries"]'),
+      lastScan:   $('[data-scanner="last-scan"]'),
+      lastScanRel:$('[data-scanner="last-scan-relative"]')
+    });
+
+    function setRunning(running, label) {
+      state.running = !!running;
+      const e = elems();
+      if (e.btnAll)  e.btnAll.disabled  = running;
+      if (e.btnOne)  e.btnOne.disabled  = running || !(e.select && e.select.value);
+      if (e.btnStop) e.btnStop.disabled = !running;
+      if (e.select)  e.select.disabled  = running;
+      if (e.runStatus) e.runStatus.classList.toggle('visible', !!running);
+      if (e.statusText && label) e.statusText.textContent = label;
+    }
+
+    function updatePills() {
+      for (const k of ['new', 'dup', 'skip', 'error']) {
+        const pill = $(`[data-results-count="${k}"]`);
+        if (pill) pill.textContent = String(state.counts[k] || 0);
+      }
+    }
+
+    function updateTotal() {
+      const e = elems();
+      if (e.total) e.total.textContent = String(state.results.length);
+      if (e.empty) e.empty.style.display = state.results.length ? 'none' : '';
+    }
+
+    function resetCounts() {
+      state.counts = { new: 0, dup: 0, skip: 0, error: 0 };
+      updatePills();
+    }
+
+    function hostFromUrl(u) {
+      try { return new URL(u).host.replace(/^www\./, ''); } catch { return ''; }
+    }
+
+    function sourceLabel(host) {
+      if (/greenhouse\.io/.test(host)) return 'greenhouse';
+      if (/ashbyhq\.com/.test(host))   return 'ashby';
+      if (/lever\.co/.test(host))      return 'lever';
+      if (/linkedin\.com/.test(host))  return 'linkedin';
+      if (/workday/.test(host))        return 'workday';
+      return host || 'web';
+    }
+
+    function appendCard(match) {
+      if (!match.url || state.seen.has(match.url)) return;
+      state.seen.add(match.url);
+      state.results.push(match);
+
+      const e = elems();
+      if (!e.tpl || !e.grid) { updateTotal(); return; }
+
+      const node = e.tpl.content.firstElementChild.cloneNode(true);
+      node.dataset.resultUrl = match.url;
+
+      const set = (field, value) => {
+        const t = node.querySelector(`[data-result-field="${field}"]`);
+        if (t) t.textContent = value || '';
+      };
+      set('company',  match.company || '—');
+      set('role',     match.role || 'Untitled role');
+      set('location', match.location || '');
+      set('time',     match.time || fmt.relative(new Date().toISOString()));
+      const src = node.querySelector('[data-result-field="source"]');
+      if (src) {
+        const label = sourceLabel(match.source || hostFromUrl(match.url));
+        src.textContent = label;
+        src.dataset.source = label;
+      }
+      const open = node.querySelector('[data-result-field="open"]');
+      if (open) { open.href = match.url; open.title = match.url; }
+
+      e.grid.appendChild(node);
+      updateTotal();
+    }
+
+    // Very forgiving line parser. `scan.mjs` output varies with portal type;
+    // we prefer correct classification over exhaustive matching.
+    function ingestLine(raw, isErr) {
+      const line = String(raw).trim();
+      if (!line) return;
+
+      // 1. "✓ Company — N new matches" / "✓ Company: N new"
+      const mNew =
+        /^[✓✔✅]\s+(.+?)\s*[—\-–:]\s*(\d+)\s+new(?:\s+match)?/i.exec(line) ||
+        /^\[OK\]\s+(.+?)\s*[—\-–:]\s*(\d+)\s+new/i.exec(line);
+      if (mNew) {
+        state.lastCompany = mNew[1].trim();
+        state.counts.new += parseInt(mNew[2], 10) || 0;
+        updatePills();
+        return;
+      }
+
+      // 2. Dup / filter / error markers
+      if (/\b(duplicate|already (tracked|in pipeline)|skipped\s*\(\s*dup)/i.test(line)) {
+        state.counts.dup++; updatePills();
+      } else if (/\b(filtered|skipped\s*\(\s*filter|title filter|seniority)/i.test(line)) {
+        state.counts.skip++; updatePills();
+      } else if (isErr || /^[✗✘×❌]|\berror|\bfailed|\bcannot /i.test(line)) {
+        state.counts.error++; updatePills();
+      }
+
+      // 3. Whenever a URL shows up, capture it as a card. Role = text around it.
+      const urlMatch = /(https?:\/\/[^\s)]+)/.exec(line);
+      if (urlMatch) {
+        const url = urlMatch[1].replace(/[),.]+$/, '');
+        const host = hostFromUrl(url);
+        // Role: whatever text preceded the URL on this line (trimmed of bullets)
+        const role = line
+          .replace(urlMatch[0], '')
+          .replace(/^[-–—•→✓✔\s]+/, '')
+          .replace(/\s*[|·:]\s*$/, '')
+          .trim();
+        appendCard({
+          url,
+          company: state.lastCompany || '',
+          role: role || '',
+          source: host
+        });
+      }
+    }
+
+    // `runJob.onLine` gives us raw entries — chunks may contain multiple lines.
+    function onTerminalLine(entry) {
+      if (!entry || !entry.text) return;
+      if (entry.type !== 'stdout' && entry.type !== 'stderr') return;
+      const isErr = entry.type === 'stderr';
+      for (const raw of String(entry.text).replace(/\r\n/g, '\n').split('\n')) {
+        ingestLine(raw, isErr);
+      }
+    }
+
+    async function runScan({ company } = {}) {
+      if (state.running) return;
+      const term = getTerminal('scan');
+      if (!term) { toast('Scanner terminal missing', 'error', 2400); return; }
+
+      resetCounts();
+      state.lastCompany = company || '';
+
+      const cmd = company
+        ? `node scan.mjs --company "${company}"`
+        : 'node scan.mjs';
+      const body = company ? { company } : {};
+
+      setRunning(true, company ? `Scanning ${company}…` : 'Running scan…');
+      term.setCommand(cmd);
+
+      await runJob('scan', body, {
+        terminal: term,
+        cmd,
+        onLine: onTerminalLine,
+        onDone: ({ ok, payload }) => {
+          setRunning(false);
+          if (payload?.aborted) {
+            toast('Scan stopped', 'warn', 1800);
+            return;
+          }
+          if (ok) {
+            const { new: n, dup, error } = state.counts;
+            toast(
+              `Scan complete — ${n} new, ${dup} duplicate${dup === 1 ? '' : 's'}${error ? `, ${error} error${error === 1 ? '' : 's'}` : ''}`,
+              error ? 'warn' : 'success',
+              3000
+            );
+            loadSummary();        // refresh last-scan + queries
+          } else {
+            toast('Scan failed — see terminal output', 'error', 3000);
+          }
+        }
+      });
+    }
+
+    function clearView() {
+      state.results = [];
+      state.seen.clear();
+      resetCounts();
+      const e = elems();
+      if (e.grid) e.grid.innerHTML = '';
+      updateTotal();
+    }
+
+    async function loadSummary() {
+      try {
+        const info = await api.get('/api/portals-info');
+        const e = elems();
+        if (info && typeof info.companies === 'number' && e.companies) {
+          e.companies.textContent = String(info.companies);
+        }
+        if (info && typeof info.queries === 'number' && e.queries) {
+          e.queries.textContent = String(info.queries);
+        }
+        // Populate the company <select> if empty
+        if (e.select && e.select.options.length <= 1 && Array.isArray(info?.companyNames)) {
+          for (const name of info.companyNames) {
+            const opt = document.createElement('option');
+            opt.value = name; opt.textContent = name;
+            e.select.appendChild(opt);
+          }
+        }
+      } catch {}
+
+      try {
+        const hist = await api.get('/api/scan-history');
+        const e = elems();
+        const first = Array.isArray(hist) ? hist[0] : null;
+        if (first?.date && e.lastScan) {
+          // Keep the <small> child, replace the leading text node
+          const small = e.lastScanRel;
+          e.lastScan.textContent = first.date;
+          if (small) { e.lastScan.appendChild(small); small.textContent = ` · ${fmt.relative(first.date)}`; }
+        }
+      } catch {}
+    }
+
+    function init() {
+      // Data
+      loadSummary();
+
+      // Buttons
+      on(document, 'click', '#btn-scan-all', () => runScan());
+      on(document, 'click', '#btn-scan-company', () => {
+        const v = $('#scan-company-select')?.value;
+        if (!v) { toast('Pick a company first', 'info', 1600); return; }
+        runScan({ company: v });
+      });
+      on(document, 'click', '#btn-scan-stop', () => {
+        const term = getTerminal('scan');
+        stopJob(term);
+      });
+      on(document, 'change', '#scan-company-select', (_e, sel) => {
+        const btn = $('#btn-scan-company');
+        if (btn) btn.disabled = !sel.value || state.running;
+      });
+      on(document, 'keydown', '#scan-company-select', (e, sel) => {
+        if (e.key === 'Enter' && sel.value) {
+          e.preventDefault();
+          runScan({ company: sel.value });
+        }
+      });
+
+      // Clear view button (results grid)
+      on(document, 'click', '[data-results-action="clear"]', () => clearView());
+    }
+
+    return { init, runScan, clearView };
+  })();
+
   // ---------- Tab switching ----------
   const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports'];
 
@@ -4108,13 +4387,16 @@
     getTerminal,
     runJob,
     stopJob,
-    activeJob: null
+    activeJob: null,
+    // Step 17b — scanner
+    Scanner
   };
 
   // ---------- Boot ----------
   document.addEventListener('DOMContentLoaded', () => {
     initTabs();
-    // Step 17 and Step 18 will register their own listeners onto App below.
+    Scanner.init();
+    // Step 17c–17e will register their own listeners onto App below.
     document.dispatchEvent(new CustomEvent('app:ready'));
   });
 })();
