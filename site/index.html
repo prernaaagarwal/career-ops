@@ -1607,6 +1607,248 @@
     .add-url-actions { flex-direction: row; }
     .add-url-actions .btn { flex: 1; }
   }
+
+  /* ---------- Tracker toolbar ---------- */
+  .tracker-toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tracker-search {
+    position: relative;
+    width: 280px;
+    max-width: 100%;
+  }
+  .tracker-search .input { padding-left: 32px; }
+  .tracker-search svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    color: var(--text3);
+    pointer-events: none;
+  }
+
+  .status-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background var(--trans), color var(--trans), border-color var(--trans);
+    user-select: none;
+  }
+  .status-chip:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+  }
+  .status-chip.active {
+    background: var(--cyan-dim);
+    border-color: var(--cyan);
+    color: var(--cyan-fg);
+  }
+  .status-chip .chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    padding: 0 5px;
+    height: 16px;
+    font-family: var(--font-body);
+    font-size: 10.5px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.06);
+    color: inherit;
+    border-radius: 8px;
+  }
+  .status-chip.active .chip-count {
+    background: var(--cyan);
+    color: #0a0b10;
+  }
+
+  /* ---------- Applications table ---------- */
+  .tracker-table-wrap {
+    overflow-x: auto;
+    margin: 0 -4px;
+    padding: 0 4px;
+  }
+
+  .tracker-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+    min-width: 820px;
+  }
+  .tracker-table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--bg2);
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text2);
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    z-index: 2;
+  }
+  .tracker-table thead th.sortable {
+    cursor: pointer;
+    user-select: none;
+  }
+  .tracker-table thead th.sortable:hover { color: var(--text); }
+  .tracker-table thead th .sort-arrow {
+    display: inline-block;
+    width: 10px;
+    margin-left: 4px;
+    color: var(--text3);
+    opacity: 0;
+  }
+  .tracker-table thead th[aria-sort="ascending"]  .sort-arrow::before { content: '▲'; }
+  .tracker-table thead th[aria-sort="descending"] .sort-arrow::before { content: '▼'; }
+  .tracker-table thead th[aria-sort="ascending"]  .sort-arrow,
+  .tracker-table thead th[aria-sort="descending"] .sort-arrow {
+    opacity: 1;
+    color: var(--cyan-fg);
+  }
+
+  .tracker-table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .tracker-table tbody tr { transition: background var(--trans); }
+  .tracker-table tbody tr:hover { background: var(--bg3); }
+  .tracker-table tbody tr.dim   { opacity: 0.55; }
+
+  .td-num {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text3);
+    width: 48px;
+  }
+  .td-date {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text2);
+    white-space: nowrap;
+    width: 96px;
+  }
+  .td-company {
+    min-width: 140px;
+  }
+  .td-company .company-name {
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--text);
+  }
+  .td-role {
+    color: var(--text);
+    min-width: 200px;
+  }
+  .td-score { width: 70px; text-align: center; }
+  .td-status { width: 130px; }
+  .td-pdf { width: 40px; text-align: center; font-size: 14px; }
+  .td-pdf.yes { color: var(--green); }
+  .td-pdf.no  { color: var(--text3); }
+  .td-report { width: 80px; }
+  .td-report a {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--cyan-fg);
+  }
+  .td-notes {
+    color: var(--text2);
+    font-size: 12.5px;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tracker-table tbody tr:hover .td-notes {
+    white-space: normal;
+    overflow: visible;
+  }
+
+  /* Score badge */
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 9px;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text3);
+    min-width: 48px;
+  }
+  .score-badge.s-high { color: hsl(150, 65%, 70%); background: var(--green-dim); border-color: var(--green); }
+  .score-badge.s-mid  { color: var(--yellow);     background: var(--yellow-dim); border-color: var(--yellow); }
+  .score-badge.s-low  { color: hsl(0, 70%, 75%);  background: var(--red-dim);    border-color: var(--red); }
+
+  /* Status pill */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    font-family: var(--font-head);
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    text-transform: capitalize;
+    cursor: default;
+  }
+  .status-pill::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .status-pill[data-status="Evaluated"] { color: var(--cyan-fg);   background: var(--cyan-dim);   border-color: var(--cyan); }
+  .status-pill[data-status="Applied"]   { color: var(--purple-fg); background: var(--purple-dim); border-color: var(--purple); }
+  .status-pill[data-status="Responded"] { color: var(--yellow);    background: var(--yellow-dim); border-color: var(--yellow); }
+  .status-pill[data-status="Interview"] { color: var(--orange);    background: var(--yellow-dim); border-color: var(--orange); }
+  .status-pill[data-status="Offer"]     { color: hsl(150,65%,72%); background: var(--green-dim);  border-color: var(--green); }
+  .status-pill[data-status="Rejected"]  { color: hsl(0,70%,78%);   background: var(--red-dim);    border-color: var(--red); }
+  .status-pill[data-status="Discarded"] { color: var(--text3);     background: var(--bg3);        border-color: var(--border); }
+  .status-pill[data-status="SKIP"]      { color: var(--text3);     background: var(--bg3);        border-color: var(--border); text-transform: none; }
+
+  @media (max-width: 720px) {
+    .tracker-toolbar { flex-direction: column; align-items: stretch; }
+    .tracker-search { width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -2138,8 +2380,106 @@
       </template>
     </section>
 
-    <!-- ============ TRACKER / REPORTS tabs ============
-         Added in Steps 11–15 -->
+    <!-- ============ TRACKER TAB ============ -->
+    <section class="tab-panel" id="panel-tracker" role="tabpanel" aria-labelledby="tab-tracker">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Tracker</div>
+          <div class="panel-subtitle">Every application, synced from <code>data/applications.md</code>. Change a status and it saves back.</div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="tracker-toolbar">
+          <div class="tracker-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="input" type="search" id="tracker-search" placeholder="Search company or role…" aria-label="Search applications">
+          </div>
+
+          <div class="status-filters" id="status-filters" role="group" aria-label="Status filters">
+            <button class="status-chip active" type="button" data-status-filter="all">
+              All <span class="chip-count" data-filter-count="all">0</span>
+            </button>
+            <button class="status-chip" type="button" data-status-filter="Evaluated">
+              Evaluated <span class="chip-count" data-filter-count="Evaluated">0</span>
+            </button>
+            <button class="status-chip" type="button" data-status-filter="Applied">
+              Applied <span class="chip-count" data-filter-count="Applied">0</span>
+            </button>
+            <button class="status-chip" type="button" data-status-filter="Responded">
+              Responded <span class="chip-count" data-filter-count="Responded">0</span>
+            </button>
+            <button class="status-chip" type="button" data-status-filter="Interview">
+              Interview <span class="chip-count" data-filter-count="Interview">0</span>
+            </button>
+            <button class="status-chip" type="button" data-status-filter="Offer">
+              Offer <span class="chip-count" data-filter-count="Offer">0</span>
+            </button>
+            <button class="status-chip" type="button" data-status-filter="Rejected">
+              Rejected <span class="chip-count" data-filter-count="Rejected">0</span>
+            </button>
+            <button class="status-chip" type="button" data-status-filter="Discarded">
+              Discarded <span class="chip-count" data-filter-count="Discarded">0</span>
+            </button>
+            <button class="status-chip" type="button" data-status-filter="SKIP">
+              SKIP <span class="chip-count" data-filter-count="SKIP">0</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="tracker-table-wrap">
+          <table class="tracker-table" id="tracker-table" aria-describedby="tracker-summary">
+            <thead>
+              <tr>
+                <th class="td-num sortable"    data-sort-key="num"     aria-sort="none">#<span class="sort-arrow"></span></th>
+                <th class="td-date sortable"   data-sort-key="date"    aria-sort="descending">Date<span class="sort-arrow"></span></th>
+                <th class="td-company sortable" data-sort-key="company" aria-sort="none">Company<span class="sort-arrow"></span></th>
+                <th class="td-role sortable"   data-sort-key="role"    aria-sort="none">Role<span class="sort-arrow"></span></th>
+                <th class="td-score sortable"  data-sort-key="score"   aria-sort="none">Score<span class="sort-arrow"></span></th>
+                <th class="td-status sortable" data-sort-key="status"  aria-sort="none">Status<span class="sort-arrow"></span></th>
+                <th class="td-pdf">PDF</th>
+                <th class="td-report">Report</th>
+                <th class="td-notes">Notes</th>
+              </tr>
+            </thead>
+            <tbody id="tracker-tbody" data-list="tracker"></tbody>
+          </table>
+        </div>
+
+        <div class="results-empty" data-empty="tracker">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <div class="title">No applications yet</div>
+          <div>Evaluate a URL from the Pipeline tab — it'll show up here.</div>
+        </div>
+      </div>
+
+      <!-- Template used by Step 18's data loader to render each tracker row -->
+      <template id="tpl-tracker-row">
+        <tr data-tracker-num="" data-status="" data-score="">
+          <td class="td-num"     data-tracker-field="num"></td>
+          <td class="td-date"    data-tracker-field="date"></td>
+          <td class="td-company">
+            <span class="company-name" data-tracker-field="company"></span>
+          </td>
+          <td class="td-role"    data-tracker-field="role"></td>
+          <td class="td-score">
+            <span class="score-badge" data-tracker-field="score-badge"></span>
+          </td>
+          <td class="td-status">
+            <!-- Step 12 will replace this with an inline-editable dropdown -->
+            <span class="status-pill" data-tracker-field="status" data-status=""></span>
+          </td>
+          <td class="td-pdf"     data-tracker-field="pdf"></td>
+          <td class="td-report">
+            <a href="#" data-tracker-field="report-link" target="_blank" rel="noopener"></a>
+          </td>
+          <td class="td-notes"   data-tracker-field="notes" title=""></td>
+        </tr>
+      </template>
+    </section>
+
+    <!-- ============ REPORTS tab ============
+         Added in Steps 13–15 -->
   </main>
 </body>
 </html>
