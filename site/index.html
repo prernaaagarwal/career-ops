@@ -603,6 +603,117 @@
     .bar { max-width: none; }
     .axis-label { font-size: 9.5px; }
   }
+
+  /* ---------- Funnel ---------- */
+  .funnel {
+    display: grid;
+    gap: 10px;
+  }
+
+  .funnel-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 120px;
+    align-items: center;
+    gap: 14px;
+    min-height: 40px;
+  }
+
+  .funnel-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .funnel-label .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--stage-color, var(--cyan));
+    flex-shrink: 0;
+  }
+
+  .funnel-track {
+    position: relative;
+    height: 32px;
+    background: var(--bg3);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .funnel-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    background: linear-gradient(90deg, var(--stage-color, var(--cyan)), var(--stage-color-2, var(--stage-color, var(--cyan))));
+    opacity: 0.85;
+    transition: width 700ms cubic-bezier(0.2, 0.9, 0.3, 1);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: var(--radius-sm);
+  }
+
+  .funnel-count {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: #0a0b10;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
+    white-space: nowrap;
+  }
+  /* when bar is too short, show count outside */
+  .funnel-fill.tiny .funnel-count {
+    position: absolute;
+    left: calc(100% + 8px);
+    color: var(--text);
+    text-shadow: none;
+  }
+
+  .funnel-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text2);
+    line-height: 1.3;
+  }
+  .funnel-meta .conv-pct {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .funnel-meta .conv-pct.good { color: var(--green); }
+  .funnel-meta .conv-pct.mid  { color: var(--yellow); }
+  .funnel-meta .conv-pct.low  { color: var(--red); }
+  .funnel-meta .conv-pct.na   { color: var(--text3); }
+  .funnel-meta .conv-from {
+    color: var(--text3);
+    font-size: 10.5px;
+  }
+
+  /* Stage colors */
+  .funnel-row[data-stage="evaluated"] { --stage-color: var(--cyan);   --stage-color-2: var(--cyan-fg); }
+  .funnel-row[data-stage="applied"]   { --stage-color: var(--purple); --stage-color-2: var(--purple-fg); }
+  .funnel-row[data-stage="responded"] { --stage-color: var(--yellow); --stage-color-2: var(--orange); }
+  .funnel-row[data-stage="interview"] { --stage-color: var(--orange); --stage-color-2: var(--yellow); }
+  .funnel-row[data-stage="offer"]     { --stage-color: var(--green);  --stage-color-2: hsl(150, 70%, 60%); }
+
+  @media (max-width: 600px) {
+    .funnel-row {
+      grid-template-columns: 90px 1fr 70px;
+      gap: 8px;
+    }
+    .funnel-label { font-size: 12px; }
+    .funnel-track { height: 28px; }
+    .funnel-meta .conv-pct { font-size: 12px; }
+    .funnel-meta .conv-from { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -769,7 +880,83 @@
         </div>
       </div>
 
-      <!-- Step 5 will add the funnel viz here -->
+      <div class="panel-card">
+        <div class="panel-card-head">
+          <div class="panel-card-title">
+            Application funnel
+            <small>conversion at every stage · percentages are stage-to-stage</small>
+          </div>
+        </div>
+
+        <div class="funnel" id="funnel" data-chart="funnel">
+
+          <div class="funnel-row" data-stage="evaluated">
+            <div class="funnel-label"><span class="dot"></span>Evaluated</div>
+            <div class="funnel-track">
+              <div class="funnel-fill" style="width: 0%">
+                <span class="funnel-count" data-funnel-count="evaluated">0</span>
+              </div>
+            </div>
+            <div class="funnel-meta">
+              <span class="conv-pct na" data-funnel-pct="evaluated">—</span>
+              <span class="conv-from">top of funnel</span>
+            </div>
+          </div>
+
+          <div class="funnel-row" data-stage="applied">
+            <div class="funnel-label"><span class="dot"></span>Applied</div>
+            <div class="funnel-track">
+              <div class="funnel-fill" style="width: 0%">
+                <span class="funnel-count" data-funnel-count="applied">0</span>
+              </div>
+            </div>
+            <div class="funnel-meta">
+              <span class="conv-pct na" data-funnel-pct="applied">—</span>
+              <span class="conv-from">of evaluated</span>
+            </div>
+          </div>
+
+          <div class="funnel-row" data-stage="responded">
+            <div class="funnel-label"><span class="dot"></span>Responded</div>
+            <div class="funnel-track">
+              <div class="funnel-fill" style="width: 0%">
+                <span class="funnel-count" data-funnel-count="responded">0</span>
+              </div>
+            </div>
+            <div class="funnel-meta">
+              <span class="conv-pct na" data-funnel-pct="responded">—</span>
+              <span class="conv-from">of applied</span>
+            </div>
+          </div>
+
+          <div class="funnel-row" data-stage="interview">
+            <div class="funnel-label"><span class="dot"></span>Interview</div>
+            <div class="funnel-track">
+              <div class="funnel-fill" style="width: 0%">
+                <span class="funnel-count" data-funnel-count="interview">0</span>
+              </div>
+            </div>
+            <div class="funnel-meta">
+              <span class="conv-pct na" data-funnel-pct="interview">—</span>
+              <span class="conv-from">of responded</span>
+            </div>
+          </div>
+
+          <div class="funnel-row" data-stage="offer">
+            <div class="funnel-label"><span class="dot"></span>Offer</div>
+            <div class="funnel-track">
+              <div class="funnel-fill" style="width: 0%">
+                <span class="funnel-count" data-funnel-count="offer">0</span>
+              </div>
+            </div>
+            <div class="funnel-meta">
+              <span class="conv-pct na" data-funnel-pct="offer">—</span>
+              <span class="conv-from">of interview</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </section>
 
     <!-- ============ SCANNER / PIPELINE / TRACKER / REPORTS tabs ============
