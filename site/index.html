@@ -1495,6 +1495,118 @@
     }
     .pipeline-search { width: 100%; }
   }
+
+  /* ---------- Add URL input ---------- */
+  .add-url-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .add-url-textarea {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.55;
+    min-height: 44px;
+    max-height: 260px;
+    padding: 11px 14px;
+    resize: none;
+    overflow-y: auto;
+    transition: min-height 180ms ease, border-color var(--trans);
+  }
+  .add-url-textarea.expanded { min-height: 140px; }
+  .add-url-textarea:focus.expanded { min-height: 160px; }
+
+  .add-url-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .add-url-actions .btn {
+    padding: 11px 16px;
+    justify-content: center;
+  }
+
+  .add-url-hint {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 11.5px;
+    color: var(--text3);
+  }
+  .add-url-hint .kb {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .add-url-hint kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    min-width: 18px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+  }
+
+  .add-url-feedback {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+    line-height: 1.45;
+    border: 1px solid transparent;
+  }
+  .add-url-feedback.visible { display: block; }
+  .add-url-feedback.success { background: var(--green-dim); border-color: var(--green); color: hsl(150, 70%, 80%); }
+  .add-url-feedback.warn    { background: var(--yellow-dim); border-color: var(--yellow); color: hsl(45, 90%, 82%); }
+  .add-url-feedback.error   { background: var(--red-dim); border-color: var(--red); color: hsl(0, 75%, 82%); }
+  .add-url-feedback strong { font-family: var(--font-head); font-weight: 600; }
+  .add-url-feedback ul { margin: 6px 0 0 18px; padding: 0; }
+  .add-url-feedback li { font-family: var(--font-mono); font-size: 11.5px; word-break: break-all; }
+
+  .add-url-parsed {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .add-url-parsed.visible { display: block; }
+  .add-url-parsed .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 8px;
+    margin: 2px 4px 2px 0;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text);
+  }
+  .add-url-parsed .chip.invalid { color: var(--red); border-color: var(--red-dim); background: var(--red-dim); }
+
+  @media (max-width: 600px) {
+    .add-url-form {
+      grid-template-columns: 1fr;
+    }
+    .add-url-actions { flex-direction: row; }
+    .add-url-actions .btn { flex: 1; }
+  }
 </style>
 </head>
 <body>
@@ -1909,7 +2021,50 @@
         </div>
       </div>
 
-      <!-- Step 10 will add the "Add URL" input card here -->
+      <div class="panel-card">
+        <div class="panel-card-head">
+          <div class="panel-card-title">
+            Add URLs
+            <small>paste one per line · duplicates are ignored · bad URLs flagged</small>
+          </div>
+        </div>
+
+        <form class="add-url-form" id="add-url-form" autocomplete="off" onsubmit="return false;">
+          <textarea
+            class="textarea add-url-textarea"
+            id="add-url-input"
+            name="urls"
+            rows="2"
+            placeholder="https://jobs.company.com/senior-pm"
+            spellcheck="false"
+            aria-label="Job URLs to add to pipeline"></textarea>
+
+          <div class="add-url-actions">
+            <button class="btn btn-primary" type="button" data-action="pipeline-add">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add to pipeline
+            </button>
+            <button class="btn btn-ghost" type="button" data-action="pipeline-add-clipboard" title="Paste from clipboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a2 2 0 0 1 2 2v2H7V4a2 2 0 0 1 2-2z"/><path d="M7 6H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-2"/></svg>
+              From clipboard
+            </button>
+          </div>
+        </form>
+
+        <div class="add-url-parsed" id="add-url-parsed" aria-live="polite">
+          <span data-add-parsed-count="0">0</span> URL<span data-add-parsed-s>s</span> detected:
+          <div id="add-url-chips"></div>
+        </div>
+
+        <div class="add-url-feedback" id="add-url-feedback" role="status" aria-live="polite"></div>
+
+        <div class="add-url-hint">
+          <span class="kb"><kbd>⌘</kbd><kbd>Enter</kbd> to submit</span>
+          <span class="kb"><kbd>Esc</kbd> to clear</span>
+          <span>· Accepts Greenhouse, Ashby, Lever, LinkedIn, direct career pages, and raw text</span>
+        </div>
+      </div>
+
 
       <div class="panel-card">
         <div class="panel-card-head">
