@@ -1599,6 +1599,7 @@
     color: var(--text);
   }
   .add-url-parsed .chip.invalid { color: var(--red); border-color: var(--red-dim); background: var(--red-dim); }
+  .add-url-parsed .chip.duplicate { color: var(--yellow); border-color: var(--yellow-dim); background: var(--yellow-dim); }
 
   @media (max-width: 600px) {
     .add-url-form {
@@ -3149,7 +3150,7 @@
 
         <div class="pipeline-toolbar">
           <span class="count"><span data-pipeline-count>0</span> URLs</span>
-          <span class="count-sub"><span data-pipeline-live="0">0</span> live · <span data-pipeline-live="dead">0</span> dead · <span data-pipeline-live="unknown">0</span> unchecked</span>
+          <span class="count-sub"><span data-pipeline-live="live">0</span> live · <span data-pipeline-live="dead">0</span> dead · <span data-pipeline-live="unknown">0</span> unchecked</span>
           <div class="spacer"></div>
           <div class="pipeline-search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -4293,6 +4294,389 @@
     return { init, runScan, clearView };
   })();
 
+  // ---------- Pipeline tab ----------
+  // Manages the pending-URL inbox:
+  //   • GET  /api/pipeline          → render list
+  //   • POST /api/pipeline/add      → add URLs (textarea + clipboard + ⌘Enter)
+  //   • POST /api/pipeline/remove   → per-row remove + bulk clear
+  //   • POST /api/run/liveness      → per-row + bulk, parses verdicts back
+  //
+  // Evaluation is a Claude Code task (not a script), so "Evaluate" buttons
+  // open the URL with guidance instead of spawning a process.
+  const Pipeline = (() => {
+    const URL_RE = /^https?:\/\/[^\s]+$/i;
+
+    const state = {
+      urls: [],                  // string[]
+      liveness: new Map(),       // url → 'live' | 'dead' | 'unknown' | 'checking'
+      filter: '',
+      parsed: []                 // current textarea parse
+    };
+
+    const elems = () => ({
+      list:       $('#pipeline-list'),
+      empty:      $('[data-empty="pipeline"]'),
+      count:      $('[data-pipeline-count]'),
+      search:     $('#pipeline-search'),
+      textarea:   $('#add-url-input'),
+      chips:      $('#add-url-chips'),
+      parsedBox:  $('#add-url-parsed'),
+      parsedCnt:  $('[data-add-parsed-count]'),
+      parsedS:    $('[data-add-parsed-s]'),
+      feedback:   $('#add-url-feedback'),
+      tpl:        $('#tpl-pipeline-item')
+    });
+
+    // ── Helpers ─────────────────────────────────────────────
+    function hostOf(u)   { try { return new URL(u).host.replace(/^www\./, ''); } catch { return ''; } }
+    function letterOf(u) { const h = hostOf(u); return (h[0] || '?').toUpperCase(); }
+
+    function guessCompany(u) {
+      const h = hostOf(u);
+      if (!h) return '';
+      // careers.<company>.com / jobs.<company>.com
+      const parts = h.split('.');
+      const brandCandidates = parts.filter(p => !['careers','jobs','www','apply','job-boards','boards','greenhouse','io','ashbyhq','com','net','co','ai','lever','workday','wd1','wd5','myworkdayjobs','linkedin'].includes(p));
+      const brand = brandCandidates[0] || parts[parts.length - 2] || '';
+      return brand ? brand.charAt(0).toUpperCase() + brand.slice(1) : '';
+    }
+
+    function guessRole(u) {
+      try {
+        const path = new URL(u).pathname;
+        const last = path.split('/').filter(Boolean).pop() || '';
+        // Drop numeric id suffixes, dashes → spaces, title-case
+        const cleaned = last.replace(/[-_]+/g, ' ').replace(/\s*\d{3,}\s*$/, '').trim();
+        if (!cleaned || /^\d+$/.test(cleaned)) return '';
+        return cleaned.replace(/\b\w/g, c => c.toUpperCase());
+      } catch { return ''; }
+    }
+
+    function parseTextarea(text) {
+      const parsed = [];
+      const seen = new Set();
+      for (const raw of (text || '').split(/\r?\n/)) {
+        const line = raw.trim().replace(/^[-*•]\s*/, '');
+        if (!line) continue;
+        // Grab the first URL-looking token per line
+        const m = /(https?:\/\/[^\s)]+)/i.exec(line);
+        const url = m ? m[1].replace(/[),.]+$/, '') : line;
+        const valid = URL_RE.test(url);
+        const duplicate = seen.has(url) || state.urls.includes(url);
+        if (!seen.has(url)) seen.add(url);
+        parsed.push({ url, valid, duplicate });
+      }
+      return parsed;
+    }
+
+    function renderChips() {
+      const e = elems();
+      if (!e.chips || !e.parsedBox) return;
+      const parsed = state.parsed;
+      e.chips.innerHTML = '';
+      e.parsedBox.classList.toggle('visible', parsed.length > 0);
+      if (e.parsedCnt) e.parsedCnt.textContent = String(parsed.length);
+      if (e.parsedS) e.parsedS.textContent = parsed.length === 1 ? '' : 's';
+
+      for (const p of parsed) {
+        const chip = document.createElement('span');
+        chip.className = 'chip' + (p.valid ? (p.duplicate ? ' duplicate' : '') : ' invalid');
+        chip.textContent = p.valid ? (hostOf(p.url) || p.url.slice(0, 36)) : (p.url.slice(0, 40) || 'invalid');
+        chip.title = p.url + (p.duplicate ? ' (already in pipeline)' : (p.valid ? '' : ' (not a URL)'));
+        e.chips.appendChild(chip);
+      }
+    }
+
+    // Single-tone feedback bar. Joins chunks with " · " and picks the worst tone.
+    // chunks: [{ text, tone: 'ok'|'warn'|'bad'|'info' }]
+    function setFeedback(chunks) {
+      const e = elems();
+      if (!e.feedback) return;
+      e.feedback.className = 'add-url-feedback';
+      e.feedback.textContent = '';
+      if (!chunks?.length) return;
+
+      const rank = { info: 0, ok: 1, warn: 2, bad: 3 };
+      const worst = chunks.reduce((t, c) => (rank[c.tone] > rank[t] ? c.tone : t), 'info');
+      const toneClass = worst === 'bad' ? 'error' : worst === 'warn' ? 'warn' : worst === 'ok' ? 'success' : '';
+      e.feedback.classList.add('visible');
+      if (toneClass) e.feedback.classList.add(toneClass);
+      e.feedback.textContent = chunks.map(c => c.text).join(' · ');
+    }
+
+    // ── Rendering ───────────────────────────────────────────
+    function renderList() {
+      const e = elems();
+      if (!e.list || !e.tpl) return;
+
+      e.list.innerHTML = '';
+      const needle = state.filter.toLowerCase().trim();
+
+      let visible = 0;
+      for (const url of state.urls) {
+        if (needle && !url.toLowerCase().includes(needle)) continue;
+        visible++;
+        const node = e.tpl.content.firstElementChild.cloneNode(true);
+        const liveness = state.liveness.get(url) || 'unknown';
+        node.dataset.url = url;
+        node.dataset.liveness = liveness;
+
+        const host = hostOf(url);
+        const setField = (f, v) => {
+          const t = node.querySelector(`[data-pipeline-field="${f}"]`);
+          if (t) { if (f === 'url-link') { t.textContent = v; t.href = v; t.title = v; } else t.textContent = v; }
+        };
+        setField('host-letter', letterOf(url));
+        setField('company', guessCompany(url) || host || '—');
+        setField('role', guessRole(url));
+        setField('url-link', url);
+
+        const badge = node.querySelector('[data-pipeline-field="liveness-badge"]');
+        if (badge) {
+          badge.dataset.liveness = liveness;
+          badge.textContent = ({
+            live:     'live',
+            dead:     'expired',
+            unknown:  'unchecked',
+            checking: 'checking…'
+          })[liveness] || 'unchecked';
+        }
+
+        e.list.appendChild(node);
+      }
+
+      // Empty state + counts
+      if (e.empty) e.empty.style.display = state.urls.length === 0 ? '' : 'none';
+      if (e.count) e.count.textContent = String(visible);
+      updateLivenessCounts();
+    }
+
+    function updateLivenessCounts() {
+      const counts = { live: 0, dead: 0, unknown: 0 };
+      for (const url of state.urls) {
+        const v = state.liveness.get(url) || 'unknown';
+        if (v === 'live') counts.live++;
+        else if (v === 'dead') counts.dead++;
+        else counts.unknown++;
+      }
+      for (const k of ['live', 'dead', 'unknown']) {
+        const el = $(`[data-pipeline-live="${k}"]`);
+        if (el) el.textContent = String(counts[k]);
+      }
+    }
+
+    function setRowLiveness(url, newState) {
+      state.liveness.set(url, newState);
+      // Update just the row's DOM without full re-render
+      const row = $(`.pipeline-item[data-url="${CSS.escape(url)}"]`);
+      if (row) {
+        row.dataset.liveness = newState;
+        const badge = row.querySelector('[data-pipeline-field="liveness-badge"]');
+        if (badge) {
+          badge.dataset.liveness = newState;
+          badge.textContent = ({
+            live: 'live', dead: 'expired', unknown: 'unchecked', checking: 'checking…'
+          })[newState] || 'unchecked';
+        }
+      }
+      updateLivenessCounts();
+    }
+
+    // ── Server calls ────────────────────────────────────────
+    async function loadUrls() {
+      try {
+        const urls = await api.get('/api/pipeline');
+        state.urls = Array.isArray(urls) ? urls : [];
+        renderList();
+      } catch (err) {
+        toast(`Could not load pipeline: ${err.message}`, 'error', 3000);
+      }
+    }
+
+    async function submitUrls() {
+      const e = elems();
+      const parsed = state.parsed;
+      const valid = parsed.filter(p => p.valid && !p.duplicate).map(p => p.url);
+      const invalid = parsed.filter(p => !p.valid).length;
+      const dup = parsed.filter(p => p.valid && p.duplicate).length;
+
+      if (!valid.length) {
+        setFeedback([
+          invalid ? { text: `${invalid} invalid`, tone: 'bad' } : null,
+          dup     ? { text: `${dup} already in pipeline`, tone: 'warn' } : null,
+          !invalid && !dup ? { text: 'Paste a URL first', tone: 'info' } : null
+        ].filter(Boolean));
+        return;
+      }
+
+      try {
+        const resp = await api.post('/api/pipeline/add', { urls: valid });
+        const added = resp?.added || 0;
+        setFeedback([
+          { text: `${added} added`, tone: 'ok' },
+          dup     ? { text: `${dup} duplicate${dup === 1 ? '' : 's'}`, tone: 'warn' } : null,
+          invalid ? { text: `${invalid} invalid`, tone: 'bad' } : null
+        ].filter(Boolean));
+        if (e.textarea) e.textarea.value = '';
+        state.parsed = [];
+        renderChips();
+        await loadUrls();
+        toast(`${added} URL${added === 1 ? '' : 's'} added to pipeline`, 'success', 2000);
+      } catch (err) {
+        setFeedback([{ text: `Add failed: ${err.message}`, tone: 'bad' }]);
+      }
+    }
+
+    async function pasteFromClipboard() {
+      const e = elems();
+      if (!e.textarea) return;
+      try {
+        const text = await navigator.clipboard.readText();
+        if (!text?.trim()) { toast('Clipboard is empty', 'info', 1600); return; }
+        const existing = e.textarea.value;
+        e.textarea.value = existing ? existing.replace(/\s*$/, '') + '\n' + text : text;
+        state.parsed = parseTextarea(e.textarea.value);
+        renderChips();
+        e.textarea.focus();
+      } catch {
+        toast('Clipboard access blocked', 'error', 2200);
+      }
+    }
+
+    async function removeUrl(url) {
+      try {
+        const resp = await api.post('/api/pipeline/remove', { url });
+        if (resp?.removed) {
+          state.urls = state.urls.filter(u => u !== url);
+          state.liveness.delete(url);
+          renderList();
+          toast('Removed from pipeline', 'success', 1600);
+        } else {
+          toast('URL not found in pipeline', 'warn', 1800);
+        }
+      } catch (err) {
+        toast(`Remove failed: ${err.message}`, 'error', 2400);
+      }
+    }
+
+    // Parses check-liveness.mjs stdout:
+    //   "✅ active     https://..."
+    //   "❌ expired    https://..."
+    //   "⚠️ uncertain  https://..."
+    const LIVENESS_RE = /^[\s]*(?:[✅❌⚠️]\s+)?(active|expired|uncertain)\s+(https?:\/\/\S+)/;
+    function ingestLivenessLine(text, fallbackUrl) {
+      const lines = String(text || '').replace(/\r\n/g, '\n').split('\n');
+      for (const raw of lines) {
+        const m = LIVENESS_RE.exec(raw);
+        if (!m) continue;
+        const verdict = m[1];
+        const url = m[2].replace(/[),.]+$/, '');
+        const next = verdict === 'active' ? 'live' : verdict === 'expired' ? 'dead' : 'unknown';
+        if (state.liveness.has(url) || state.urls.includes(url)) setRowLiveness(url, next);
+        else if (fallbackUrl)                                    setRowLiveness(fallbackUrl, next);
+      }
+    }
+
+    async function checkLiveness(urls, { label } = {}) {
+      if (!urls?.length) return;
+      const term = getTerminal('scan'); // Reuse scanner terminal for visibility
+      for (const u of urls) setRowLiveness(u, 'checking');
+
+      await runJob('liveness', { urls }, {
+        terminal: term || null,
+        cmd: `node check-liveness.mjs ${urls.length === 1 ? urls[0] : `${urls.length} urls`}`,
+        onLine: (entry) => {
+          if (entry.type !== 'stdout' && entry.type !== 'stderr') return;
+          ingestLivenessLine(entry.text, urls.length === 1 ? urls[0] : null);
+        },
+        onDone: ({ ok, payload }) => {
+          // Any URL still in 'checking' means we couldn't parse a verdict
+          for (const u of urls) {
+            if (state.liveness.get(u) === 'checking') setRowLiveness(u, 'unknown');
+          }
+          if (payload?.aborted) { toast('Liveness check stopped', 'warn', 1800); return; }
+          toast(ok ? `Checked ${urls.length} URL${urls.length === 1 ? '' : 's'}` : 'Liveness check failed', ok ? 'success' : 'error', 2200);
+        }
+      });
+    }
+
+    async function clearAll() {
+      if (!state.urls.length) { toast('Pipeline is already empty', 'info', 1600); return; }
+      const n = state.urls.length;
+      if (!confirm(`Remove all ${n} URLs from the pipeline?\n\nThis rewrites data/pipeline.md. Scanned results are preserved in data/scan-history.tsv.`)) return;
+
+      // Remove one by one — server API doesn't have a bulk-clear route.
+      toast(`Clearing ${n} URLs…`, 'info', 1800);
+      for (const url of [...state.urls]) {
+        try { await api.post('/api/pipeline/remove', { url }); } catch {}
+      }
+      state.urls = [];
+      state.liveness.clear();
+      renderList();
+      toast('Pipeline cleared', 'success', 1800);
+    }
+
+    function evaluateNote(url) {
+      // Evaluation runs through Claude Code, not a script. Open the JD in a
+      // new tab and tell the user how to kick off the skill.
+      window.open(url, '_blank', 'noopener');
+      toast('JD opened. Paste the URL into Claude Code to evaluate it.', 'info', 3200);
+    }
+
+    function init() {
+      // Initial load
+      loadUrls();
+
+      // Add URLs: live parse + submit + clipboard
+      on(document, 'input', '#add-url-input', (_e, ta) => {
+        state.parsed = parseTextarea(ta.value);
+        renderChips();
+      });
+      on(document, 'keydown', '#add-url-input', (e, ta) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); submitUrls(); }
+        if (e.key === 'Escape') { ta.value = ''; state.parsed = []; renderChips(); setFeedback([]); }
+      });
+      on(document, 'click', '[data-action="pipeline-add"]',            () => submitUrls());
+      on(document, 'click', '[data-action="pipeline-add-clipboard"]',  () => pasteFromClipboard());
+
+      // Search filter
+      on(document, 'input', '#pipeline-search', (_e, inp) => {
+        state.filter = inp.value;
+        renderList();
+      });
+
+      // Per-row actions
+      on(document, 'click', '[data-pipeline-action="liveness"]', (_e, btn) => {
+        const row = btn.closest('.pipeline-item');
+        const url = row?.dataset.url;
+        if (url) checkLiveness([url]);
+      });
+      on(document, 'click', '[data-pipeline-action="evaluate"]', (_e, btn) => {
+        const row = btn.closest('.pipeline-item');
+        const url = row?.dataset.url;
+        if (url) evaluateNote(url);
+      });
+      on(document, 'click', '[data-pipeline-action="remove"]', (_e, btn) => {
+        const row = btn.closest('.pipeline-item');
+        const url = row?.dataset.url;
+        if (url) removeUrl(url);
+      });
+
+      // Bulk actions
+      on(document, 'click', '[data-action="pipeline-liveness"]', () => {
+        if (!state.urls.length) { toast('Pipeline is empty', 'info', 1600); return; }
+        checkLiveness([...state.urls], { label: `${state.urls.length} URLs` });
+      });
+      on(document, 'click', '[data-action="pipeline-process"]', () => {
+        if (!state.urls.length) { toast('Pipeline is empty', 'info', 1600); return; }
+        toast('Evaluations run through Claude Code — open each URL with "Evaluate" or paste into the CLI.', 'info', 3800);
+      });
+      on(document, 'click', '[data-action="pipeline-clear"]', () => clearAll());
+    }
+
+    return { init, loadUrls, checkLiveness, removeUrl, renderList };
+  })();
+
   // ---------- Tab switching ----------
   const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports'];
 
@@ -4389,14 +4773,17 @@
     stopJob,
     activeJob: null,
     // Step 17b — scanner
-    Scanner
+    Scanner,
+    // Step 17c — pipeline
+    Pipeline
   };
 
   // ---------- Boot ----------
   document.addEventListener('DOMContentLoaded', () => {
     initTabs();
     Scanner.init();
-    // Step 17c–17e will register their own listeners onto App below.
+    Pipeline.init();
+    // Step 17d–17e will register their own listeners onto App below.
     document.dispatchEvent(new CustomEvent('app:ready'));
   });
 })();
