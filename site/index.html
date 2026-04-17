@@ -5701,6 +5701,74 @@
     return { init, load, render, openReport, closeReport, runPatterns, runFollowup };
   })();
 
+  // ---------- Dashboard — score distribution chart ----------
+  // Buckets: 10 × 0.5 width (0.0, 0.5, 1.0, … 4.5). Each bar height is a
+  // percentage of the tallest bucket. Scores in [0, 5] are included; any
+  // value of 5 falls into the 4.5 bucket.
+  const Dashboard = (() => {
+    const BUCKETS = [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5];
+
+    function bucketIndex(score) {
+      const s = Number(score);
+      if (!Number.isFinite(s) || s <= 0) return -1;
+      if (s >= 5) return BUCKETS.length - 1;
+      return Math.floor(s * 2);
+    }
+
+    async function loadScoreChart() {
+      const bars = $('#score-chart-bars');
+      const total = $('[data-stat="score-total"]');
+      if (!bars) return;
+
+      let apps = [];
+      try {
+        apps = await api.get('/api/applications');
+      } catch (err) {
+        console.warn('[dashboard] could not load applications:', err.message);
+        return;
+      }
+      if (!Array.isArray(apps)) apps = [];
+
+      const counts = new Array(BUCKETS.length).fill(0);
+      let scored = 0;
+      for (const app of apps) {
+        const idx = bucketIndex(app.score);
+        if (idx < 0) continue;
+        counts[idx]++;
+        scored++;
+      }
+
+      const max = Math.max(...counts, 0);
+      const barEls = bars.querySelectorAll('.bar');
+      barEls.forEach((bar, i) => {
+        const count = counts[i] || 0;
+        const pct = max > 0 ? Math.round((count / max) * 100) : 0;
+        bar.dataset.count = String(count);
+        // Give any non-zero bucket a visible minimum so the color still shows
+        bar.style.height = count === 0 ? '0%' : `${Math.max(pct, 4)}%`;
+        bar.setAttribute('aria-label', `${count} applications scoring ${BUCKETS[i].toFixed(1)} – ${(BUCKETS[i] + 0.5).toFixed(1)}`);
+      });
+
+      bars.classList.toggle('has-data', scored > 0);
+      if (total) total.textContent = scored > 0 ? String(scored) : '—';
+    }
+
+    function init() {
+      loadScoreChart();
+      // Refresh when we return to the Dashboard tab
+      document.addEventListener('tab:change', (e) => {
+        if (e.detail?.tab === 'dashboard') loadScoreChart();
+      });
+      // Refresh after a tracker status change or a scan completes
+      document.addEventListener('job:done', (e) => {
+        const ep = e.detail?.endpoint;
+        if (ep === 'scan' || ep === 'scan-company' || ep === 'merge') loadScoreChart();
+      });
+    }
+
+    return { init, loadScoreChart };
+  })();
+
   // ---------- Tab switching ----------
   const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports'];
 
@@ -5803,7 +5871,9 @@
     // Step 17d — tracker
     Tracker,
     // Step 17e — reports
-    Reports
+    Reports,
+    // Dashboard — score chart
+    Dashboard
   };
 
   // ---------- Boot ----------
@@ -5813,6 +5883,7 @@
     Pipeline.init();
     Tracker.init();
     Reports.init();
+    Dashboard.init();
     document.dispatchEvent(new CustomEvent('app:ready'));
   });
 })();
