@@ -5701,10 +5701,11 @@
     return { init, load, render, openReport, closeReport, runPatterns, runFollowup };
   })();
 
-  // ---------- Dashboard — score distribution chart ----------
-  // Buckets: 10 × 0.5 width (0.0, 0.5, 1.0, … 4.5). Each bar height is a
-  // percentage of the tallest bucket. Scores in [0, 5] are included; any
-  // value of 5 falls into the 4.5 bucket.
+  // ---------- Dashboard — stats, score chart, funnel ----------
+  // Step 18: boot-time data loading orchestration. Populates six stat cards,
+  // the score distribution chart (10 × 0.5-wide buckets), and the 5-stage
+  // funnel from /api/stats + /api/applications + /api/pipeline +
+  // /api/portals-info. Refreshes on tab return and after scan/merge jobs.
   const Dashboard = (() => {
     const BUCKETS = [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5];
 
@@ -5715,58 +5716,168 @@
       return Math.floor(s * 2);
     }
 
-    async function loadScoreChart() {
+    function setStat(name, value) {
+      const node = document.querySelector(`[data-stat="${name}"]`);
+      if (!node) return;
+      // Preserve inline unit spans (e.g. /5, %, pending)
+      const unit = node.querySelector('.stat-unit');
+      if (unit) {
+        node.textContent = value;
+        node.appendChild(unit);
+      } else {
+        node.textContent = value;
+      }
+    }
+
+    function convTone(pct) {
+      if (!Number.isFinite(pct)) return 'na';
+      if (pct >= 40) return 'good';
+      if (pct >= 15) return 'mid';
+      if (pct > 0)   return 'low';
+      return 'na';
+    }
+
+    async function load() {
+      // Fan out all four endpoints in parallel; degrade gracefully on any failure.
+      const [stats, apps, pipeline, portals] = await Promise.all([
+        api.get('/api/stats').catch(() => null),
+        api.get('/api/applications').catch(() => []),
+        api.get('/api/pipeline').catch(() => []),
+        api.get('/api/portals-info').catch(() => null),
+      ]);
+
+      const appsArr = Array.isArray(apps) ? apps : [];
+      const pipeArr = Array.isArray(pipeline) ? pipeline : [];
+      const s = stats || {};
+
+      // ── Stat cards ─────────────────────────────────────────
+      setStat('applications-total',     fmt.n(s.total ?? appsArr.length));
+      setStat('applications-applied',   fmt.n(s.applied ?? 0));
+      setStat('applications-evaluated', fmt.n(s.evaluated ?? 0));
+
+      setStat('pipeline-pending', fmt.n(pipeArr.length));
+
+      const avg = Number(s.avgScore ?? 0);
+      setStat('avg-score', avg > 0 ? avg.toFixed(1) : '—');
+      const highCount = appsArr.filter(a => Number(a.score) >= 4.0).length;
+      setStat('high-score-count', fmt.n(highCount));
+
+      const applied   = Number(s.applied   ?? 0);
+      const responded = Number(s.responded ?? 0);
+      const interview = Number(s.interview ?? 0);
+      const offer     = Number(s.offer     ?? 0);
+      const evaluated = Number(s.evaluated ?? 0);
+      const respRate  = applied > 0 ? Math.round((responded / applied) * 100) : null;
+      setStat('response-rate', respRate == null ? '—' : String(respRate));
+      setStat('responded-count', fmt.n(responded));
+      setStat('applied-count',   fmt.n(applied));
+
+      setStat('interviews-count', fmt.n(interview));
+      setStat('offers-count',     fmt.n(offer));
+
+      setStat('companies-count', fmt.n(portals?.companies ?? 0));
+      setStat('queries-count',   fmt.n(portals?.queries ?? 0));
+
+      // ── Score chart ───────────────────────────────────────
+      renderScoreChart(appsArr);
+
+      // ── Funnel ────────────────────────────────────────────
+      renderFunnel({ evaluated, applied, responded, interview, offer });
+    }
+
+    function renderScoreChart(appsArr) {
       const bars = $('#score-chart-bars');
       const total = $('[data-stat="score-total"]');
       if (!bars) return;
 
-      let apps = [];
-      try {
-        apps = await api.get('/api/applications');
-      } catch (err) {
-        console.warn('[dashboard] could not load applications:', err.message);
-        return;
-      }
-      if (!Array.isArray(apps)) apps = [];
-
       const counts = new Array(BUCKETS.length).fill(0);
       let scored = 0;
-      for (const app of apps) {
+      for (const app of appsArr) {
         const idx = bucketIndex(app.score);
         if (idx < 0) continue;
         counts[idx]++;
         scored++;
       }
-
       const max = Math.max(...counts, 0);
-      const barEls = bars.querySelectorAll('.bar');
-      barEls.forEach((bar, i) => {
+      bars.querySelectorAll('.bar').forEach((bar, i) => {
         const count = counts[i] || 0;
         const pct = max > 0 ? Math.round((count / max) * 100) : 0;
         bar.dataset.count = String(count);
-        // Give any non-zero bucket a visible minimum so the color still shows
         bar.style.height = count === 0 ? '0%' : `${Math.max(pct, 4)}%`;
         bar.setAttribute('aria-label', `${count} applications scoring ${BUCKETS[i].toFixed(1)} – ${(BUCKETS[i] + 0.5).toFixed(1)}`);
       });
-
       bars.classList.toggle('has-data', scored > 0);
       if (total) total.textContent = scored > 0 ? String(scored) : '—';
     }
 
+    // Convenience wrapper — Step 17 job:done listener calls this; we reload
+    // everything since a scan may change pipeline + applications + stats.
+    async function loadScoreChart() { return load(); }
+
+    function renderFunnel({ evaluated, applied, responded, interview, offer }) {
+      const funnel = $('#funnel');
+      if (!funnel) return;
+
+      const stages = [
+        { key: 'evaluated', count: evaluated, base: evaluated },  // top of funnel
+        { key: 'applied',   count: applied,   base: evaluated },
+        { key: 'responded', count: responded, base: applied },
+        { key: 'interview', count: interview, base: responded },
+        { key: 'offer',     count: offer,     base: interview },
+      ];
+
+      // Width of each bar is the count relative to evaluated (the widest).
+      const widthBase = Math.max(evaluated, 1);
+
+      for (const stage of stages) {
+        const row = funnel.querySelector(`[data-stage="${stage.key}"]`);
+        if (!row) continue;
+        const fill    = row.querySelector('.funnel-fill');
+        const countEl = row.querySelector(`[data-funnel-count="${stage.key}"]`);
+        const pctEl   = row.querySelector(`[data-funnel-pct="${stage.key}"]`);
+
+        if (countEl) countEl.textContent = String(stage.count);
+
+        // Bar width — proportional to top-of-funnel.
+        if (fill) {
+          const w = evaluated === 0
+            ? 0
+            : Math.round((stage.count / widthBase) * 100);
+          fill.style.width = `${w}%`;
+        }
+
+        // Stage-to-stage conversion label.
+        if (pctEl) {
+          pctEl.classList.remove('good', 'mid', 'low', 'na');
+          if (stage.key === 'evaluated') {
+            pctEl.textContent = evaluated > 0 ? '100%' : '—';
+            pctEl.classList.add(evaluated > 0 ? 'good' : 'na');
+          } else if (stage.base === 0) {
+            pctEl.textContent = '—';
+            pctEl.classList.add('na');
+          } else {
+            const pct = Math.round((stage.count / stage.base) * 100);
+            pctEl.textContent = `${pct}%`;
+            pctEl.classList.add(convTone(pct));
+          }
+        }
+      }
+    }
+
     function init() {
-      loadScoreChart();
+      load();
       // Refresh when we return to the Dashboard tab
       document.addEventListener('tab:change', (e) => {
-        if (e.detail?.tab === 'dashboard') loadScoreChart();
+        if (e.detail?.tab === 'dashboard') load();
       });
-      // Refresh after a tracker status change or a scan completes
+      // Refresh after a scan or merge job finishes
       document.addEventListener('job:done', (e) => {
         const ep = e.detail?.endpoint;
-        if (ep === 'scan' || ep === 'scan-company' || ep === 'merge') loadScoreChart();
+        if (ep === 'scan' || ep === 'scan-company' || ep === 'merge') load();
       });
     }
 
-    return { init, loadScoreChart };
+    return { init, load, loadScoreChart };
   })();
 
   // ---------- Tab switching ----------
