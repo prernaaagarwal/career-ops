@@ -4957,6 +4957,750 @@
     return { init, loadApplications, render };
   })();
 
+  // ---------- Step 17e — Reports tab ----------
+  // Cards grid (filter/sort/search), modal report viewer with markdown render,
+  // hash routing (#report=NNN), copy-link, and two insight tiles that stream
+  // JSON output from analyze-patterns.mjs / followup-cadence.mjs and render
+  // structured summaries.
+  const Reports = (() => {
+    const state = {
+      reports: [],         // from /api/reports (enriched with score/status from /api/applications)
+      apps: [],            // from /api/applications
+      filter: 'all',       // score band
+      search: '',
+      sort: 'date-desc',
+      searchDebounce: null,
+      // Modal
+      modalOpen: false,
+      modalReturnFocus: null,
+      keyHandler: null,
+      focusTrap: null,
+      // Insight tiles — buffers for accumulating JSON stdout
+      buffers: { patterns: '', followup: '' },
+    };
+
+    // ── Minimal markdown renderer ─────────────────────────────
+    // Safety: HTML-escape first, then structural passes that
+    // reinsert the tags we control. No HTML ever flows through
+    // from the raw source.
+    function renderMarkdown(src) {
+      if (typeof src !== 'string' || !src.trim()) return '';
+      // 1. Extract fenced code blocks before escape so we can
+      //    inject them back as escaped <pre><code> blocks.
+      const fences = [];
+      src = src.replace(/```([a-zA-Z0-9_+\-]*)\n([\s\S]*?)```/g, (m, lang, body) => {
+        fences.push({ lang: lang.trim(), body });
+        return `\u0000CODEBLOCK${fences.length - 1}\u0000`;
+      });
+      // 2. Escape everything.
+      let out = esc(src);
+      // 3. Headings (# ... ######).
+      out = out.replace(/^(#{1,6})\s+(.+)$/gm, (m, hashes, text) => {
+        const n = hashes.length;
+        return `<h${n}>${text.trim()}</h${n}>`;
+      });
+      // 4. Horizontal rule.
+      out = out.replace(/^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/gm, '<hr>');
+      // 5. Blockquotes (consecutive `> ` lines).
+      out = out.replace(/(^&gt;\s?.*(?:\n&gt;\s?.*)*)/gm, (block) => {
+        const inner = block.split('\n').map(l => l.replace(/^&gt;\s?/, '')).join('\n');
+        return `<blockquote>${inner}</blockquote>`;
+      });
+      // 6. Tables (| h | h |\n|---|---|\n| c | c |).
+      out = out.replace(
+        /^(\|.+\|)\n(\|[\s:\-|]+\|)\n((?:\|.*\|(?:\n|$))+)/gm,
+        (m, header, sep, rows) => {
+          const hCells = header.slice(1, -1).split('|').map(c => c.trim());
+          const rowLines = rows.trim().split('\n');
+          let html = '<table><thead><tr>';
+          for (const c of hCells) html += `<th>${c}</th>`;
+          html += '</tr></thead><tbody>';
+          for (const line of rowLines) {
+            const cells = line.slice(1, -1).split('|').map(c => c.trim());
+            html += '<tr>' + cells.map(c => `<td>${c}</td>`).join('') + '</tr>';
+          }
+          html += '</tbody></table>';
+          return html;
+        }
+      );
+      // 7. Lists — bundle consecutive lines starting with `- ` / `* ` / `N. `.
+      out = out.replace(
+        /(^(?:[-*]|\d+\.)\s+.+(?:\n(?:[-*]|\d+\.)\s+.+)*)/gm,
+        (block) => {
+          const lines = block.split('\n');
+          const ordered = /^\d+\./.test(lines[0]);
+          const tag = ordered ? 'ol' : 'ul';
+          const items = lines.map(l => l.replace(/^(?:[-*]|\d+\.)\s+/, '').trim());
+          return `<${tag}>${items.map(i => `<li>${i}</li>`).join('')}</${tag}>`;
+        }
+      );
+      // 8. Inline code (`...`).
+      out = out.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+      // 9. Bold (**...** / __...__).
+      out = out.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+      out = out.replace(/__([^_\n]+)__/g, '<strong>$1</strong>');
+      // 10. Italic (*...* / _..._) — avoid matching inside word boundaries.
+      out = out.replace(/(^|[^*\w])\*([^*\n]+)\*(?!\w)/g, '$1<em>$2</em>');
+      out = out.replace(/(^|[^_\w])_([^_\n]+)_(?!\w)/g, '$1<em>$2</em>');
+      // 11. Links [text](url) — url is already escaped.
+      out = out.replace(/\[([^\]]+)\]\((https?:[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      // 12. Autolinks (bare http/https URLs not already in an href).
+      out = out.replace(/(^|[\s(])((?:https?:\/\/)[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
+      // 13. Paragraphs — wrap text blocks not already inside block tags.
+      out = out.split(/\n{2,}/).map(chunk => {
+        const trimmed = chunk.trim();
+        if (!trimmed) return '';
+        if (/^<(h[1-6]|ul|ol|li|blockquote|pre|table|hr|thead|tbody|tr|td|th|p|div)/i.test(trimmed)) return trimmed;
+        // Replace single newlines with <br> inside paragraphs
+        return `<p>${trimmed.replace(/\n/g, '<br>')}</p>`;
+      }).join('\n');
+      // 14. Reinsert code blocks.
+      out = out.replace(/\u0000CODEBLOCK(\d+)\u0000/g, (m, i) => {
+        const fence = fences[Number(i)];
+        const lang = fence.lang ? ` class="lang-${esc(fence.lang)}"` : '';
+        return `<pre><code${lang}>${esc(fence.body)}</code></pre>`;
+      });
+      return out;
+    }
+
+    // Parse report header — Score / URL / Legitimacy / Role.
+    function parseReportHeader(md) {
+      const info = { score: null, url: null, legitimacy: null, role: null, company: null };
+      if (typeof md !== 'string') return info;
+      const lines = md.split('\n').slice(0, 40);
+      for (const line of lines) {
+        const m = line.match(/^\*\*([A-Za-z ]+):\*\*\s*(.+?)\s*$/);
+        if (!m) continue;
+        const key = m[1].trim().toLowerCase();
+        const val = m[2].trim();
+        if (key === 'score') {
+          const sm = val.match(/([\d.]+)\s*\/\s*5/);
+          if (sm) info.score = parseFloat(sm[1]);
+        } else if (key === 'url') {
+          const um = val.match(/\((https?:[^)]+)\)/) || val.match(/(https?:\S+)/);
+          if (um) info.url = um[1];
+        } else if (key === 'legitimacy') {
+          info.legitimacy = val.replace(/[*`]/g, '').split(/[\s—–-]/)[0].toLowerCase();
+        } else if (key === 'role') {
+          info.role = val;
+        } else if (key === 'company') {
+          info.company = val;
+        }
+      }
+      // Title — first H1
+      const h1 = lines.find(l => l.startsWith('# '));
+      if (h1 && !info.company) {
+        const t = h1.slice(2).trim().split(/\s+[—–-]\s+/);
+        if (t[0]) info.company = t[0];
+        if (t[1] && !info.role) info.role = t[1];
+      }
+      return info;
+    }
+
+    function legitTier(raw) {
+      if (!raw) return 'unknown';
+      const r = String(raw).toLowerCase();
+      if (r.includes('strong') || r.includes('verified') || r.includes('high')) return 'strong';
+      if (r.includes('weak') || r.includes('low') || r.includes('suspect')) return 'weak';
+      if (r.includes('medium') || r.includes('mid')) return 'medium';
+      return 'unknown';
+    }
+
+    // ── Load & render grid ────────────────────────────────────
+    async function load() {
+      try {
+        const [reports, apps] = await Promise.all([
+          api.get('/api/reports').catch(() => []),
+          api.get('/api/applications').catch(() => []),
+        ]);
+        state.reports = Array.isArray(reports) ? reports : [];
+        state.apps    = Array.isArray(apps)    ? apps    : [];
+        // Join by num to enrich score/status/role.
+        const byNum = new Map(state.apps.map(a => [Number(a.num), a]));
+        for (const r of state.reports) {
+          const app = byNum.get(Number(r.num));
+          if (app) {
+            r.score = app.score;
+            r.status = app.status;
+            r.role = app.role;
+            r.company = app.company || r.company;
+          }
+        }
+      } catch (err) {
+        toast(`Could not load reports: ${err.message}`, 'error', 2800);
+        state.reports = [];
+      }
+      render();
+    }
+
+    function render() {
+      const grid = $('#reports-grid');
+      const empty = $('[data-empty="reports"]');
+      const tpl = $('#tpl-report-card');
+      if (!grid || !tpl) return;
+
+      const rows = applyFilters(state.reports).slice();
+      rows.sort(sortComparator(state.sort));
+
+      grid.innerHTML = '';
+      for (const r of rows) grid.appendChild(buildCard(r, tpl));
+      if (empty) empty.style.display = rows.length ? 'none' : '';
+    }
+
+    function buildCard(r, tpl) {
+      const node = tpl.content.firstElementChild.cloneNode(true);
+      node.dataset.reportNum = String(r.num || '');
+      node.dataset.filename = r.filename;
+      node.dataset.company = r.company || '';
+      node.dataset.role = r.role || '';
+      node.dataset.score = String(r.score || '');
+      node.dataset.scoreBand = fmt.scoreBand(r.score);
+
+      const set = (f, v) => {
+        const t = node.querySelector(`[data-report-field="${f}"]`);
+        if (t) t.textContent = v ?? '';
+      };
+      set('num', r.num ? `#${String(r.num).padStart(3, '0')}` : '—');
+      set('company', r.company || '—');
+      set('role', r.role || '—');
+      set('date', r.date || '');
+
+      // Score pill
+      const scoreEl = node.querySelector('[data-report-field="score"]');
+      if (scoreEl) {
+        scoreEl.textContent = Number.isFinite(r.score) && r.score > 0 ? r.score.toFixed(1) : '—';
+      }
+
+      // Legitimacy (deferred to modal-open enrichment; default unknown)
+      const legit = node.querySelector('[data-report-field="legitimacy"]');
+      if (legit) {
+        const tier = legitTier(r.legitimacy);
+        legit.dataset.tier = tier;
+        const lbl = legit.querySelector('[data-report-field="legit-label"]');
+        if (lbl) lbl.textContent = tier;
+      }
+
+      return node;
+    }
+
+    function applyFilters(rows) {
+      return rows.filter(r => {
+        // Score band
+        if (state.filter !== 'all') {
+          const band = fmt.scoreBand(r.score);
+          if (state.filter === 'high' && band !== 'high') return false;
+          if (state.filter === 'mid'  && band !== 'mid')  return false;
+          if (state.filter === 'low'  && band !== 'low' && band !== 'na') return false;
+        }
+        // Search (company / role / filename)
+        if (state.search) {
+          const q = state.search.toLowerCase();
+          const hay = `${r.company || ''} ${r.role || ''} ${r.filename || ''}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function sortComparator(key) {
+      return (a, b) => {
+        const sa = Number.isFinite(a.score) ? a.score : -1;
+        const sb = Number.isFinite(b.score) ? b.score : -1;
+        switch (key) {
+          case 'date-asc':    return String(a.date).localeCompare(String(b.date));
+          case 'score-desc':  return sb - sa;
+          case 'score-asc':   return sa - sb;
+          case 'company-asc': return String(a.company || '').localeCompare(String(b.company || ''));
+          case 'num-desc':    return (b.num || 0) - (a.num || 0);
+          case 'date-desc':
+          default:            return String(b.date).localeCompare(String(a.date));
+        }
+      };
+    }
+
+    // ── Modal ─────────────────────────────────────────────────
+    async function openReport(filename, { push = true } = {}) {
+      const modal = $('#report-modal');
+      if (!modal) return;
+      const set = (f, v) => {
+        const t = modal.querySelector(`[data-modal-field="${f}"]`);
+        if (t) t.textContent = v ?? '';
+      };
+
+      // Stash opener for focus restore
+      state.modalReturnFocus = document.activeElement;
+
+      // Reset UI to loading
+      const loading = modal.querySelector('[data-modal-field="loading"]');
+      const content = modal.querySelector('[data-modal-field="content"]');
+      if (loading) loading.style.display = '';
+      if (content) { content.hidden = true; content.innerHTML = ''; }
+
+      // Pre-fill from the known row
+      const row = state.reports.find(r => r.filename === filename);
+      if (row) {
+        set('num', row.num ? `Report #${String(row.num).padStart(3, '0')}` : '');
+        set('date', row.date || '');
+        set('company', row.company || 'Loading report…');
+        set('role', row.role || '');
+        const sb = modal.querySelector('[data-modal-field="score-badge"]');
+        if (sb) {
+          sb.textContent = Number.isFinite(row.score) && row.score > 0 ? `${row.score.toFixed(1)}/5` : '—';
+          sb.className = `score-badge ${fmt.scoreClass(row.score)}`;
+        }
+        const st = modal.querySelector('[data-modal-field="status"]');
+        if (st) {
+          st.dataset.status = row.status || '';
+          st.textContent = row.status || '—';
+        }
+      }
+
+      // Show modal + wire dismissal
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      state.modalOpen = true;
+      document.body.style.overflow = 'hidden';
+      modal.dataset.filename = filename;
+
+      installModalKeyHandler();
+      installFocusTrap(modal);
+      queueMicrotask(() => {
+        const closeBtn = modal.querySelector('[data-modal-action="close"]');
+        closeBtn?.focus();
+      });
+
+      // Hash routing — only update if we were the initiator
+      if (push) {
+        const m = filename.match(/^(\d+)-/);
+        const hash = m ? `#report=${m[1]}` : '';
+        if (hash && location.hash !== hash) {
+          history.replaceState(null, '', hash);
+        }
+      }
+
+      // Fetch full markdown
+      try {
+        const resp = await api.get(`/api/reports/${encodeURIComponent(filename)}`);
+        const md = (resp && resp.content) || '';
+        const parsed = parseReportHeader(md);
+
+        // Enrich header with data from the markdown itself
+        if (parsed.score != null) {
+          const sb = modal.querySelector('[data-modal-field="score-badge"]');
+          if (sb) {
+            sb.textContent = `${parsed.score.toFixed(1)}/5`;
+            sb.className = `score-badge ${fmt.scoreClass(parsed.score)}`;
+          }
+        }
+        if (parsed.company) set('company', parsed.company);
+        if (parsed.role)    set('role', parsed.role);
+
+        // Legitimacy badge
+        const legit = modal.querySelector('[data-modal-field="legitimacy"]');
+        const legitLbl = modal.querySelector('[data-modal-field="legit-label"]');
+        if (legit && legitLbl) {
+          const tier = legitTier(parsed.legitimacy);
+          legit.dataset.tier = tier;
+          legitLbl.textContent = tier;
+        }
+
+        // URL link
+        const urlLink = modal.querySelector('[data-modal-field="url-link"]');
+        if (urlLink) {
+          if (parsed.url) {
+            urlLink.href = parsed.url;
+            urlLink.hidden = false;
+          } else {
+            urlLink.hidden = true;
+            urlLink.removeAttribute('href');
+          }
+        }
+
+        // Render body
+        if (content) {
+          content.innerHTML = renderMarkdown(md);
+          content.hidden = false;
+        }
+        if (loading) loading.style.display = 'none';
+      } catch (err) {
+        if (content) {
+          content.innerHTML = `<p style="color: var(--red)">Could not load report: ${esc(err.message)}</p>`;
+          content.hidden = false;
+        }
+        if (loading) loading.style.display = 'none';
+        toast(`Failed to open report: ${err.message}`, 'error', 2800);
+      }
+    }
+
+    function closeReport({ updateHash = true } = {}) {
+      const modal = $('#report-modal');
+      if (!modal || !state.modalOpen) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      state.modalOpen = false;
+      document.body.style.overflow = '';
+      delete modal.dataset.filename;
+
+      removeModalKeyHandler();
+      removeFocusTrap();
+
+      if (updateHash && location.hash.startsWith('#report=')) {
+        history.replaceState(null, '', location.pathname);
+      }
+
+      if (state.modalReturnFocus && state.modalReturnFocus.focus) {
+        try { state.modalReturnFocus.focus(); } catch {}
+      }
+      state.modalReturnFocus = null;
+    }
+
+    function installModalKeyHandler() {
+      if (state.keyHandler) return;
+      state.keyHandler = (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeReport();
+        }
+      };
+      document.addEventListener('keydown', state.keyHandler);
+    }
+    function removeModalKeyHandler() {
+      if (!state.keyHandler) return;
+      document.removeEventListener('keydown', state.keyHandler);
+      state.keyHandler = null;
+    }
+
+    function installFocusTrap(modal) {
+      if (state.focusTrap) return;
+      const handler = (e) => {
+        if (e.key !== 'Tab') return;
+        const focusables = modal.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+      modal.addEventListener('keydown', handler);
+      state.focusTrap = { modal, handler };
+    }
+    function removeFocusTrap() {
+      if (!state.focusTrap) return;
+      state.focusTrap.modal.removeEventListener('keydown', state.focusTrap.handler);
+      state.focusTrap = null;
+    }
+
+    function copyLink() {
+      const modal = $('#report-modal');
+      const filename = modal?.dataset.filename;
+      if (!filename) return;
+      const m = filename.match(/^(\d+)-/);
+      if (!m) return;
+      const link = `${location.origin}${location.pathname}#report=${m[1]}`;
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(link)
+          .then(() => toast('Link copied', 'success', 1400))
+          .catch(() => toast('Could not copy link', 'error', 1800));
+      } else {
+        toast('Clipboard not available', 'warn', 1800);
+      }
+    }
+
+    // ── Insight tiles (patterns / followup) ───────────────────
+    function runPatterns() {
+      runInsight({
+        kind: 'patterns',
+        endpoint: 'patterns-raw',
+        cmd: 'node analyze-patterns.mjs',
+        render: renderPatterns,
+      });
+    }
+    function runFollowup() {
+      runInsight({
+        kind: 'followup',
+        endpoint: 'followup-raw',
+        cmd: 'node followup-cadence.mjs',
+        render: renderFollowup,
+      });
+    }
+
+    function runInsight({ kind, endpoint, cmd, render: renderFn }) {
+      const tile = $(`#tile-${kind}`);
+      if (!tile) return;
+      const panel = tile.querySelector('[data-insight-panel]');
+      const btn   = tile.querySelector(`[data-action="run-${kind}"]`);
+      const last  = tile.querySelector(`[data-insight-last="${kind}"]`);
+      if (!panel) return;
+      panel.classList.add('open');
+
+      state.buffers[kind] = '';
+      if (btn) btn.disabled = true;
+
+      runJob(endpoint, {}, {
+        cmd,
+        // No terminal — we accumulate JSON silently and parse on done.
+        onLine: (ln) => {
+          if (ln?.type === 'stdout' && typeof ln.text === 'string') {
+            state.buffers[kind] += ln.text + '\n';
+          }
+        },
+        onDone: ({ ok }) => {
+          if (btn) btn.disabled = false;
+          if (!ok) {
+            toast(`${kind} analysis failed`, 'error', 2400);
+            return;
+          }
+          let parsed = null;
+          try {
+            parsed = JSON.parse(state.buffers[kind]);
+          } catch {
+            toast(`Could not parse ${kind} output`, 'error', 2400);
+            return;
+          }
+          try {
+            renderFn(parsed);
+          } catch (err) {
+            console.error(`[reports] render ${kind}`, err);
+            toast(`Could not render ${kind} results`, 'error', 2400);
+            return;
+          }
+          if (last) {
+            last.textContent = `Last run ${fmt.relative(new Date().toISOString())}`;
+          }
+          toast(`${kind === 'patterns' ? 'Pattern analysis' : 'Cadence'} ready`, 'success', 1800);
+        },
+      });
+    }
+
+    function showInsight(kind) {
+      const tile = $(`#tile-${kind}`);
+      if (!tile) return;
+      const empty = tile.querySelector(`[data-insight-empty="${kind}"]`);
+      const stats = tile.querySelector(`[data-insight-stats="${kind}"]`);
+      const results = tile.querySelector(`[data-insight-results="${kind}"]`);
+      if (empty)   empty.hidden = true;
+      if (stats)   stats.hidden = false;
+      if (results) results.hidden = false;
+    }
+
+    function renderPatterns(result) {
+      if (!result || result.error) {
+        toast(result?.error || 'No data to analyze', 'warn', 2400);
+        return;
+      }
+      showInsight('patterns');
+      const tile = $('#tile-patterns');
+      const f = (name, val) => {
+        const el = tile?.querySelector(`[data-patterns-field="${name}"]`);
+        if (el) el.textContent = val;
+      };
+      const rejected = result.metadata?.byOutcome?.negative ?? 0;
+      const topFlag  = result.blockerAnalysis?.[0]?.blocker || '—';
+      const avgNeg   = result.scoreComparison?.negative?.avg ?? 0;
+      f('rejected-count', rejected);
+      f('top-flag', topFlag);
+      // avg-score has a <small>/5</small> suffix inside, so set HTML
+      const avgEl = tile?.querySelector('[data-patterns-field="avg-score"]');
+      if (avgEl) {
+        avgEl.innerHTML = `${Number(avgNeg).toFixed(1)}<small>/5</small>`;
+      }
+
+      // Flags list
+      const flagsList = tile?.querySelector('[data-patterns-list="flags"]');
+      if (flagsList) {
+        flagsList.innerHTML = '';
+        const flags = (result.blockerAnalysis || []).slice(0, 6);
+        if (!flags.length) {
+          flagsList.innerHTML = '<li><span class="item-label">No recurring blockers detected.</span></li>';
+        } else {
+          for (const b of flags) {
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="item-label">${esc(b.blocker)}</span><span class="item-value">${b.frequency}× · ${b.percentage}%</span>`;
+            flagsList.appendChild(li);
+          }
+        }
+      }
+
+      // Recommendations list
+      const recList = tile?.querySelector('[data-patterns-list="recommendations"]');
+      if (recList) {
+        recList.innerHTML = '';
+        const recs = (result.recommendations || []).slice(0, 6);
+        if (!recs.length) {
+          recList.innerHTML = '<li><span class="item-label">No recommendations — keep current targeting.</span></li>';
+        } else {
+          for (const r of recs) {
+            const li = document.createElement('li');
+            const tone = r.impact === 'high' ? 'urgent' : (r.impact === 'medium' ? 'soon' : 'ok');
+            li.innerHTML = `<span class="item-label">${esc(r.action)}</span><span class="item-value ${tone}">${esc(r.impact || '')}</span>`;
+            recList.appendChild(li);
+          }
+        }
+      }
+    }
+
+    function renderFollowup(result) {
+      if (!result || result.error) {
+        toast(result?.error || 'No follow-ups to compute', 'warn', 2400);
+        return;
+      }
+      showInsight('followup');
+      const tile = $('#tile-followup');
+      const meta = result.metadata || {};
+      const f = (name, val) => {
+        const el = tile?.querySelector(`[data-followup-field="${name}"]`);
+        if (el) el.textContent = val;
+      };
+      f('overdue', meta.overdue ?? 0);
+      f('due-soon', meta.urgent ?? 0);
+      f('on-track', (meta.waiting ?? 0) + (meta.cold ?? 0));
+
+      const entries = Array.isArray(result.entries) ? result.entries : [];
+      const urgent   = entries.filter(e => e.urgency === 'overdue' || e.urgency === 'urgent').slice(0, 6);
+      const upcoming = entries.filter(e => e.urgency === 'waiting' || e.urgency === 'cold').slice(0, 6);
+
+      const urgentList = tile?.querySelector('[data-followup-list="urgent"]');
+      if (urgentList) {
+        urgentList.innerHTML = '';
+        if (!urgent.length) {
+          urgentList.innerHTML = '<li><span class="item-label">Nothing overdue. Nice.</span></li>';
+        } else {
+          for (const e of urgent) {
+            const li = document.createElement('li');
+            const tone = e.urgency === 'overdue' ? 'urgent' : 'soon';
+            const label = `${e.company || '—'} · ${e.role || ''}`.replace(/ · $/, '');
+            const val = e.urgency === 'overdue'
+              ? `${e.daysSinceApplication ?? '?'}d since apply`
+              : `${e.urgency}`;
+            li.dataset.trackerNum = String(e.num || '');
+            li.innerHTML = `<span class="item-label">${esc(label)}</span><span class="item-value ${tone}">${esc(val)}</span>`;
+            li.style.cursor = 'pointer';
+            li.addEventListener('click', () => {
+              activateTab('tracker');
+              setTimeout(() => {
+                const row = document.querySelector(`[data-tracker-num="${e.num}"]`);
+                row?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                row?.classList.add('row-highlight');
+                setTimeout(() => row?.classList.remove('row-highlight'), 1500);
+              }, 60);
+            });
+            urgentList.appendChild(li);
+          }
+        }
+      }
+
+      const upList = tile?.querySelector('[data-followup-list="upcoming"]');
+      if (upList) {
+        upList.innerHTML = '';
+        if (!upcoming.length) {
+          upList.innerHTML = '<li><span class="item-label">No upcoming follow-ups queued.</span></li>';
+        } else {
+          for (const e of upcoming) {
+            const li = document.createElement('li');
+            const label = `${e.company || '—'} · ${e.role || ''}`.replace(/ · $/, '');
+            const val = e.nextFollowupDate
+              ? `next ${e.nextFollowupDate}`
+              : `${e.status}`;
+            li.innerHTML = `<span class="item-label">${esc(label)}</span><span class="item-value ok">${esc(val)}</span>`;
+            upList.appendChild(li);
+          }
+        }
+      }
+    }
+
+    // ── Wiring ────────────────────────────────────────────────
+    function init() {
+      // Grid click → open modal
+      on(document, 'click', '#reports-grid .report-card', (e, card) => {
+        const filename = card.dataset.filename;
+        if (filename) openReport(filename);
+      });
+
+      // Search
+      const search = $('#reports-search');
+      if (search) {
+        search.addEventListener('input', () => {
+          clearTimeout(state.searchDebounce);
+          state.searchDebounce = setTimeout(() => {
+            state.search = search.value.trim();
+            render();
+          }, 120);
+        });
+      }
+
+      // Score filter chips
+      on(document, 'click', '[data-score-filter]', (e, btn) => {
+        state.filter = btn.dataset.scoreFilter;
+        document.querySelectorAll('[data-score-filter]').forEach(b => {
+          b.classList.toggle('active', b === btn);
+        });
+        render();
+      });
+
+      // Sort
+      const sortSel = $('#reports-sort');
+      if (sortSel) {
+        sortSel.addEventListener('change', () => {
+          state.sort = sortSel.value;
+          render();
+        });
+      }
+
+      // Modal actions
+      on(document, 'click', '[data-modal-action]', (e, btn) => {
+        const action = btn.dataset.modalAction;
+        if (action === 'close')     closeReport();
+        if (action === 'copy-link') copyLink();
+      });
+
+      // Backdrop click closes modal
+      const modal = $('#report-modal');
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeReport();
+        });
+      }
+
+      // Hash routing — #report=NNN auto-opens
+      const checkHash = () => {
+        const m = location.hash.match(/^#report=(\d+)/);
+        if (!m) {
+          if (state.modalOpen) closeReport({ updateHash: false });
+          return;
+        }
+        const num = parseInt(m[1], 10);
+        const row = state.reports.find(r => Number(r.num) === num);
+        if (row) {
+          if (!state.modalOpen || $('#report-modal')?.dataset.filename !== row.filename) {
+            openReport(row.filename, { push: false });
+          }
+        }
+      };
+      window.addEventListener('hashchange', checkHash);
+
+      // Insight tiles
+      on(document, 'click', '[data-action="run-patterns"]', () => runPatterns());
+      on(document, 'click', '[data-action="run-followup"]', () => runFollowup());
+
+      // Load data; re-check hash once grid is populated
+      load().then(() => checkHash());
+
+      // Refresh when we come back to this tab
+      document.addEventListener('tab:change', (e) => {
+        if (e.detail?.tab === 'reports') load();
+      });
+    }
+
+    return { init, load, render, openReport, closeReport, runPatterns, runFollowup };
+  })();
+
   // ---------- Tab switching ----------
   const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports'];
 
@@ -5057,7 +5801,9 @@
     // Step 17c — pipeline
     Pipeline,
     // Step 17d — tracker
-    Tracker
+    Tracker,
+    // Step 17e — reports
+    Reports
   };
 
   // ---------- Boot ----------
@@ -5066,7 +5812,7 @@
     Scanner.init();
     Pipeline.init();
     Tracker.init();
-    // Step 17e will register its own listeners onto App below.
+    Reports.init();
     document.dispatchEvent(new CustomEvent('app:ready'));
   });
 })();
