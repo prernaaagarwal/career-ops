@@ -6225,6 +6225,7 @@
     }
 
     function init() {
+      load();
       document.addEventListener('tab:change', (e) => {
         if (e.detail?.tab === 'onboarding') load();
       });
