@@ -4677,6 +4677,286 @@
     return { init, loadUrls, checkLiveness, removeUrl, renderList };
   })();
 
+  // ---------- Tracker tab ----------
+  // Inline status edits with optimistic UI + rollback, filter chips,
+  // debounced search, and single-column sort. Data loaded from
+  // GET /api/applications; writes go through POST /api/tracker/status.
+  const Tracker = (() => {
+    const STATUSES = ['Evaluated','Applied','Responded','Interview','Offer','Rejected','Discarded','SKIP'];
+    const SAVE_DEBOUNCE_MS = 120;
+
+    const state = {
+      apps: [],                           // from /api/applications
+      filterStatus: 'all',
+      search: '',
+      sort: { key: 'date', dir: 'desc' },  // default newest first
+      searchDebounce: null
+    };
+
+    const elems = () => ({
+      tbody: $('#tracker-tbody'),
+      empty: $('[data-empty="tracker"]'),
+      search: $('#tracker-search'),
+      filters: $('#status-filters'),
+      tpl: $('#tpl-tracker-row'),
+      thead: document.querySelector('#tracker-table thead'),
+      panel: $('#panel-tracker')
+    });
+
+    // ── Rendering ──────────────────────────────────────────
+    function render() {
+      const e = elems();
+      if (!e.tbody || !e.tpl) return;
+
+      const rows = applyFilters(state.apps);
+      rows.sort(sortComparator(state.sort.key, state.sort.dir));
+
+      e.tbody.innerHTML = '';
+      for (const app of rows) e.tbody.appendChild(buildRow(app, e.tpl));
+
+      // Empty state
+      if (e.empty) e.empty.style.display = rows.length ? 'none' : '';
+      updateFilterCounts();
+      updateSortArrows();
+    }
+
+    function buildRow(app, tpl) {
+      const node = tpl.content.firstElementChild.cloneNode(true);
+      node.dataset.trackerNum = String(app.num);
+      node.dataset.status     = app.status || '';
+      node.dataset.score      = String(app.score || 0);
+
+      const set = (f, v) => {
+        const t = node.querySelector(`[data-tracker-field="${f}"]`);
+        if (t) t.textContent = v ?? '';
+      };
+
+      set('num',     app.num);
+      set('date',    app.date);
+      set('company', app.company);
+      set('role',    app.role);
+
+      // Score badge with color band
+      const badge = node.querySelector('[data-tracker-field="score-badge"]');
+      if (badge) {
+        badge.textContent = Number.isFinite(app.score) && app.score > 0
+          ? app.score.toFixed(1)
+          : '—';
+        badge.className = `score-badge ${fmt.scoreClass(app.score)}`;
+      }
+
+      // Inline status select
+      const sel = node.querySelector('[data-tracker-field="status-select"]');
+      if (sel) {
+        const value = STATUSES.includes(app.status) ? app.status : 'Evaluated';
+        sel.value = value;
+        sel.dataset.status = value;
+        sel.dataset.prev = value;    // for rollback on error
+      }
+
+      // PDF marker
+      set('pdf', app.pdf || '');
+
+      // Report link — app.report is e.g. "[042](reports/042-foo-2026-01-01.md)"
+      const link = node.querySelector('[data-tracker-field="report-link"]');
+      if (link) {
+        const m = /\[([^\]]+)\]\(([^)]+)\)/.exec(app.report || '');
+        if (m) {
+          link.textContent = m[1];
+          link.href = m[2];
+          link.title = m[2];
+        } else {
+          link.textContent = app.report || '—';
+          link.removeAttribute('href');
+        }
+      }
+
+      // Notes with truncation via CSS + title for full text
+      const notesTd = node.querySelector('[data-tracker-field="notes"]');
+      if (notesTd) {
+        notesTd.textContent = app.notes || '';
+        notesTd.title = app.notes || '';
+      }
+
+      return node;
+    }
+
+    // ── Filtering / search ─────────────────────────────────
+    function applyFilters(apps) {
+      const q = state.search.trim().toLowerCase();
+      return apps.filter(a => {
+        if (state.filterStatus !== 'all' && a.status !== state.filterStatus) return false;
+        if (!q) return true;
+        return (
+          (a.company || '').toLowerCase().includes(q) ||
+          (a.role    || '').toLowerCase().includes(q) ||
+          (a.notes   || '').toLowerCase().includes(q)
+        );
+      });
+    }
+
+    function updateFilterCounts() {
+      const counts = { all: state.apps.length };
+      for (const s of STATUSES) counts[s] = 0;
+      for (const a of state.apps) {
+        if (counts[a.status] !== undefined) counts[a.status]++;
+      }
+      for (const [k, v] of Object.entries(counts)) {
+        const chipCount = $(`[data-filter-count="${k}"]`);
+        if (chipCount) chipCount.textContent = String(v);
+      }
+    }
+
+    // ── Sorting ────────────────────────────────────────────
+    function sortComparator(key, dir) {
+      const mult = dir === 'asc' ? 1 : -1;
+      return (a, b) => {
+        let av = a[key], bv = b[key];
+        // Numeric for num / score
+        if (key === 'num' || key === 'score') {
+          av = Number(av) || 0; bv = Number(bv) || 0;
+          return (av - bv) * mult;
+        }
+        // String (case-insensitive) for company / role / status / date
+        av = String(av || '').toLowerCase();
+        bv = String(bv || '').toLowerCase();
+        if (av < bv) return -1 * mult;
+        if (av > bv) return  1 * mult;
+        return 0;
+      };
+    }
+
+    function updateSortArrows() {
+      const e = elems();
+      if (!e.thead) return;
+      e.thead.querySelectorAll('th.sortable').forEach(th => {
+        const isActive = th.dataset.sortKey === state.sort.key;
+        th.setAttribute('aria-sort',
+          isActive ? (state.sort.dir === 'asc' ? 'ascending' : 'descending') : 'none');
+      });
+    }
+
+    function toggleSort(key) {
+      if (state.sort.key === key) {
+        state.sort.dir = state.sort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.sort.key = key;
+        // Sensible defaults per column
+        state.sort.dir = (key === 'date' || key === 'score' || key === 'num') ? 'desc' : 'asc';
+      }
+      render();
+    }
+
+    // ── Status edit (optimistic + rollback) ────────────────
+    async function saveStatus(num, newValue, sel) {
+      const wrap = sel.closest('.status-edit');
+      const prev = sel.dataset.prev;
+
+      // Optimistic update: pill color flips immediately
+      sel.dataset.status = newValue;
+      const row = sel.closest('tr');
+      if (row) row.dataset.status = newValue;
+
+      // Update local cache so filters/counts stay in sync
+      const app = state.apps.find(a => a.num === num);
+      if (app) app.status = newValue;
+      updateFilterCounts();
+
+      if (wrap) { wrap.classList.remove('is-saved', 'is-error'); wrap.classList.add('is-saving'); }
+
+      try {
+        const resp = await api.post('/api/tracker/status', { num, status: newValue });
+        if (!resp || resp.updated === false) throw new Error('not-updated');
+
+        if (wrap) {
+          wrap.classList.remove('is-saving', 'is-error');
+          wrap.classList.add('is-saved');
+          setTimeout(() => wrap.classList.remove('is-saved'), 1400);
+        }
+        sel.dataset.prev = newValue;
+        // If the current filter doesn't match the new status, the row is hidden on re-render
+        if (state.filterStatus !== 'all' && state.filterStatus !== newValue) render();
+      } catch (err) {
+        // Rollback: snap back to previous value + restore cache
+        sel.value = prev;
+        sel.dataset.status = prev;
+        if (row) row.dataset.status = prev;
+        if (app) app.status = prev;
+        updateFilterCounts();
+
+        if (wrap) {
+          wrap.classList.remove('is-saving', 'is-saved');
+          wrap.classList.add('is-error');
+          setTimeout(() => wrap.classList.remove('is-error'), 2200);
+        }
+        toast(`Could not save status: ${err.message}`, 'error', 3000);
+      }
+    }
+
+    // ── Data load ──────────────────────────────────────────
+    async function loadApplications() {
+      try {
+        const apps = await api.get('/api/applications');
+        state.apps = Array.isArray(apps) ? apps : [];
+        render();
+      } catch (err) {
+        toast(`Could not load applications: ${err.message}`, 'error', 3000);
+      }
+    }
+
+    // ── Init / wiring ──────────────────────────────────────
+    function init() {
+      loadApplications();
+
+      // Inline status edits (delegate)
+      on(document, 'change', 'select.status-select', (_e, sel) => {
+        const row = sel.closest('tr');
+        const num = parseInt(row?.dataset.trackerNum || '0', 10);
+        if (!num) return;
+        saveStatus(num, sel.value, sel);
+      });
+
+      // Filter chips
+      on(document, 'click', '.status-chip[data-status-filter]', (_e, chip) => {
+        const value = chip.dataset.statusFilter;
+        state.filterStatus = value;
+        $$('.status-chip[data-status-filter]').forEach(c => c.classList.toggle('active', c === chip));
+        render();
+      });
+
+      // Debounced search
+      on(document, 'input', '#tracker-search', (_e, inp) => {
+        clearTimeout(state.searchDebounce);
+        state.searchDebounce = setTimeout(() => {
+          state.search = inp.value;
+          render();
+        }, SAVE_DEBOUNCE_MS);
+      });
+
+      // Sortable headers — click + keyboard
+      on(document, 'click', '#tracker-table thead th.sortable', (_e, th) => {
+        if (th.dataset.sortKey) toggleSort(th.dataset.sortKey);
+      });
+      on(document, 'keydown', '#tracker-table thead th.sortable', (e, th) => {
+        if ((e.key === 'Enter' || e.key === ' ') && th.dataset.sortKey) {
+          e.preventDefault();
+          toggleSort(th.dataset.sortKey);
+        }
+      });
+      // Make headers focusable for keyboard sort
+      document.querySelectorAll('#tracker-table thead th.sortable').forEach(th => {
+        if (!th.hasAttribute('tabindex')) th.setAttribute('tabindex', '0');
+      });
+
+      // Refresh when we come back to this tab (cheap re-fetch)
+      document.addEventListener('tab:change', (e) => {
+        if (e.detail?.tab === 'tracker') loadApplications();
+      });
+    }
+
+    return { init, loadApplications, render };
+  })();
+
   // ---------- Tab switching ----------
   const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports'];
 
@@ -4775,7 +5055,9 @@
     // Step 17b — scanner
     Scanner,
     // Step 17c — pipeline
-    Pipeline
+    Pipeline,
+    // Step 17d — tracker
+    Tracker
   };
 
   // ---------- Boot ----------
@@ -4783,7 +5065,8 @@
     initTabs();
     Scanner.init();
     Pipeline.init();
-    // Step 17d–17e will register their own listeners onto App below.
+    Tracker.init();
+    // Step 17e will register its own listeners onto App below.
     document.dispatchEvent(new CustomEvent('app:ready'));
   });
 })();
