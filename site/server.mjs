@@ -351,6 +351,15 @@ function handleAPI(path, req, res) {
   }
   if (path === '/api/scan-history') return json(res, getScanHistory());
   if (path === '/api/portals-info') return json(res, getPortalsInfo());
+  if (path === '/api/cv') {
+    const content = safeRead(join(ROOT, 'cv.md'));
+    return json(res, { exists: !!content, content: content || null });
+  }
+  if (path === '/api/portals-raw') {
+    const content = safeRead(join(ROOT, 'portals.yml'));
+    if (!content || !yaml) return json(res, {});
+    try { return json(res, yaml.load(content)); } catch { return json(res, {}); }
+  }
 
   // ── Stop a running job (POST /api/run/{jobId}/stop) ──
   if (path.startsWith('/api/run/') && path.endsWith('/stop') && req.method === 'POST') {

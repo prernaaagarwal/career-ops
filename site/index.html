@@ -2681,6 +2681,120 @@
     color: var(--text2);
     margin: 8px 0 2px;
   }
+
+  /* ---------- Onboarding / Profile tab ---------- */
+  .onboarding-header { margin-bottom: 20px; }
+  .onboarding-header small { color: var(--text3); }
+  .onboarding-header code { font-family: var(--font-mono); font-size: 12px; color: var(--cyan); background: var(--bg3); padding: 1px 5px; border-radius: 3px; }
+
+  .onboarding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .onboarding-grid--full { grid-template-columns: 1fr; }
+
+  .onb-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .onb-card--wide { grid-column: 1 / -1; }
+
+  .onb-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+  }
+  .onb-card-header svg { width: 18px; height: 18px; color: var(--cyan); flex-shrink: 0; }
+  .onb-card-header h3 { font-size: 13px; font-weight: 600; color: var(--text1); margin: 0; flex: 1; }
+
+  .onb-cv-status {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .onb-cv-status.found { background: var(--green-dim); color: var(--green); }
+  .onb-cv-status.missing { background: var(--red-dim); color: var(--red); }
+
+  .onb-card-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .onb-field {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .onb-field--wide { flex-direction: column; gap: 4px; }
+
+  .onb-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text3);
+    min-width: 90px;
+    flex-shrink: 0;
+  }
+  .onb-value {
+    font-size: 13.5px;
+    color: var(--text1);
+    word-break: break-word;
+  }
+  .onb-value--accent { color: var(--cyan); font-weight: 600; }
+  .onb-value--wrap { white-space: pre-wrap; line-height: 1.5; font-size: 12.5px; }
+
+  .onb-links { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 4px; }
+  .onb-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--cyan);
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+  .onb-links a:hover { border-color: var(--cyan); }
+
+  .onb-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .onb-chips .chip {
+    font-size: 11.5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    background: var(--bg3);
+  }
+  .onb-chips--green .chip { border-color: var(--green-dim); color: var(--green); background: hsl(150 30% 10%); }
+  .onb-chips--red .chip   { border-color: var(--red-dim);   color: var(--red);   background: hsl(0 30% 10%); }
+  .onb-chips--cyan .chip  { border-color: var(--cyan-dim);  color: var(--cyan);  background: hsl(190 30% 10%); }
+
+  .onb-cv-body {
+    padding: 16px;
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text2);
+  }
+  .onb-cv-body h1, .onb-cv-body h2, .onb-cv-body h3 { color: var(--text1); margin: 14px 0 6px; }
+  .onb-cv-body h1 { font-size: 18px; }
+  .onb-cv-body h2 { font-size: 15px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+  .onb-cv-body h3 { font-size: 13.5px; }
+  .onb-cv-body ul { padding-left: 18px; }
+  .onb-cv-body li { margin-bottom: 3px; }
+  .onb-cv-body strong { color: var(--text1); }
+  .onb-cv-body a { color: var(--cyan); }
+  .onb-cv-body code { font-family: var(--font-mono); font-size: 12px; background: var(--bg3); padding: 1px 4px; border-radius: 3px; }
+
+  .onb-placeholder { color: var(--text3); font-style: italic; }
+
+  @media (max-width: 768px) {
+    .onboarding-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -2714,6 +2828,10 @@
           <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
           Reports
           <span class="tab-badge" id="reports-count">0</span>
+        </button>
+        <button class="tab" role="tab" data-tab="onboarding" aria-selected="false">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
         </button>
       </nav>
 
@@ -3558,6 +3676,122 @@
         </button>
       </template>
     </section>
+
+    <!-- ═══════════════════════ Onboarding / Profile ═══════════════════════ -->
+    <section class="tab-panel" id="panel-onboarding" role="tabpanel" aria-labelledby="tab-onboarding">
+
+      <div class="onboarding-header">
+        <h2 class="section-title">Your Profile</h2>
+        <small>resume, preferences, and targeting config — loaded from <code>config/profile.yml</code></small>
+      </div>
+
+      <!-- Row 1: Identity + Location -->
+      <div class="onboarding-grid">
+
+        <div class="onb-card">
+          <div class="onb-card-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <h3>Identity</h3>
+          </div>
+          <div class="onb-card-body">
+            <div class="onb-field"><span class="onb-label">Name</span><span class="onb-value" data-onb="name">--</span></div>
+            <div class="onb-field"><span class="onb-label">Email</span><span class="onb-value" data-onb="email">--</span></div>
+            <div class="onb-field"><span class="onb-label">Phone</span><span class="onb-value" data-onb="phone">--</span></div>
+            <div class="onb-links" data-onb="links"></div>
+          </div>
+        </div>
+
+        <div class="onb-card">
+          <div class="onb-card-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <h3>Location</h3>
+          </div>
+          <div class="onb-card-body">
+            <div class="onb-field"><span class="onb-label">City</span><span class="onb-value" data-onb="city">--</span></div>
+            <div class="onb-field"><span class="onb-label">Country</span><span class="onb-value" data-onb="country">--</span></div>
+            <div class="onb-field"><span class="onb-label">Timezone</span><span class="onb-value" data-onb="timezone">--</span></div>
+            <div class="onb-field"><span class="onb-label">Visa</span><span class="onb-value" data-onb="visa">--</span></div>
+            <div class="onb-field onb-field--wide"><span class="onb-label">Flexibility</span><span class="onb-value onb-value--wrap" data-onb="location-flex">--</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 2: Job Profile + Salary -->
+      <div class="onboarding-grid">
+
+        <div class="onb-card">
+          <div class="onb-card-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            <h3>Job Profile</h3>
+          </div>
+          <div class="onb-card-body">
+            <div class="onb-field"><span class="onb-label">Headline</span><span class="onb-value" data-onb="headline">--</span></div>
+            <div class="onb-field"><span class="onb-label">Primary roles</span><span class="onb-value" data-onb="primary-roles">--</span></div>
+            <div class="onb-field onb-field--wide"><span class="onb-label">Archetypes</span><div class="onb-chips" data-onb="archetypes"></div></div>
+            <div class="onb-field onb-field--wide"><span class="onb-label">Superpowers</span><div class="onb-chips" data-onb="superpowers"></div></div>
+          </div>
+        </div>
+
+        <div class="onb-card">
+          <div class="onb-card-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <h3>Salary</h3>
+          </div>
+          <div class="onb-card-body">
+            <div class="onb-field"><span class="onb-label">Target</span><span class="onb-value onb-value--accent" data-onb="salary-target">--</span></div>
+            <div class="onb-field"><span class="onb-label">Currency</span><span class="onb-value" data-onb="salary-currency">--</span></div>
+            <div class="onb-field"><span class="onb-label">Minimum</span><span class="onb-value" data-onb="salary-min">--</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 3: Company Preferences + Scanner Config -->
+      <div class="onboarding-grid">
+
+        <div class="onb-card">
+          <div class="onb-card-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <h3>Company Preferences</h3>
+          </div>
+          <div class="onb-card-body">
+            <div class="onb-field onb-field--wide"><span class="onb-label">Looking for</span><div class="onb-chips onb-chips--green" data-onb="positive-keywords"></div></div>
+            <div class="onb-field onb-field--wide"><span class="onb-label">Avoiding</span><div class="onb-chips onb-chips--red" data-onb="negative-keywords"></div></div>
+            <div class="onb-field onb-field--wide"><span class="onb-label">Seniority boost</span><div class="onb-chips onb-chips--cyan" data-onb="seniority-boost"></div></div>
+          </div>
+        </div>
+
+        <div class="onb-card">
+          <div class="onb-card-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <h3>Scanner Config</h3>
+          </div>
+          <div class="onb-card-body">
+            <div class="onb-field"><span class="onb-label">Tracked companies</span><span class="onb-value onb-value--accent" data-onb="companies-count">--</span></div>
+            <div class="onb-field"><span class="onb-label">Search queries</span><span class="onb-value" data-onb="queries-count">--</span></div>
+            <div class="onb-field"><span class="onb-label">Config file</span><span class="onb-value"><code>portals.yml</code></span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 4: Resume / CV -->
+      <div class="onboarding-grid onboarding-grid--full">
+        <div class="onb-card onb-card--wide">
+          <div class="onb-card-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+            <h3>Resume / CV</h3>
+            <span class="onb-cv-status" data-onb="cv-status">checking...</span>
+          </div>
+          <div class="onb-cv-body" data-onb="cv-content">
+            <p class="onb-placeholder">Loading...</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
   </main>
 
 <script>
@@ -5880,8 +6114,127 @@
     return { init, load, loadScoreChart };
   })();
 
+  // ---------- Onboarding / Profile tab ----------
+
+  const Onboarding = (() => {
+    function set(key, val) {
+      const el = document.querySelector(`[data-onb="${key}"]`);
+      if (!el) return;
+      el.textContent = val || '--';
+    }
+
+    function chips(key, items) {
+      const el = document.querySelector(`[data-onb="${key}"]`);
+      if (!el) return;
+      el.innerHTML = '';
+      if (!items || !items.length) { el.textContent = '--'; return; }
+      for (const t of items) {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.textContent = String(t);
+        el.appendChild(chip);
+      }
+    }
+
+    function renderLinks(c) {
+      const el = document.querySelector('[data-onb="links"]');
+      if (!el) return;
+      el.innerHTML = '';
+      const links = [];
+      if (c.linkedin)      links.push({ label: 'LinkedIn', url: c.linkedin });
+      if (c.portfolio_url) links.push({ label: 'Portfolio', url: c.portfolio_url });
+      if (c.github)        links.push({ label: 'GitHub', url: c.github });
+      for (const l of links) {
+        const a = document.createElement('a');
+        a.href = l.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = l.label;
+        el.appendChild(a);
+      }
+      if (!links.length) el.textContent = '--';
+    }
+
+    function renderCV(data) {
+      const status = document.querySelector('[data-onb="cv-status"]');
+      const body   = document.querySelector('[data-onb="cv-content"]');
+      if (!body) return;
+
+      if (!data || !data.exists || !data.content) {
+        if (status) { status.textContent = 'not found'; status.className = 'onb-cv-status missing'; }
+        body.innerHTML = '<p class="onb-placeholder">No <code>cv.md</code> found in the project root. Paste your CV in the chat or create <code>cv.md</code> to see it here.</p>';
+        return;
+      }
+      if (status) { status.textContent = 'loaded'; status.className = 'onb-cv-status found'; }
+      body.innerHTML = typeof App !== 'undefined' && App.fmt && App.fmt.markdown
+        ? App.fmt.markdown(data.content)
+        : '<pre>' + esc(data.content) + '</pre>';
+    }
+
+    async function load() {
+      const [profile, portals, cv] = await Promise.all([
+        api.get('/api/profile').catch(() => null),
+        api.get('/api/portals-info').catch(() => null),
+        api.get('/api/cv').catch(() => null),
+      ]);
+
+      if (profile && !profile.note) {
+        const c = profile.candidate || {};
+        set('name', c.full_name);
+        set('email', c.email);
+        set('phone', c.phone);
+        renderLinks(c);
+
+        const loc = profile.location || {};
+        set('city', c.location || loc.city || '--');
+        set('country', loc.country);
+        set('timezone', loc.timezone);
+        set('visa', loc.visa_status);
+
+        const comp = profile.compensation || {};
+        set('location-flex', comp.location_flexibility);
+
+        set('headline', (profile.narrative || {}).headline);
+        const roles = (profile.target_roles || {}).primary || [];
+        set('primary-roles', roles.join(', '));
+
+        const archs = ((profile.target_roles || {}).archetypes || []).map(
+          a => `${a.name} (${a.level})`
+        );
+        chips('archetypes', archs);
+        chips('superpowers', (profile.narrative || {}).superpowers || []);
+
+        set('salary-target', comp.target_range);
+        set('salary-currency', comp.currency);
+        set('salary-min', comp.minimum);
+      }
+
+      if (portals) {
+        set('companies-count', String(portals.companies || 0));
+        set('queries-count', String(portals.queries || 0));
+      }
+
+      const portalsRaw = await api.get('/api/portals-raw').catch(() => null);
+      if (portalsRaw && portalsRaw.title_filter) {
+        chips('positive-keywords', portalsRaw.title_filter.positive || []);
+        chips('negative-keywords', portalsRaw.title_filter.negative || []);
+        chips('seniority-boost', portalsRaw.title_filter.seniority_boost || []);
+      }
+
+      renderCV(cv);
+    }
+
+    function init() {
+      document.addEventListener('tab:change', (e) => {
+        if (e.detail?.tab === 'onboarding') load();
+      });
+    }
+
+    return { init, load };
+  })();
+
   // ---------- Tab switching ----------
-  const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports'];
+  const TABS = ['dashboard', 'scanner', 'pipeline', 'tracker', 'reports', 'onboarding'];
 
   function activateTab(name, { updateHash = true } = {}) {
     if (!TABS.includes(name)) name = 'dashboard';
@@ -5995,6 +6348,7 @@
     Tracker.init();
     Reports.init();
     Dashboard.init();
+    Onboarding.init();
     document.dispatchEvent(new CustomEvent('app:ready'));
   });
 })();
