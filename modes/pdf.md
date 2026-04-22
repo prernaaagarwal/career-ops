@@ -33,14 +33,15 @@
 
 ## Diseño del PDF
 
-- **Fonts**: Space Grotesk (headings, 600-700) + DM Sans (body, 400-500)
-- **Fonts self-hosted**: `fonts/`
-- **Header**: nombre en Space Grotesk 24px bold + línea gradiente `linear-gradient(to right, hsl(187,74%,32%), hsl(270,70%,45%))` 2px + fila de contacto
-- **Section headers**: Space Grotesk 13px, uppercase, letter-spacing 0.05em, color cyan primary
-- **Body**: DM Sans 11px, line-height 1.5
-- **Company names**: color accent purple `hsl(270,70%,45%)`
-- **Márgenes**: 0.6in
+- **Fonts**: Arial/Helvetica system fonts (no custom fonts needed)
+- **Header**: centered — name bold 20px, subtitle line (role title), contact row with | separators, 1.5px solid #333 horizontal rule
+- **Section headers**: UPPERCASE bold 10.5px, black, thin gray bottom border (#bbb)
+- **Body**: Arial 10.5px, line-height 1.5, color #1c1c1c
+- **Work experience entry format**: single bold line — "**Company Name** | City, Country | Role Title | Period" using `.job-line` class
+- **Competencies**: inline dot-separated list using `.competency-tag` spans (no background boxes)
+- **Márgenes**: 16mm top/bottom, 18mm left/right (12mm/16mm in print)
 - **Background**: blanco puro
+- **No colors** — no gradients, no purple/teal accents, no colored tags
 
 ## Orden de secciones (optimizado "6-second recruiter scan")
 
@@ -70,18 +71,17 @@ Usar el template en `cv-template.html`. Reemplazar los placeholders `{{...}}` co
 | `{{LANG}}` | `en` o `es` |
 | `{{PAGE_WIDTH}}` | `8.5in` (letter) o `210mm` (A4) |
 | `{{NAME}}` | (from profile.yml) |
+| `{{TITLE}}` | Role title for this application (e.g. "Senior Product Manager (AI)") |
 | `{{EMAIL}}` | (from profile.yml) |
 | `{{LINKEDIN_URL}}` | [from profile.yml] |
 | `{{LINKEDIN_DISPLAY}}` | [from profile.yml] |
-| `{{PORTFOLIO_URL}}` | [from profile.yml] (o /es según idioma) |
-| `{{PORTFOLIO_DISPLAY}}` | [from profile.yml] (o /es según idioma) |
 | `{{LOCATION}}` | [from profile.yml] |
 | `{{SECTION_SUMMARY}}` | Professional Summary / Resumen Profesional |
 | `{{SUMMARY_TEXT}}` | Summary personalizado con keywords |
 | `{{SECTION_COMPETENCIES}}` | Core Competencies / Competencias Core |
-| `{{COMPETENCIES}}` | `<span class="competency-tag">keyword</span>` × 6-8 |
+| `{{COMPETENCIES}}` | `<span class="competency-tag">keyword</span>` × 6-8 (renders inline, dot-separated) |
 | `{{SECTION_EXPERIENCE}}` | Work Experience / Experiencia Laboral |
-| `{{EXPERIENCE}}` | HTML de cada trabajo con bullets reordenados |
+| `{{EXPERIENCE}}` | HTML de cada trabajo — usar `.job-line` para línea única: `<div class="job-line"><strong>Company</strong> \| City, Country \| Role Title \| Period</div>` seguido de `<ul><li>...</li></ul>` |
 | `{{SECTION_PROJECTS}}` | Projects / Proyectos |
 | `{{PROJECTS}}` | HTML de top 3-4 proyectos |
 | `{{SECTION_EDUCATION}}` | Education / Formación |
