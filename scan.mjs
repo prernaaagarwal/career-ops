@@ -346,6 +346,7 @@ async function main() {
     console.log('\nNew offers:');
     for (const o of newOffers) {
       console.log(`  + ${o.company} | ${o.title} | ${o.location || 'N/A'}`);
+      if (o.url) console.log(`      → ${o.url}`);
     }
     if (dryRun) {
       console.log('\n(dry run — run without --dry-run to save results)');
