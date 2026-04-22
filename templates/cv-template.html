@@ -11,7 +11,7 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10.5px;
-    line-height: 1.5;
+    line-height: 1.55;
     color: #1c1c1c;
     background: #fff;
   }
@@ -20,56 +20,96 @@
     width: 100%;
     max-width: {{PAGE_WIDTH}};
     margin: 0 auto;
-    padding: 16mm 18mm;
+    padding: 14mm 18mm;
   }
 
-  /* === HEADER — centered === */
-  .header {
+  /* === NAME === */
+  .name-header {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 9px;
   }
 
-  .header h1 {
+  .name-header h1 {
     font-size: 20px;
     font-weight: 700;
     color: #1c1c1c;
     letter-spacing: 0.01em;
-    margin-bottom: 2px;
   }
 
-  .header-subtitle {
-    font-size: 11px;
-    color: #555;
-    margin-bottom: 5px;
+  /* === CONTACT BLOCK === */
+  .contact-block {
+    margin-bottom: 8px;
   }
 
   .contact-row {
-    font-size: 9.5px;
-    color: #555;
-    line-height: 1.6;
+    font-size: 10px;
+    color: #1c1c1c;
+    margin-bottom: 2px;
+    line-height: 1.5;
   }
 
   .contact-row a {
-    color: #555;
+    color: #1c1c1c;
     text-decoration: none;
   }
 
-  .contact-row .separator {
-    color: #999;
-    margin: 0 4px;
+  .cl {
+    font-weight: 700;
   }
 
-  .header-rule {
+  /* === DIVIDER === */
+  .rule {
     border: none;
     border-top: 1.5px solid #333;
-    margin: 9px 0 12px;
+    margin: 8px 0 9px;
   }
 
-  /* === SECTIONS === */
-  .section {
-    margin-bottom: 12px;
+  /* === TOP SECTIONS (Objective, Skills, Education, Certifications) === */
+  .top-section {
+    margin-bottom: 8px;
   }
 
+  .top-label {
+    font-weight: 700;
+    font-size: 10.5px;
+  }
+
+  .top-text {
+    font-size: 10.5px;
+    line-height: 1.65;
+  }
+
+  /* === SKILLS LIST === */
+  .skill-row {
+    font-size: 10.5px;
+    color: #1c1c1c;
+    line-height: 1.6;
+    padding-left: 10px;
+  }
+
+  .languages-row {
+    font-size: 10.5px;
+    color: #1c1c1c;
+    margin-top: 2px;
+  }
+
+  /* === EDUCATION === */
+  .edu-row {
+    font-size: 10.5px;
+    color: #1c1c1c;
+    line-height: 1.6;
+    padding-left: 10px;
+  }
+
+  /* === CERTIFICATIONS === */
+  .cert-row {
+    font-size: 10.5px;
+    color: #1c1c1c;
+    line-height: 1.6;
+    padding-left: 10px;
+  }
+
+  /* === WORK EXPERIENCE SECTION HEADER === */
   .section-title {
     font-size: 10.5px;
     font-weight: 700;
@@ -79,85 +119,19 @@
     border-bottom: 1px solid #bbb;
     padding-bottom: 2px;
     margin-bottom: 7px;
+    margin-top: 10px;
   }
 
-  /* === SUMMARY === */
-  .summary-text {
-    font-size: 10.5px;
-    line-height: 1.65;
-    color: #333;
-  }
-
-  /* === COMPETENCIES — inline dot-list === */
-  .competencies-grid {
-    font-size: 10.5px;
-    color: #333;
-    line-height: 1.7;
-  }
-
-  .competency-tag {
-    display: inline;
-    background: none;
-    border: none;
-    padding: 0;
-    font-size: 10.5px;
-    color: #333;
-    font-weight: 400;
-  }
-
-  .competency-tag::after {
-    content: " \00B7 ";
-    color: #888;
-  }
-
-  .competency-tag:last-child::after {
-    content: "";
-  }
-
-  /* === WORK EXPERIENCE === */
+  /* === JOB ENTRIES === */
   .job {
     margin-bottom: 10px;
   }
 
-  /* New single-line format: Company | Location | Role | Period */
   .job-line {
-    font-size: 11px;
-    font-weight: 700;
-    color: #1c1c1c;
-    margin-bottom: 3px;
-  }
-
-  /* Legacy classes kept for backward compatibility */
-  .job-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 8px;
-    margin-bottom: 1px;
-  }
-
-  .job-company {
-    font-size: 11px;
-    font-weight: 700;
-    color: #1c1c1c;
-  }
-
-  .job-period {
-    font-size: 10px;
-    color: #666;
-    white-space: nowrap;
-  }
-
-  .job-role {
     font-size: 10.5px;
-    font-weight: 600;
-    color: #444;
+    font-weight: 700;
+    color: #1c1c1c;
     margin-bottom: 3px;
-  }
-
-  .job-location {
-    font-weight: 400;
-    color: #777;
   }
 
   .job ul {
@@ -166,7 +140,7 @@
   }
 
   .job li {
-    font-size: 10.5px;
+    font-size: 10px;
     line-height: 1.55;
     color: #333;
     margin-bottom: 2px;
@@ -174,120 +148,6 @@
 
   .job li strong {
     font-weight: 700;
-  }
-
-  /* === PROJECTS — compact === */
-  .project {
-    margin-bottom: 7px;
-  }
-
-  .project-title {
-    font-size: 10.5px;
-    font-weight: 700;
-    color: #1c1c1c;
-    display: inline;
-  }
-
-  .project-badge {
-    font-size: 9px;
-    font-weight: 600;
-    color: #666;
-    font-style: italic;
-    margin-left: 5px;
-    display: inline;
-  }
-
-  .project-desc {
-    font-size: 10px;
-    color: #444;
-    margin-top: 2px;
-    line-height: 1.5;
-  }
-
-  .project-tech {
-    font-size: 9.5px;
-    color: #888;
-    margin-top: 2px;
-  }
-
-  /* === EDUCATION === */
-  .edu-item {
-    margin-bottom: 6px;
-  }
-
-  .edu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 8px;
-  }
-
-  .edu-title {
-    font-size: 10.5px;
-    font-weight: 700;
-    color: #1c1c1c;
-  }
-
-  .edu-org {
-    font-weight: 400;
-    color: #555;
-  }
-
-  .edu-year {
-    font-size: 10px;
-    color: #777;
-    white-space: nowrap;
-  }
-
-  .edu-desc {
-    font-size: 10px;
-    color: #666;
-    margin-top: 1px;
-    line-height: 1.5;
-  }
-
-  /* === CERTIFICATIONS === */
-  .cert-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-
-  .cert-title {
-    font-size: 10.5px;
-    font-weight: 500;
-    color: #333;
-  }
-
-  .cert-org {
-    color: #666;
-    font-weight: 400;
-  }
-
-  .cert-year {
-    font-size: 10px;
-    color: #777;
-    white-space: nowrap;
-  }
-
-  /* === SKILLS === */
-  .skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px 12px;
-  }
-
-  .skill-item {
-    font-size: 10.5px;
-    color: #444;
-  }
-
-  .skill-category {
-    font-weight: 700;
-    color: #1c1c1c;
-    font-size: 10.5px;
   }
 
   a { white-space: nowrap; color: inherit; text-decoration: none; }
@@ -298,8 +158,7 @@
     .page { padding: 12mm 16mm; }
   }
 
-  /* === PAGE BREAK CONTROL === */
-  .avoid-break, .job, .project, .edu-item, .cert-item {
+  .avoid-break, .job, .top-section {
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -308,63 +167,50 @@
 <body>
 <div class="page">
 
-  <!-- HEADER -->
-  <div class="header avoid-break">
+  <!-- NAME -->
+  <div class="name-header avoid-break">
     <h1>{{NAME}}</h1>
-    <div class="header-subtitle">{{TITLE}}</div>
-    <div class="contact-row">
-      <span>{{EMAIL}}</span>
-      <span class="separator">|</span>
-      <a href="{{LINKEDIN_URL}}">{{LINKEDIN_DISPLAY}}</a>
-      <span class="separator">|</span>
-      <span>{{LOCATION}}</span>
-    </div>
-    <hr class="header-rule">
   </div>
 
-  <!-- PROFESSIONAL SUMMARY -->
-  <div class="section avoid-break">
-    <div class="section-title">{{SECTION_SUMMARY}}</div>
-    <div class="summary-text">{{SUMMARY_TEXT}}</div>
+  <!-- CONTACT BLOCK -->
+  <div class="contact-block avoid-break">
+    <div class="contact-row"><span class="cl">Nationality-</span> {{NATIONALITY}}</div>
+    <div class="contact-row"><span class="cl">Contact no.-</span> {{PHONE}}</div>
+    <div class="contact-row"><span class="cl">Email-</span> {{EMAIL}}</div>
+    <div class="contact-row"><span class="cl">Links-</span> <a href="{{LINKEDIN_URL}}">{{LINKEDIN_DISPLAY}}</a>, <a href="{{PORTFOLIO_URL}}">{{PORTFOLIO_DISPLAY}}</a>, <a href="{{GITHUB_URL}}">{{GITHUB_DISPLAY}}</a></div>
+    <div class="contact-row"><span class="cl">Joining Preference date-</span> {{JOINING_PREFERENCE}}</div>
+    <div class="contact-row"><span class="cl">Years of Experience-</span> {{YEARS_EXPERIENCE}}</div>
   </div>
 
-  <!-- CORE COMPETENCIES -->
-  <div class="section avoid-break">
-    <div class="section-title">{{SECTION_COMPETENCIES}}</div>
-    <div class="competencies-grid">
-      {{COMPETENCIES}}
-    </div>
+  <hr class="rule">
+
+  <!-- OBJECTIVE -->
+  <div class="top-section avoid-break">
+    <span class="top-label">{{SECTION_SUMMARY}}-</span> <span class="top-text">{{SUMMARY_TEXT}}</span>
   </div>
 
-  <!-- WORK EXPERIENCE -->
-  <div class="section">
-    <div class="section-title">{{SECTION_EXPERIENCE}}</div>
-    {{EXPERIENCE}}
-  </div>
-
-  <!-- PROJECTS -->
-  <div class="section avoid-break">
-    <div class="section-title">{{SECTION_PROJECTS}}</div>
-    {{PROJECTS}}
+  <!-- SKILLS -->
+  <div class="top-section avoid-break">
+    <div class="top-label">{{SECTION_SKILLS}}-</div>
+    {{SKILLS}}
+    <div class="languages-row"><span class="top-label">Languages-</span> {{LANGUAGES}}</div>
   </div>
 
   <!-- EDUCATION -->
-  <div class="section avoid-break">
-    <div class="section-title">{{SECTION_EDUCATION}}</div>
+  <div class="top-section avoid-break">
+    <div class="top-label">{{SECTION_EDUCATION}}-</div>
     {{EDUCATION}}
   </div>
 
   <!-- CERTIFICATIONS -->
-  <div class="section avoid-break">
-    <div class="section-title">{{SECTION_CERTIFICATIONS}}</div>
+  <div class="top-section avoid-break">
+    <div class="top-label">{{SECTION_CERTIFICATIONS}}-</div>
     {{CERTIFICATIONS}}
   </div>
 
-  <!-- SKILLS -->
-  <div class="section avoid-break">
-    <div class="section-title">{{SECTION_SKILLS}}</div>
-    <div class="skills-grid">{{SKILLS}}</div>
-  </div>
+  <!-- WORK EXPERIENCE -->
+  <div class="section-title">{{SECTION_EXPERIENCE}}</div>
+  {{EXPERIENCE}}
 
 </div>
 </body>

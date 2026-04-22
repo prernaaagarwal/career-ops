@@ -70,26 +70,29 @@ Usar el template en `cv-template.html`. Reemplazar los placeholders `{{...}}` co
 |-------------|-----------|
 | `{{LANG}}` | `en` o `es` |
 | `{{PAGE_WIDTH}}` | `8.5in` (letter) o `210mm` (A4) |
-| `{{NAME}}` | (from profile.yml) |
-| `{{TITLE}}` | Role title for this application (e.g. "Senior Product Manager (AI)") |
-| `{{EMAIL}}` | (from profile.yml) |
-| `{{LINKEDIN_URL}}` | [from profile.yml] |
-| `{{LINKEDIN_DISPLAY}}` | [from profile.yml] |
-| `{{LOCATION}}` | [from profile.yml] |
-| `{{SECTION_SUMMARY}}` | Professional Summary / Resumen Profesional |
-| `{{SUMMARY_TEXT}}` | Summary personalizado con keywords |
-| `{{SECTION_COMPETENCIES}}` | Core Competencies / Competencias Core |
-| `{{COMPETENCIES}}` | `<span class="competency-tag">keyword</span>` × 6-8 (renders inline, dot-separated) |
-| `{{SECTION_EXPERIENCE}}` | Work Experience / Experiencia Laboral |
-| `{{EXPERIENCE}}` | HTML de cada trabajo — usar `.job-line` para línea única: `<div class="job-line"><strong>Company</strong> \| City, Country \| Role Title \| Period</div>` seguido de `<ul><li>...</li></ul>` |
-| `{{SECTION_PROJECTS}}` | Projects / Proyectos |
-| `{{PROJECTS}}` | HTML de top 3-4 proyectos |
-| `{{SECTION_EDUCATION}}` | Education / Formación |
-| `{{EDUCATION}}` | HTML de educación |
-| `{{SECTION_CERTIFICATIONS}}` | Certifications / Certificaciones |
-| `{{CERTIFICATIONS}}` | HTML de certificaciones |
-| `{{SECTION_SKILLS}}` | Skills / Competencias |
-| `{{SKILLS}}` | HTML de skills |
+| `{{NAME}}` | Candidate name (from profile.yml) |
+| `{{NATIONALITY}}` | Nationality (from profile.yml, e.g. "Indian") |
+| `{{PHONE}}` | Phone number (from profile.yml) |
+| `{{EMAIL}}` | Email (from profile.yml) |
+| `{{LINKEDIN_URL}}` | Full LinkedIn URL (from profile.yml) |
+| `{{LINKEDIN_DISPLAY}}` | LinkedIn display text, e.g. "LinkedIn" |
+| `{{PORTFOLIO_URL}}` | Portfolio URL (from profile.yml) |
+| `{{PORTFOLIO_DISPLAY}}` | Portfolio display text, e.g. "Portfolio" |
+| `{{GITHUB_URL}}` | GitHub URL (from profile.yml or inferred) |
+| `{{GITHUB_DISPLAY}}` | GitHub display text, e.g. "GitHub" |
+| `{{JOINING_PREFERENCE}}` | e.g. "1 month (negotiable)" (from profile.yml) |
+| `{{YEARS_EXPERIENCE}}` | e.g. "10 years" (calculated from work history) |
+| `{{SECTION_SUMMARY}}` | `Objective` |
+| `{{SUMMARY_TEXT}}` | Objective paragraph with JD keywords injected |
+| `{{SECTION_SKILLS}}` | `Skills` |
+| `{{SKILLS}}` | One `<div class="skill-row">skill name</div>` per skill (6-8 items) |
+| `{{LANGUAGES}}` | Language list inline, e.g. "English (native), Hindi (native), Spanish (Intermediate)" |
+| `{{SECTION_EDUCATION}}` | `Education` |
+| `{{EDUCATION}}` | One `<div class="edu-row">Degree from Institution</div>` per entry |
+| `{{SECTION_CERTIFICATIONS}}` | `Certification` |
+| `{{CERTIFICATIONS}}` | One `<div class="cert-row">Cert Name, Issuer</div>` per line (group related certs on same line) |
+| `{{SECTION_EXPERIENCE}}` | `Work Experience` |
+| `{{EXPERIENCE}}` | Job blocks: `<div class="job"><div class="job-line"><strong>Company</strong> \| City, Country \| Role \| Period (use "to" not dash)</div><ul><li>bullet with comma not em-dash</li></ul></div>` |
 
 ## Canva CV Generation (optional)
 
