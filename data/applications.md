@@ -2,6 +2,7 @@
 
 | # | Date | Company | Role | Score | Status | PDF | Report | Notes |
 |---|------|---------|------|-------|--------|-----|--------|-------|
+| 5 | 2026-04-23 | Tabby | Senior Product Manager, BNPL Merchants | 4.2/5 | Evaluated | ❌ | [005](reports/005-tabby-2026-04-23.md) | Dubai/Riyadh/Remote — BNPL unicorn, $4.5B, IPO-bound. Gap: BNPL domain + underwriting. Comp exceeds target. |
 | 4 | 2026-04-23 | GovTech Singapore | Senior AI PM — Mother Tongue Languages (MOE) | 4.3/5 | Evaluated | ✅ | [004](reports/004-govtech-sg-2026-04-23.md) | WORTH APPLYING — multilingual NLP is strongest differentiator; EdTech gap mitigatable | Singapore preferred ✓ | Comp ~67–82 LPA est. |
 | 3 | 2026-04-23 | Careem | Lead PM — Ask Careem (Gen AI Assistant) | 4.5/5 | Evaluated | ✅ | [003](reports/003-careem-2026-04-23.md) | STRONG APPLY — CV ready: output/cv-prernaa-agarwal-careem-2026-04-23.pdf | Dubai (relocation preferred) | Comp ~75–102 LPA est. |
 | 2 | 2026-04-22 | talabat (Delivery Hero) | Senior Product Manager (AI) | 4.5/5 | Evaluated | 🔶 | [002](reports/002-talabat-2026-04-22.md) | STRONG APPLY — HTML CV ready: output/cv-prernaa-agarwal-talabat-2026-04-22.html (open in Chrome, print to PDF) |
