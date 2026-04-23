@@ -1508,6 +1508,17 @@ tracked_companies:
   # - ST Engineering — own ATS (Singapore, Agentic AI PM)
   # - Capitol AI — Work at a Startup board only (Remote YC startup)
   # - Rapid Talent — recruitment agency (not a direct employer)
+  #
+  # Added 2026-04-23 — UAE enterprise employers (own ATS: Workday/SAP/Taleo).
+  # Surfaced via weekly UAE portal sweep; WebSearch careers pages directly.
+  # - Emirates Global Aluminium (EGA) — Dubai. Industrial digital transformation.
+  # - Capgemini Middle East — Dubai. AI/Digital consulting PM roles.
+  # - Teleperformance Global Services FZ-LLC — Dubai. CX/BPO with AI push.
+  # - Al Futtaim Group — Dubai. Retail/Automotive conglomerate, digital transformation arm.
+  # - KEO International Consultants — Dubai. Engineering consultancy.
+  # - Egis — Dubai. Infrastructure engineering consultancy.
+  # - Dubai Properties Group — Dubai. Real estate developer, PropTech.
+  # - Finclutech Ltd FZCO — Dubai. Fintech.
 
   - name: Tamara
     careers_url: https://tamara.co/en/careers
