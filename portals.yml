@@ -1411,6 +1411,104 @@ tracked_companies:
     notes: "Dubai/Singapore/Remote. Crypto exchange with AI PM roles (ignore crypto domain — role is still AI PM)."
     enabled: true
 
+  # ====================================================================
+  # Batch added 2026-04-23 — user-requested companies
+  # ====================================================================
+
+  - name: Eltropy
+    careers_url: https://job-boards.greenhouse.io/eltropyinc
+    api: https://boards-api.greenhouse.io/v1/boards/eltropyinc/jobs
+    notes: "CCaaS/messaging for financial services (credit unions). AI agents, telephony PM roles."
+    enabled: true
+
+  - name: Sprinklr
+    careers_url: https://boards.greenhouse.io/sprinklr
+    api: https://boards-api.greenhouse.io/v1/boards/sprinklr/jobs
+    notes: "NYC/Bangalore. Former employer. CCaaS, CRM, Martech, AdTech platform."
+    enabled: true
+
+  - name: InMobi
+    careers_url: https://job-boards.greenhouse.io/inmobi
+    api: https://boards-api.greenhouse.io/v1/boards/inmobi/jobs
+    notes: "Bangalore/SF/Global. Mobile advertising platform. Martech/AdTech PM roles."
+    enabled: true
+
+  - name: Relevance AI
+    careers_url: https://jobs.ashbyhq.com/relevanceai
+    scan_method: websearch
+    scan_query: 'site:jobs.ashbyhq.com/relevanceai "Product Manager" OR "Product Owner" OR "Solutions"'
+    notes: "Sydney/Remote. AI agent builder platform. Senior PM + Solutions Engineer roles."
+    enabled: true
+
+  - name: Scale AI
+    careers_url: https://job-boards.greenhouse.io/scaleai
+    api: https://boards-api.greenhouse.io/v1/boards/scaleai/jobs
+    notes: "SF/Remote. AI data foundry. Strategic PM + GenAI Applied ML roles."
+    enabled: true
+
+  - name: Smartsheet
+    careers_url: https://job-boards.greenhouse.io/smartsheet
+    api: https://boards-api.greenhouse.io/v1/boards/smartsheet/jobs
+    notes: "Remote Eligible. Intelligent Work Management, $10B mkt cap. Senior PM Applied AI roles."
+    enabled: true
+
+  - name: Articulate
+    careers_url: https://jobs.lever.co/articulate
+    notes: "Remote. AI-powered learning platform ($1.5B). Senior PM AI-Powered Learning, AI Analyst roles."
+    enabled: true
+
+  - name: SecurityScorecard
+    careers_url: https://job-boards.greenhouse.io/securityscorecard
+    api: https://boards-api.greenhouse.io/v1/boards/securityscorecard/jobs
+    notes: "NYC/Remote. Cybersecurity ratings. Senior PM AI, Technical PM, AI Engineer roles."
+    enabled: true
+
+  - name: Harper
+    careers_url: https://jobs.ashbyhq.com/harperinsure
+    scan_method: websearch
+    scan_query: 'site:jobs.ashbyhq.com/harperinsure "Product" OR "Founding"'
+    notes: "YC-backed. AI-native commercial insurance brokerage. Founding PM roles, 100x growth."
+    enabled: true
+
+  - name: Omnipresent
+    careers_url: https://job-boards.greenhouse.io/omnipresent
+    api: https://boards-api.greenhouse.io/v1/boards/omnipresent/jobs
+    notes: "Work from anywhere. Global EOR platform. Senior PM (GMT-4 to GMT+4 timezone)."
+    enabled: true
+
+  - name: Wokelo AI
+    careers_url: https://jobs.ashbyhq.com/wokelo-ai
+    scan_method: websearch
+    scan_query: 'site:jobs.ashbyhq.com/wokelo-ai "Product" OR "PM"'
+    notes: "Seattle/Bengaluru. AI research intelligence. Product Manager roles."
+    enabled: true
+
+  - name: GovTech Singapore (Careers@Gov)
+    careers_url: https://boards.eu.greenhouse.io/governmentcareers
+    api: https://boards-api.greenhouse.io/v1/boards/governmentcareers/jobs
+    notes: "Singapore. Covers GovTech + OGP + all Singapore Government Agencies. Senior AI PM roles, MOE AI EdTech."
+    enabled: true
+
+  # ====================================================================
+  # Manual watch (no supported ATS — check weekly via Claude portal sweep)
+  # Documented here so future scans know to skip and to surface them via WebSearch
+  # ====================================================================
+  #
+  # - Sanofi — Workday (Barcelona, Global AI Platform PM)
+  # - Nutanix — Workday (Bangalore, AI/ML Platform PM)
+  # - Caterpillar — Workday (Chennai, AI Product Owner)
+  # - Axiamatic — Instahyre only (Bangalore, GenAI SaaS Senior PM)
+  # - Sprouts.ai — Instahyre only (Bangalore, SaaS Senior PM)
+  # - Modern Data Co — Instahyre only (Bangalore, PM GenAI)
+  # - Kore.ai — own ATS (Bangalore, Agentic AI)
+  # - Twixor — no supported ATS (Singapore/India, Conversational engagement)
+  # - Bending Spoons — no supported ATS (London, AI PM)
+  # - Plural AI — not found on supported ATS (UK Remote)
+  # - Qureos / vdd.ai — not found on supported ATS (Dubai)
+  # - ST Engineering — own ATS (Singapore, Agentic AI PM)
+  # - Capitol AI — Work at a Startup board only (Remote YC startup)
+  # - Rapid Talent — recruitment agency (not a direct employer)
+
   - name: Tamara
     careers_url: https://tamara.co/en/careers
     scan_method: websearch
