@@ -198,6 +198,22 @@ function buildTitleFilter(titleFilter) {
   };
 }
 
+// ── Freshness filter ────────────────────────────────────────────────
+
+function buildFreshnessFilter(freshnessConfig) {
+  const maxAgeDays = freshnessConfig?.max_age_days ?? null;
+  const includeUndated = freshnessConfig?.include_undated ?? true;
+
+  return (postedAt) => {
+    if (!postedAt) return includeUndated;
+    if (maxAgeDays === null) return true;
+    const t = new Date(postedAt).getTime();
+    if (!Number.isFinite(t)) return includeUndated;
+    const ageDays = (Date.now() - t) / (1000 * 60 * 60 * 24);
+    return ageDays <= maxAgeDays;
+  };
+}
+
 // ── Dedup ───────────────────────────────────────────────────────────
 
 function loadSeenUrls() {
@@ -328,6 +344,8 @@ async function main() {
   const config = parseYaml(readFileSync(PORTALS_PATH, 'utf-8'));
   const companies = config.tracked_companies || [];
   const titleFilter = buildTitleFilter(config.title_filter);
+  const freshnessFilter = buildFreshnessFilter(config.freshness);
+  const maxAgeDays = config.freshness?.max_age_days ?? null;
 
   // 2. Filter to enabled companies with detectable APIs
   const targets = companies
@@ -349,6 +367,7 @@ async function main() {
   const date = new Date().toISOString().slice(0, 10);
   let totalFound = 0;
   let totalFiltered = 0;
+  let totalStale = 0;
   let totalDupes = 0;
   const newOffers = [];
   const errors = [];
@@ -363,6 +382,10 @@ async function main() {
       for (const job of jobs) {
         if (!titleFilter(job.title)) {
           totalFiltered++;
+          continue;
+        }
+        if (!freshnessFilter(job.postedAt)) {
+          totalStale++;
           continue;
         }
         if (seenUrls.has(job.url)) {
@@ -399,6 +422,9 @@ async function main() {
   console.log(`Companies scanned:     ${targets.length}`);
   console.log(`Total jobs found:      ${totalFound}`);
   console.log(`Filtered by title:     ${totalFiltered} removed`);
+  if (maxAgeDays !== null) {
+    console.log(`Filtered by freshness: ${totalStale} removed (older than ${maxAgeDays} days)`);
+  }
   console.log(`Duplicates:            ${totalDupes} skipped`);
   console.log(`New offers added:      ${newOffers.length}`);
 

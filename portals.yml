@@ -15,6 +15,13 @@
 #   4. Adjust search_queries for your preferred job boards
 #   5. Set enabled: false on companies you don't care about
 
+# -- Freshness filter (added 2026-04-23) --
+# scan.mjs drops roles older than max_age_days during the scan.
+# Undated roles are kept if include_undated is true.
+freshness:
+  max_age_days: 7
+  include_undated: true
+
 # -- Title filter --
 # The scanner uses these keywords to decide if a title is relevant.
 # At least 1 positive must match AND 0 negatives must match (case-insensitive).
