@@ -1509,6 +1509,167 @@ tracked_companies:
   # - Capitol AI — Work at a Startup board only (Remote YC startup)
   # - Rapid Talent — recruitment agency (not a direct employer)
   #
+  # ====================================================================
+  # UAE/India RECRUITMENT AGENCIES — added 2026-04-23 for aggressive 1-month search.
+  # Scraped via websearch (they don't have Greenhouse/Ashby/Lever boards).
+  # Role signal comes from their posted JDs on Bayt/LinkedIn/their own sites.
+  # See data/recruiters.md for direct LinkedIn outreach strategy (higher leverage).
+  # ====================================================================
+
+  - name: RTC-1 Employment Services
+    careers_url: https://www.rtc1.com
+    scan_method: websearch
+    scan_query: '"RTC-1" OR "RTC1" "Product Manager" OR "Product Owner" OR "AI" UAE OR Dubai'
+    notes: "Recruiter (UAE). One of Dubai's largest tech staffing firms. PM/AI roles across clients."
+    enabled: true
+
+  - name: eMagine Solutions
+    careers_url: https://www.emagine-solutions.com
+    scan_method: websearch
+    scan_query: '"eMagine Solutions" "Product Manager" OR "Product Owner" UAE OR Dubai OR Remote'
+    notes: "Recruiter (UAE/UK). Technology and digital transformation staffing."
+    enabled: true
+
+  - name: J10 Consulting
+    careers_url: https://www.j10consulting.com
+    scan_method: websearch
+    scan_query: '"J10 Consulting" "Product Manager" OR "Product Owner" OR "AI" UAE'
+    notes: "Recruiter (Dubai). Boutique tech/finance placements."
+    enabled: true
+
+  - name: Careernet
+    careers_url: https://www.careernet.in
+    scan_method: websearch
+    scan_query: '"Careernet" "Product Manager" OR "Product Owner" OR "AI Product" Bangalore OR Remote'
+    notes: "Recruiter (India). India's largest tech recruiter; huge volume of PM placements."
+    enabled: true
+
+  - name: Vega International
+    careers_url: https://www.vegahr.com
+    scan_method: websearch
+    scan_query: '"Vega International" OR "Vega HR" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE). Executive search."
+    enabled: true
+
+  - name: Exclusive Talent Management
+    careers_url: https://www.exclusivetalentmanagement.com
+    scan_method: websearch
+    scan_query: '"Exclusive Talent Management" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: Sommerman Skinner Associates (SSA)
+    careers_url: https://www.sommermanskinner.com
+    scan_method: websearch
+    scan_query: '"Sommerman Skinner" OR "SSA Limited" "Product Manager" OR "Director" UAE OR Dubai'
+    notes: "Recruiter (UAE/UK). Executive search for MENA region."
+    enabled: true
+
+  - name: STS Group
+    careers_url: https://www.stsgroup.com
+    scan_method: websearch
+    scan_query: '"STS Group" staffing "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: Talent Bridge HR Consultancy
+    careers_url: https://www.talentbridge.ae
+    scan_method: websearch
+    scan_query: '"Talent Bridge" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: Talent Higher
+    careers_url: https://www.talenthigher.com
+    scan_method: websearch
+    scan_query: '"Talent Higher" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: Black Pearl Consult
+    careers_url: https://www.blackpearlconsult.com
+    scan_method: websearch
+    scan_query: '"Black Pearl" "Product Manager" OR "Product Owner" OR "AI" UAE OR Dubai'
+    notes: "Recruiter (UAE). Fintech/tech focus — strong MENA network."
+    enabled: true
+
+  - name: Emiral Resources
+    careers_url: https://www.emiralresources.com
+    scan_method: websearch
+    scan_query: '"Emiral Resources" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: GG Selection
+    careers_url: https://www.ggselection.com
+    scan_method: websearch
+    scan_query: '"GG Selection" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: Expert Recruitments
+    careers_url: https://www.expertrecruitments.com
+    scan_method: websearch
+    scan_query: '"Expert Recruitments" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: Excelsior Group ME
+    careers_url: https://www.excelsiorgroup.me
+    scan_method: websearch
+    scan_query: '"Excelsior Group" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE/ME). Regional staffing."
+    enabled: true
+
+  - name: The Talents Nation
+    careers_url: https://www.thetalentsnation.com
+    scan_method: websearch
+    scan_query: '"Talents Nation" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: TRS Staffing Solutions
+    careers_url: https://www.trsstaffing.com
+    scan_method: websearch
+    scan_query: '"TRS Staffing" "Product Manager" OR "Digital" UAE OR Dubai OR Singapore'
+    notes: "Recruiter (Global). Engineering + tech staffing."
+    enabled: true
+
+  - name: Quest Search & Selection
+    careers_url: https://www.questsearch.com
+    scan_method: websearch
+    scan_query: '"Quest Search" "Product Manager" OR "Product Owner" UAE OR Dubai OR Singapore'
+    notes: "Recruiter (Global). Retail + consumer + tech placements."
+    enabled: true
+
+  - name: Irwin & Dow
+    careers_url: https://www.irwinanddow.com
+    scan_method: websearch
+    scan_query: '"Irwin and Dow" OR "Irwin & Dow" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE). Boutique executive search."
+    enabled: true
+
+  - name: Ultimate HR Solutions
+    careers_url: https://www.ultimatehr.ae
+    scan_method: websearch
+    scan_query: '"Ultimate HR Solutions" "Product Manager" OR "Product Owner" UAE OR Dubai'
+    notes: "Recruiter (UAE)."
+    enabled: true
+
+  - name: Dicetek LLC
+    careers_url: https://www.dicetekllc.com
+    scan_method: websearch
+    scan_query: '"Dicetek" "Product Manager" OR "Product Owner" OR "AI" UAE OR Dubai'
+    notes: "IT staffing (UAE). Small firm; tech placements."
+    enabled: true
+
+  - name: Intechnics
+    careers_url: https://www.intechnics.com
+    scan_method: websearch
+    scan_query: '"Intechnics" "Product Manager" OR "Digital" UAE OR Dubai'
+    notes: "IT consulting / staffing (UAE)."
+    enabled: true
+
   # Added 2026-04-23 — UAE enterprise employers (own ATS: Workday/SAP/Taleo).
   # Surfaced via weekly UAE portal sweep; WebSearch careers pages directly.
   # - Emirates Global Aluminium (EGA) — Dubai. Industrial digital transformation.
