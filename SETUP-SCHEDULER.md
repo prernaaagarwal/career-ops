@@ -49,7 +49,6 @@ Each morning after 11 AM, check:
 
 ```bash
 tail -50 ~/career-ops/data/scan.log        # full output
-tail -20 ~/career-ops/data/sweep.log       # Claude portal sweep summary
 git -C ~/career-ops log --oneline -5       # recent scan commits
 ```
 
@@ -126,11 +125,10 @@ Every day at 11 AM, `daily-scan.sh` runs these steps in order:
 1. **git pull** — get your latest config from GitHub
 2. **scan.mjs** — hit 171 company APIs (Greenhouse/Ashby/Lever) for fresh PM/AI roles
 3. **scrape-portals.mjs** — Playwright scrape of Naukri, Bayt, MyCareersFuture
-4. **claude -p portal sweep** — headless Claude runs WebSearches across Bayt/Naukrigulf/Gulftalent/Indeed UAE/Instahyre + the 50 search_queries in portals.yml. Adds new roles to pipeline.md. Discovers new companies with Greenhouse/Ashby/Lever boards and appends them to tracked_companies for tomorrow's scan.
-5. **purge-stale.mjs** — drop roles older than 7 days from pipeline.md
-6. **git commit + push** — sync findings back to GitHub
+4. **purge-stale.mjs** — drop roles older than 7 days from pipeline.md
+5. **git commit + push** — sync findings back to GitHub
 
-Total runtime: 10-20 minutes. Runs in the background; you don't need to be doing anything.
+Total runtime: 3-5 minutes. Runs in the background; you don't need to be doing anything.
 
 ---
 
@@ -138,10 +136,7 @@ Total runtime: 10-20 minutes. Runs in the background; you don't need to be doing
 
 - **Node.js** installed (for `scan.mjs`, `scrape-portals.mjs`, `purge-stale.mjs`)
 - **Playwright** installed (`npx playwright install chromium` — for portal scrapes)
-- **Claude Code CLI** installed and authenticated (for the portal sweep step) — the sweep uses your Claude Max subscription, no API tokens
 - **Git** authenticated (SSH key or HTTPS token) — for pulling/pushing
-
-If `claude` CLI is not installed or not on PATH, step 4 (portal sweep) silently skips and the rest of the scan continues normally.
 
 ---
 
@@ -152,12 +147,5 @@ If `claude` CLI is not installed or not on PATH, step 4 (portal sweep) silently 
 - `launchctl list | grep career-ops` — check for a non-zero exit status.
 - `tail -100 ~/career-ops/data/scan.log` — look for errors.
 
-**Portal sweep (step 4) keeps failing:**
-- Your `claude` CLI auth may have expired. Run `claude` interactively once to re-authenticate.
-- Check `~/career-ops/data/sweep.log` for specific errors.
-
 **pipeline.md has duplicate entries:**
 - Run `node dedup-tracker.mjs` manually to clean up.
-
-**Want to see what the sweep would do without committing:**
-- Edit `daily-scan.sh` and change `git push` to `git push --dry-run` for one day's test.
