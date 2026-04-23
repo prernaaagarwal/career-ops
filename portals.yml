@@ -27,22 +27,40 @@ title_filter:
   #   "AI Product Manager", "Digital Product Operations Manager", etc.
   # Domain words (CRM, Salesforce, B2B, CCaaS, Martech, AI, etc.) act as adjectives —
   # they qualify the Product role, not replace it.
+  #
+  # SENIORITY INCLINATION (locked 2026-04-23):
+  # MID-LEVEL first, then MID-SENIOR. Product Manager / Product Owner are first priority.
+  # NOT Principal / Staff / Director / Head / VP / Associate / Junior.
+  #
+  # EXCLUDED COMPANIES (locked 2026-04-23): Google, Meta, Apple, Amazon, Netflix, Microsoft.
+  # See config/profile.yml excluded_companies.
 
   positive:
-    # -- Core Product role titles (domain words work as adjectives automatically) --
-    - "Product Manager"       # catches: Senior PM, CRM PM, Salesforce PM, AI PM, B2B PM, etc.
-    - "Product Owner"         # catches: Senior PO, CRM Product Owner, Agile PO, etc.
-    - "Product Lead"          # catches: B2B Product Lead, Digital Product Lead, etc.
-    - "Product Operations Manager"   # catches: Senior/Lead Product Operations Manager
-    - "Senior Product Operations"    # catches: Senior Product Operations Lead, etc.
-    - "Lead Product Operations"      # catches: Lead Product Operations Manager, etc.
-    - "Product Strategist"    # catches: Senior Product Strategist, etc.
-    - "Senior PM"             # short-form titles used at some companies
+    # -- Core Product role titles (mid-level priority) --
+    - "Product Manager"       # catches: PM, Senior PM, AI PM, CRM PM, etc.
+    - "Product Owner"         # catches: PO, Senior PO, AI PO, etc.
+    - "Product Lead"
+    - "Product Operations Manager"
+    - "Senior Product Operations"
+    - "Lead Product Operations"
+    - "Product Strategist"
+    - "Senior PM"
     - "Senior PO"
     - "Lead PM"
     - "Lead PO"
     - "Group PM"
-    - "AI PM"                 # short-form AI PM title
+    - "AI PM"
+    - "PM II"
+    - "PM III"
+    # -- Adjacent roles (role diversity — added 2026-04-23) --
+    - "AI Program Manager"
+    - "AI Strategist"
+    - "AI Solutions Manager"
+    - "Solutions Lead"
+    - "Transformation Manager"
+    - "AI Transformation"
+    - "Innovation Manager"
+    - "Implementation Lead"
   negative:
     # -- Too junior --
     - "Junior"
@@ -51,7 +69,7 @@ title_filter:
     - "Graduate"
     - "Apprentice"
     - "Entry Level"
-    # -- Too senior (targeting Senior/Lead, not Principal/Staff/Director/Head/VP) --
+    # -- Too senior (locked: mid + mid-senior only, not strict senior) --
     - "Principal Product"
     - "Staff Product"
     - "Director of Product"
@@ -64,7 +82,15 @@ title_filter:
     - "Head of Growth"
     - "Chief Product"
     - "CPO"
-    # -- Engineering roles (not PM, even if "Product" appears nearby) --
+    # -- Excluded companies (FAANG/MAANG — locked 2026-04-23) --
+    - "at Google"
+    - "at Meta"
+    - "at Facebook"
+    - "at Apple"
+    - "at Amazon"
+    - "at Netflix"
+    - "at Microsoft"
+    # -- Engineering / DS / Research (not PM/PO) --
     - "Software Engineer"
     - "Data Engineer"
     - "DevOps Engineer"
@@ -78,11 +104,11 @@ title_filter:
     - "Developer Advocate"
     - "DevRel"
     - "Developer Relations"
-    # -- Research & data science --
     - "Data Scientist"
     - "Research Scientist"
     - "Applied Scientist"
     - "Researcher"
+    - "MLOps Engineer"
     # -- Sales & marketing execution (not product strategy) --
     - "Sales Manager"
     - "Sales Representative"
@@ -383,6 +409,59 @@ search_queries:
 
   - name: Y Combinator — Dubai PM
     query: 'site:ycombinator.com/jobs Dubai OR UAE "Product Manager" OR "Senior PM"'
+    enabled: true
+
+  # ============================================================
+  # APAC expansion — Malaysia / Thailand (added 2026-04-23)
+  # ============================================================
+
+  - name: Malaysia — PM/PO KL
+    query: 'site:my.jobstreet.com OR site:malaysia.indeed.com OR site:my.hiredly.com "Product Manager" OR "Product Owner" OR "Senior Product Manager" OR "Senior Product Owner" "AI" OR "CRM" OR "CCaaS" "Kuala Lumpur" OR Malaysia -"Principal" -"Director" -"Head of"'
+    enabled: true
+
+  - name: Thailand — PM/PO Bangkok
+    query: 'site:th.jobstreet.com OR site:thailand.indeed.com "Product Manager" OR "Product Owner" OR "Senior Product Manager" "AI" OR "CRM" OR "Digital" Bangkok OR Thailand -"Principal" -"Director" -"Head of"'
+    enabled: true
+
+  # ============================================================
+  # EMEA expansion — NL / DK / LU / ES / DE (added 2026-04-23)
+  # ============================================================
+
+  - name: Netherlands — PM/PO Amsterdam
+    query: 'site:linkedin.com/jobs OR site:nl.indeed.com "Product Manager" OR "Product Owner" OR "Senior Product Manager" "AI" OR "CRM" OR "CCaaS" OR "Digital" Amsterdam OR Netherlands -"Principal" -"Director" -"Head of"'
+    enabled: true
+
+  - name: Denmark — PM/PO Copenhagen
+    query: 'site:linkedin.com/jobs OR site:dk.indeed.com "Product Manager" OR "Product Owner" OR "Senior Product Manager" "AI" OR "CRM" OR "Digital" Copenhagen OR Denmark -"Principal" -"Director" -"Head of"'
+    enabled: true
+
+  - name: Luxembourg — PM/PO
+    query: 'site:linkedin.com/jobs "Product Manager" OR "Product Owner" OR "Senior Product Manager" "AI" OR "CRM" OR "Digital" Luxembourg -"Principal" -"Director" -"Head of"'
+    enabled: true
+
+  - name: Spain — PM/PO Madrid/Barcelona
+    query: 'site:getmanfred.com OR site:tecnoempleo.com OR site:linkedin.com/jobs "Product Manager" OR "Product Owner" OR "Senior Product Manager" "AI" OR "CRM" OR "CCaaS" OR "Digital" Madrid OR Barcelona OR Spain -"Principal" -"Director" -"Head of"'
+    enabled: true
+
+  # ============================================================
+  # Role diversity — AI Program / Strategist / Transformation / TPM (added 2026-04-23)
+  # User said: open to diverse role types using domain words
+  # ============================================================
+
+  - name: Role diversity — AI Program Manager
+    query: '"AI Program Manager" OR "AI Programme Manager" Bangalore OR Dubai OR Singapore OR Amsterdam OR Berlin OR Madrid OR Remote -"Principal" -"Director" -"Head of"'
+    enabled: true
+
+  - name: Role diversity — AI Strategist / Solutions
+    query: '"AI Strategist" OR "AI Solutions Manager" OR "Solutions Lead" "AI" OR "GenAI" Bangalore OR Dubai OR Singapore OR Remote -"Principal" -"Director" -"Head of"'
+    enabled: true
+
+  - name: Role diversity — Transformation Manager (AI)
+    query: '"Transformation Manager" OR "AI Transformation Lead" OR "Innovation Manager" "AI" OR "digital" Bangalore OR Dubai OR Singapore OR Remote -"Principal" -"Director" -"Head of" -"Consulting" -"Accenture" -"Deloitte"'
+    enabled: true
+
+  - name: Role diversity — TPM for AI products
+    query: '"Technical Program Manager" OR "TPM" "AI" OR "GenAI" OR "LLM" Bangalore OR Dubai OR Singapore OR Remote -"Principal" -"Director" -"Head of" -"at Google" -"at Microsoft" -"at Meta" -"at Amazon"'
     enabled: true
 
   # ============================================================

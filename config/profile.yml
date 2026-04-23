@@ -1,0 +1,209 @@
+# Career-Ops Profile Configuration
+# This is the single source of truth for your personal data across all modes.
+# Last updated: 2026-04-23 — locked in role diversity + mid-level preference + excluded companies
+
+candidate:
+  full_name: "Prernaa Agarwal"
+  nationality: "Indian"
+  email: "agarwalprerna19@gmail.com"
+  phone: "+91 9836860279"
+  location: "Bangalore, India"
+  linkedin: "https://www.linkedin.com/in/prernaaagarwal/"
+  portfolio_url: "https://prernaaagarwal.framer.website/"
+  github: "https://github.com/prernaaagarwal"
+  joining_preference: "1 month (negotiable)"
+
+# -- Seniority inclination --
+# IMPORTANT: Inclination is toward MID-LEVEL first, then mid-senior.
+# Not strictly Senior. NOT Principal/Staff/Director/Head/VP.
+seniority_inclination: "mid-first, then mid-senior"
+seniority_range:
+  include:
+    - "Product Manager"            # plain PM (mid-level) — first priority
+    - "Product Owner"              # plain PO (mid-level) — first priority
+    - "Senior Product Manager"
+    - "Senior Product Owner"
+    - "Lead Product Manager"
+    - "Lead Product Owner"
+    - "PM II"
+    - "PM III"
+    - "AI Product Manager"
+    - "AI Product Owner"
+  exclude:
+    - "Principal"
+    - "Staff"
+    - "Director"
+    - "Head of"
+    - "VP"
+    - "Vice President"
+    - "Chief"
+    - "Associate"
+    - "Junior"
+    - "Intern"
+    - "Graduate"
+
+target_roles:
+  # -- Principal roles (most important) --
+  primary:
+    - "Product Manager"
+    - "Product Owner"
+    - "Senior Product Manager"
+    - "Senior Product Owner"
+    - "Lead Product Manager"
+    - "Lead Product Owner"
+  # -- Adjacent roles (explore for diversity) --
+  # User said: "I am open to seeing any diversification of roles...so many variety of roles
+  # with the domain words list I have provided"
+  adjacent:
+    - "AI Product Manager"
+    - "AI Product Owner"
+    - "Technical Product Manager"
+    - "AI Program Manager"
+    - "AI Strategist"
+    - "AI Solutions Manager"
+    - "Transformation Manager"
+    - "AI Transformation Lead"
+    - "Innovation Manager"
+    - "Solutions Lead (AI)"
+    - "Implementation Lead (AI)"
+  archetypes:
+    - name: "Product Manager (mid)"
+      level: "Mid"
+      fit: "primary"
+    - name: "Product Owner (mid)"
+      level: "Mid"
+      fit: "primary"
+    - name: "Senior Product Manager"
+      level: "Senior"
+      fit: "primary"
+    - name: "Senior Product Owner"
+      level: "Senior"
+      fit: "primary"
+    - name: "Lead Product Manager"
+      level: "Lead"
+      fit: "primary"
+    - name: "AI Product Manager"
+      level: "Mid-Senior"
+      fit: "primary"
+    - name: "Technical Product Manager"
+      level: "Mid-Senior"
+      fit: "secondary"
+    - name: "AI Program Manager"
+      level: "Mid-Senior"
+      fit: "adjacent"
+    - name: "AI Strategist / Solutions Manager"
+      level: "Mid-Senior"
+      fit: "adjacent"
+    - name: "Transformation Manager (AI)"
+      level: "Mid-Senior"
+      fit: "adjacent"
+
+# -- Domain words (LOCKED IN — use these for every scan) --
+# User-specified domains. NOT data scientist / ML researcher level AI.
+domains:
+  - "GenAI"
+  - "Generative AI"
+  - "CCaaS"
+  - "Contact Center AI"
+  - "CRM"
+  - "Salesforce"
+  - "CoPilot"
+  - "IVA"
+  - "Intelligent Virtual Assistant"
+  - "Conversational AI"
+  - "CX"
+  - "Customer Experience"
+  - "AI Transformation"
+  - "AI Adoption"
+  - "Martech"
+  - "AdTech"
+  - "Marketing Technology"
+  - "B2B SaaS"
+  - "Digital"
+  - "Digital Product"
+  - "Digital Experience"
+  - "Digital Transformation"
+
+# -- Excluded companies (LOCKED IN — do not surface these) --
+# User said: "Remove FAANG/MAANG companies"
+excluded_companies:
+  - "Google"
+  - "Meta"
+  - "Facebook"
+  - "Apple"
+  - "Amazon"
+  - "Netflix"
+  - "Microsoft"
+
+# -- Excluded role types --
+# User said: "avoid data scientist type roles"
+excluded_role_types:
+  - "Data Scientist"
+  - "ML Engineer"
+  - "Machine Learning Engineer"
+  - "Research Scientist"
+  - "Applied Scientist"
+  - "AI Researcher"
+  - "MLOps Engineer"
+
+narrative:
+  headline: "AI Product Lead — CCaaS, CRM & enterprise CX at global scale"
+  exit_story: "10-year product career scaling AI-driven CRM, CCaaS and CX platforms. From VoC systems at ITC Infotech to directing an $18M global portfolio at Kimberly-Clark, to leading CCaaS/IVA + Salesforce CoPilot roadmaps at MetLife — I ship measurable AI product wins in regulated enterprise environments."
+  superpowers:
+    - "AI product strategy in regulated enterprise — IVAs, Salesforce CoPilot, Next Best Action (43% operational efficiency gain at MetLife)"
+    - "Global portfolio ownership — directed $18M product portfolios across Digitech/Martech and CCaaS"
+    - "Multilingual conversational AI & data residency — bilingual NLP, UAE Data Residency, GDPR/PDPL compliance"
+    - "Data-led experimentation — 0PD/1PD/2PD pricing loops, 50% analytics-driven performance uplift, 45% lead conversion gains"
+    - "Cross-functional delivery — enterprise onboarding, 25+ high-ARR projects, 30% market penetration"
+  proof_points:
+    - name: "Portfolio"
+      url: "https://prernaaagarwal.framer.website/"
+      hero_metric: "Live product case studies"
+    - name: "MetLife CCaaS/IVA roadmap"
+      hero_metric: "30% market penetration + 43% operational efficiency"
+    - name: "Kimberly-Clark global Salesforce AI vision"
+      hero_metric: "$18M portfolio, 30% market-share expansion"
+    - name: "Sprinklr enterprise SaaS delivery"
+      hero_metric: "25 projects, 10 new enterprise customers, 50% performance lift"
+
+compensation:
+  target_range: "45-60 LPA"
+  currency: "INR"
+  minimum: "45 LPA"
+
+location:
+  country: "India"
+  city: "Bangalore"
+  timezone: "IST"
+  visa_status: "No sponsorship needed"
+  # -- Regional priority (most preferred first) --
+  preferred_cities:
+    - "Bangalore, India"
+    - "Dubai, UAE"
+  preferred_countries:
+    # INDIA (primary)
+    - "India"
+    # MENA (primary)
+    - "United Arab Emirates"
+    # APAC
+    - "Singapore"
+    - "Malaysia"
+    - "Thailand"
+    # EMEA
+    - "Netherlands"
+    - "Denmark"
+    - "Germany"
+    - "Spain"
+    - "Luxembourg"
+  # -- Regional groupings for scan output --
+  regions:
+    INDIA: ["India", "Bangalore", "Mumbai", "Delhi", "Chennai", "Pune", "Hyderabad"]
+    MENA: ["UAE", "Dubai", "Abu Dhabi", "Saudi Arabia", "Riyadh"]
+    APAC: ["Singapore", "Malaysia", "Thailand", "Kuala Lumpur", "Bangkok"]
+    EMEA: ["Netherlands", "Amsterdam", "Denmark", "Copenhagen", "Germany", "Berlin", "Munich", "Spain", "Madrid", "Barcelona", "Luxembourg", "UK", "London"]
+    GLOBAL_REMOTE: ["Remote", "Global remote", "Work from anywhere"]
+  remote_ok:
+    - "India (remote)"
+    - "US-based but remote work-from-anywhere"
+    - "Global remote (work from anywhere)"
+  level: "Mid + Mid-senior (Product Manager / Product Owner / Senior PM / Lead PM — NOT Principal/Staff/Director/Head)"
