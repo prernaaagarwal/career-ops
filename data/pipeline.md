@@ -89,6 +89,14 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/contentful/jobs/7636216 | Contentful | Senior Product Manager (f/m/d)
 - [ ] https://careers.hellofresh.com/global/en/job/7824418?gh_jid=7824418 | HelloFresh | Senior Product Manager II, Personalisation & Data
 
+- [ ] https://job-boards.greenhouse.io/arizeai/jobs/5978967004 | Arize AI | Partner Product & Solutions Lead
+- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7814028 | InMobi | Senior Product Manager - Sparks
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7821180 | Smartsheet | Product Manager II, Policy & Governance (Hybrid, Bangalore)
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7386364 | Smartsheet | Product Manager II (Remote from Bulgaria)
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7821152 | Smartsheet | Sr. Product Manager II, Identity & Authentication (Hybrid, Bangalore)
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819516 | SecurityScorecard | Senior Product Manager
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819474 | SecurityScorecard | Technical Product Manager
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
