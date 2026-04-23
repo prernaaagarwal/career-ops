@@ -35,8 +35,8 @@ node scrape-portals.mjs
 echo ""
 echo "→ Running portal sweep via claude -p (headless)..."
 if command -v claude >/dev/null 2>&1; then
-  claude -p --allowed-tools "WebSearch,Read,Write,Edit,Bash" \
-    "$(cat batch/daily-sweep-prompt.md)" \
+  cat batch/daily-sweep-prompt.md | claude -p \
+    --allowed-tools "WebSearch,Read,Write,Edit,Bash" \
     2>&1 | tee -a data/sweep.log \
     || echo "  (portal sweep failed — continuing with rest of pipeline)"
 else

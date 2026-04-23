@@ -1391,9 +1391,10 @@ tracked_companies:
     enabled: true
 
   - name: Tabby
-    careers_url: https://boards.greenhouse.io/Tabby
-    api: https://boards-api.greenhouse.io/v1/boards/Tabby/jobs
-    notes: "Dubai/Riyadh. MENA BNPL fintech unicorn. Upgraded to Greenhouse API 2026-04-23."
+    careers_url: https://tabby.ai/careers
+    scan_method: websearch
+    scan_query: 'site:tabby.ai/careers OR site:boards.greenhouse.io/Tabby "Product Manager" OR "Senior PM"'
+    notes: "Dubai/Riyadh. MENA BNPL fintech unicorn. Greenhouse API returns 404 — use websearch."
     enabled: true
 
   # ====================================================================
@@ -1422,9 +1423,10 @@ tracked_companies:
     enabled: true
 
   - name: Sprinklr
-    careers_url: https://boards.greenhouse.io/sprinklr
-    api: https://boards-api.greenhouse.io/v1/boards/sprinklr/jobs
-    notes: "NYC/Bangalore. Former employer. CCaaS, CRM, Martech, AdTech platform."
+    careers_url: https://careers.sprinklr.com
+    scan_method: websearch
+    scan_query: 'site:careers.sprinklr.com OR site:boards.greenhouse.io/sprinklr "Product Manager" OR "Product Owner" OR "AI"'
+    notes: "NYC/Bangalore. Former employer. CCaaS, CRM, Martech. Greenhouse API returns 404 — use websearch."
     enabled: true
 
   - name: InMobi
@@ -1434,10 +1436,10 @@ tracked_companies:
     enabled: true
 
   - name: Relevance AI
-    careers_url: https://jobs.ashbyhq.com/relevanceai
+    careers_url: https://relevanceai.com/careers
     scan_method: websearch
-    scan_query: 'site:jobs.ashbyhq.com/relevanceai "Product Manager" OR "Product Owner" OR "Solutions"'
-    notes: "Sydney/Remote. AI agent builder platform. Senior PM + Solutions Engineer roles."
+    scan_query: 'site:jobs.ashbyhq.com/relevanceai OR site:relevanceai.com "Product Manager" OR "Product Owner" OR "Solutions"'
+    notes: "Sydney/Remote. AI agent builder platform. Ashby private API — use websearch."
     enabled: true
 
   - name: Scale AI
@@ -1464,23 +1466,24 @@ tracked_companies:
     enabled: true
 
   - name: Harper
-    careers_url: https://jobs.ashbyhq.com/harperinsure
+    careers_url: https://www.harperinsure.com/careers
     scan_method: websearch
-    scan_query: 'site:jobs.ashbyhq.com/harperinsure "Product" OR "Founding"'
-    notes: "YC-backed. AI-native commercial insurance brokerage. Founding PM roles, 100x growth."
+    scan_query: 'site:jobs.ashbyhq.com/harperinsure OR site:harperinsure.com "Product" OR "Founding"'
+    notes: "YC-backed. AI-native commercial insurance brokerage. Ashby private API — use websearch."
     enabled: true
 
   - name: Omnipresent
-    careers_url: https://job-boards.greenhouse.io/omnipresent
-    api: https://boards-api.greenhouse.io/v1/boards/omnipresent/jobs
-    notes: "Work from anywhere. Global EOR platform. Senior PM (GMT-4 to GMT+4 timezone)."
+    careers_url: https://www.omnipresent.com/careers
+    scan_method: websearch
+    scan_query: 'site:omnipresent.com/careers OR site:job-boards.greenhouse.io "Omnipresent" "Product Manager"'
+    notes: "Work from anywhere. Global EOR platform. Greenhouse API returns 404 — use websearch."
     enabled: true
 
   - name: Wokelo AI
-    careers_url: https://jobs.ashbyhq.com/wokelo-ai
+    careers_url: https://www.wokelo.ai/careers
     scan_method: websearch
-    scan_query: 'site:jobs.ashbyhq.com/wokelo-ai "Product" OR "PM"'
-    notes: "Seattle/Bengaluru. AI research intelligence. Product Manager roles."
+    scan_query: 'site:jobs.ashbyhq.com/wokelo-ai OR site:wokelo.ai "Product" OR "PM"'
+    notes: "Seattle/Bengaluru. AI research intelligence. Ashby private API — use websearch."
     enabled: true
 
   - name: GovTech Singapore (Careers@Gov)
