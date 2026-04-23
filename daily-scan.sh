@@ -35,10 +35,22 @@ node scrape-portals.mjs
 echo ""
 echo "→ Running portal sweep via claude -p (headless)..."
 if command -v claude >/dev/null 2>&1; then
-  cat batch/daily-sweep-prompt.md | claude -p \
-    --allowed-tools "WebSearch,Read,Write,Edit,Bash" \
-    2>&1 | tee -a data/sweep.log \
-    || echo "  (portal sweep failed — continuing with rest of pipeline)"
+  sweep_success=false
+  for attempt in 1 2 3; do
+    echo "  attempt $attempt of 3..."
+    if cat batch/daily-sweep-prompt.md | claude -p \
+         --allowed-tools "WebSearch,Read,Write,Edit,Bash" \
+         2>&1 | tee -a data/sweep.log; then
+      sweep_success=true
+      break
+    fi
+    echo "  attempt $attempt failed — backing off..."
+    sleep $((attempt * 30))
+  done
+  if [ "$sweep_success" = false ]; then
+    echo "  (portal sweep failed after 3 attempts — continuing with rest of pipeline)"
+    echo "=== Sweep $(date +%Y-%m-%d) — FAILED after 3 retries ===" >> data/sweep.log
+  fi
 else
   echo "  (claude CLI not on PATH — skipping portal sweep)"
 fi

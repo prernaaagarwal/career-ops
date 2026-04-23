@@ -2,98 +2,75 @@
 
 You are running in headless mode (`claude -p`) as part of the 11 AM `daily-scan.sh` cron job. No human is watching. Complete the sweep, commit, and exit.
 
+**Budget: 10 minutes total. Be fast, be concise.**
+
 ## Objective
 
-Discover fresh AI/Product Manager/Product Owner roles across UAE/India/Singapore portals that `scan.mjs` + `scrape-portals.mjs` cannot reach (search_queries in portals.yml + long-tail portals like Bayt/Naukrigulf/Indeed UAE/Gulftalent/Instahyre/Wellfound).
+Discover fresh AI/Product Manager/Product Owner roles across UAE/India/Singapore portals that `scan.mjs` + `scrape-portals.mjs` cannot reach.
 
-## Step 1 — Load context (REQUIRED, do this first)
+## Step 1 — Load context (2 min max)
 
-Read these files to understand the candidate's targeting:
-- `modes/_profile.md` — archetypes + target roles (PM-focused)
-- `config/profile.yml` — location preferences, comp targets, domains, FAANG exclusions
-- `portals.yml` — especially `title_filter` (positive + negative keywords), `freshness.max_age_days`, and all `search_queries` with `enabled: true`
-- `data/scan-history.tsv` — dedup source; do NOT add URLs that already appear here
+Read in parallel:
+- `modes/_profile.md` — target roles + archetypes
+- `portals.yml` — especially `title_filter.positive/negative` and `freshness.max_age_days`
+- `data/scan-history.tsv` — last 200 lines only, for dedup
 
-## Step 2 — Run WebSearches (25-30 total, in parallel batches of 5)
+## Step 2 — Run 12 WebSearches in 3 parallel batches of 4 (5 min max)
 
-### Batch A: Domain-specific PM searches from portals.yml
-Pick 8-12 highest-relevance entries from `search_queries` (domains: GenAI, CCaaS, CRM/Salesforce, IVA/Conversational AI, CX, AI Transformation, Martech/AdTech, B2B SaaS, Digital PM). Run them verbatim.
-
-### Batch B: UAE portal sweeps
-Run these 6 in parallel:
+### Batch A — UAE portals (run 4 in parallel)
 1. `site:bayt.com "Product Manager" OR "Product Owner" "AI" OR "GenAI" OR "CCaaS" Dubai OR UAE -"Principal" -"Director" 2026`
-2. `site:bayt.com "Product Manager" OR "Product Owner" "CRM" OR "Salesforce" OR "Martech" Dubai OR UAE -"Principal" 2026`
-3. `site:naukrigulf.com "Product Manager" OR "Senior Product Manager" "AI" OR "digital" Dubai OR UAE -"Principal" -"Director" 2026`
-4. `site:gulftalent.com "Product Manager" OR "Product Owner" Dubai OR UAE -"Principal" -"Director" 2026`
-5. `site:indeed.ae "Product Manager" OR "Product Owner" "AI" OR "CCaaS" OR "CRM" -"Principal" 2026`
-6. `"Product Manager" OR "Product Owner" UAE OR Dubai "AI" OR "GenAI" OR "Conversational AI" site:linkedin.com/jobs 2026`
+2. `site:naukrigulf.com "Product Manager" OR "Senior Product Manager" "AI" OR "digital" Dubai OR UAE -"Principal" 2026`
+3. `site:gulftalent.com "Product Manager" OR "Product Owner" Dubai OR UAE -"Principal" 2026`
+4. `site:indeed.ae "Product Manager" OR "Product Owner" "AI" OR "CCaaS" OR "CRM" -"Principal" 2026`
 
-### Batch C: India portal sweeps
-Run these 5 in parallel:
-1. `site:naukri.com "Product Manager" OR "Product Owner" "Generative AI" OR "GenAI" Bangalore OR Remote -"Principal" -"Director" 2026`
-2. `site:naukri.com "Product Manager" OR "Product Owner" "CCaaS" OR "Conversational AI" OR "IVA" Bangalore OR Remote -"Principal" 2026`
-3. `site:instahyre.com "Product Manager" OR "Senior PM" "AI" OR "GenAI" Bangalore OR Remote 2026`
-4. `site:hirist.tech "Product Manager" OR "Product Owner" "AI" OR "GenAI" Bangalore OR Remote 2026`
-5. `"Product Manager" OR "Product Owner" "AI" OR "CCaaS" Bangalore OR India site:linkedin.com/jobs 2026`
+### Batch B — India portals (run 4 in parallel)
+5. `site:naukri.com "Product Manager" OR "Product Owner" "Generative AI" OR "GenAI" Bangalore OR Remote -"Principal" -"Director" 2026`
+6. `site:naukri.com "Product Manager" OR "Product Owner" "CCaaS" OR "Conversational AI" Bangalore OR Remote -"Principal" 2026`
+7. `site:instahyre.com "Product Manager" OR "Senior PM" "AI" OR "GenAI" Bangalore OR Remote 2026`
+8. `site:hirist.tech "Product Manager" OR "Product Owner" "AI" OR "GenAI" Bangalore OR Remote 2026`
 
-### Batch D: Singapore + APAC sweep
-Run these 3 in parallel:
-1. `site:mycareersfuture.gov.sg "Product Manager" OR "Product Owner" "AI" OR "GenAI" -"Principal" -"Director" 2026`
-2. `site:linkedin.com/jobs "Product Manager" OR "Product Owner" Singapore "AI" OR "CCaaS" -"Principal" -"Director" 2026`
-3. `"AI Product Manager" OR "Senior AI PM" Singapore OR APAC -"Principal" -"Director" 2026`
+### Batch C — Singapore + LinkedIn (run 4 in parallel)
+9. `site:mycareersfuture.gov.sg "Product Manager" OR "Product Owner" "AI" OR "GenAI" -"Principal" 2026`
+10. `site:linkedin.com/jobs "Product Manager" OR "Product Owner" Singapore "AI" OR "CCaaS" -"Principal" 2026`
+11. `site:linkedin.com/jobs "Product Manager" OR "Product Owner" Dubai OR UAE "AI" OR "GenAI" -"Principal" 2026`
+12. `site:linkedin.com/jobs "Product Manager" OR "Product Owner" Bangalore "AI" OR "CCaaS" -"Principal" 2026`
 
-## Step 3 — Apply filters
+## Step 3 — Filter + append (2 min max)
 
-For every URL returned:
+For every URL returned, apply in order:
+1. Title matches `title_filter.positive`, does not match `title_filter.negative`
+2. Reject FAANG (Google, Meta, Amazon, Apple, Netflix, Microsoft)
+3. Reject seniority: Principal, Director, VP, Head of, Chief
+4. Reject location: US-only, EU-only, Japan-only
+5. Reject URLs already in `data/scan-history.tsv`
 
-1. **Title filter (strict):** the role title must match `title_filter.positive` keywords in `portals.yml` AND NOT match any `title_filter.negative` keyword. Reject FAANG/MAANG roles (Google, Meta, Amazon, Apple, Netflix, Microsoft — see `config/profile.yml` exclusions).
-2. **Seniority filter:** reject Principal, Director, VP, Head of, Chief — these are out of scope.
-3. **Freshness filter:** reject anything obviously older than 7 days (check for dates in title/snippet; if unclear, keep and mark `postedAt: unknown`).
-4. **Dedup:** reject if the URL already appears in `data/scan-history.tsv`.
-5. **Location filter:** must be in UAE/Dubai/India/Bangalore/Singapore/APAC/Remote. Reject US-only, EU-only, Japan-only roles.
+For survivors: append to `data/pipeline.md` (end of table) and `data/scan-history.tsv`. Include `Verification: unconfirmed (batch mode)` note.
 
-## Step 4 — Append results to pipeline.md + scan-history.tsv
+## Step 4 — Discover new ATS companies (optional, skip if short on time)
 
-For each surviving role:
+If any URL is `job-boards.greenhouse.io/{slug}` or `jobs.lever.co/{slug}` where the slug isn't already in `portals.yml` tracked_companies: add a new entry with proper `api:` URL.
 
-1. Append to `data/scan-history.tsv` using the same format as `scan.mjs` output (tab-separated: date, source, company, title, url, location, postedAt).
-2. Append to `data/pipeline.md` as a new row in the existing table. Use freshness emoji (🔥 if <3 days, ✅ if <7 days, ⚠️ if unknown). Include `Verification: unconfirmed (batch mode)` note in the notes column since Playwright isn't available in headless mode.
+## Step 5 — Summary + commit (1 min max)
 
-## Step 5 — Discover new ATS-supported companies (bonus)
-
-If any search result points to a `boards.greenhouse.io/{slug}`, `jobs.ashbyhq.com/{slug}`, or `jobs.lever.co/{slug}` URL and the `{slug}` does not already appear in `portals.yml` tracked_companies:
-
-1. Append a new entry to `portals.yml` under `tracked_companies:` with the correct `api:` URL so the NEXT day's `scan.mjs` picks it up automatically.
-2. Include a short `notes:` field explaining what the company does.
-
-## Step 6 — Write summary to sweep log
-
-Append a summary block to `data/sweep.log` with today's date, format:
-
-```
-=== Sweep 2026-04-23 ===
-Searches run: 28
-Total URLs returned: ~280
-After title/seniority/location filters: 47
-After dedup: 19 new roles
-New tracked_companies added: 2 (Company A, Company B)
-Notable finds: Top 3 roles with company + title + URL.
-```
-
-## Step 7 — Commit and exit
-
-1. `git add data/pipeline.md data/scan-history.tsv data/sweep.log portals.yml`
-2. `git commit -m "sweep: $(date +%Y-%m-%d) — N new roles, M new tracked companies"` (fill in N and M from summary)
-3. `git push`
+1. Append 5-line summary to `data/sweep.log`:
+   ```
+   === Sweep YYYY-MM-DD ===
+   Searches: 12 | URLs returned: N | After filters: M | New: K | New companies added: C
+   Top 3 finds: ...
+   ```
+2. `git add data/pipeline.md data/scan-history.tsv data/sweep.log portals.yml`
+3. `git commit -m "sweep: YYYY-MM-DD — K new roles"` (or "nothing new" if K=0)
+4. `git push`
 
 ## Hard rules
 
-- **Do NOT create reports, CVs, or evaluations** — this is a discovery sweep, not an evaluation pass.
-- **Do NOT message the user** — no human is reading.
-- **Do NOT edit `modes/_shared.md`, `CLAUDE.md`, `scan.mjs`, or any other system/script file** — only the data files listed above + optionally `portals.yml`.
-- **If any step fails, log the error to `data/sweep.log` and continue** — do not halt the entire sweep on a single search failure.
-- **Budget: complete within 15 minutes.** If approaching 12 minutes, skip Batch D and commit what you have.
+- **No reports, no CVs, no evaluations.** Discovery only.
+- **No messaging the user.** Headless mode.
+- **Do not edit** `modes/_shared.md`, `CLAUDE.md`, or any `.mjs` / `.sh` files.
+- **If any step fails: log to sweep.log and continue.** Never halt the whole sweep.
+- **If approaching 9 minutes without finishing: skip remaining searches, commit what you have, exit.**
 
 ## Exit
 
-After `git push`, exit cleanly. The outer `daily-scan.sh` will continue to the `purge-stale.mjs` step.
+After `git push`, exit cleanly. Outer `daily-scan.sh` will continue to `purge-stale.mjs`.
+
