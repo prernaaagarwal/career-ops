@@ -33,7 +33,9 @@ title_filter:
     - "Product Manager"       # catches: Senior PM, CRM PM, Salesforce PM, AI PM, B2B PM, etc.
     - "Product Owner"         # catches: Senior PO, CRM Product Owner, Agile PO, etc.
     - "Product Lead"          # catches: B2B Product Lead, Digital Product Lead, etc.
-    - "Product Operations"    # catches: Product Operations Manager, Sr Product Ops Lead, etc.
+    - "Product Operations Manager"   # catches: Senior/Lead Product Operations Manager
+    - "Senior Product Operations"    # catches: Senior Product Operations Lead, etc.
+    - "Lead Product Operations"      # catches: Lead Product Operations Manager, etc.
     - "Product Strategist"    # catches: Senior Product Strategist, etc.
     - "Senior PM"             # short-form titles used at some companies
     - "Senior PO"
@@ -557,7 +559,7 @@ tracked_companies:
     scan_method: websearch
     scan_query: '"ada.cx" OR "ada" "AI" "Solutions" OR "Engineer" site:jobs.ashbyhq.com OR site:job-boards.greenhouse.io'
     notes: "Toronto + remote. AI customer service."
-    enabled: true
+    enabled: false  # HTTP 404 — board moved, needs new URL
 
   - name: LivePerson
     careers_url: https://liveperson.com/company/careers
@@ -703,7 +705,7 @@ tracked_companies:
   - name: Weights & Biases
     careers_url: https://jobs.lever.co/wandb
     notes: "MLOps platform."
-    enabled: true
+    enabled: false  # HTTP 404 — board moved, needs new URL
 
   - name: Palantir
     careers_url: https://jobs.lever.co/palantir
@@ -717,7 +719,7 @@ tracked_companies:
     scan_method: websearch
     scan_query: 'site:jobs.greenhouse.io/factorial'
     notes: "Barcelona. HR SaaS unicorn."
-    enabled: true
+    enabled: false  # HTTP 404 — board moved, needs new URL
 
   - name: Attio
     careers_url: https://jobs.ashbyhq.com/attio
@@ -738,7 +740,7 @@ tracked_companies:
     scan_method: websearch
     scan_query: 'site:clarity.ai/careers OR site:jobs.lever.co/clarity-ai'
     notes: "Madrid/Remote. Sustainability analytics with AI."
-    enabled: true
+    enabled: false  # HTTP 404 — board moved, needs new URL
 
   - name: Travelperk
     careers_url: https://jobs.ashbyhq.com/travelperk
@@ -837,7 +839,7 @@ tracked_companies:
   - name: Forto
     careers_url: https://jobs.lever.co/forto
     notes: "Berlin DE. Digital freight forwarder, product & data roles, German + English."
-    enabled: true
+    enabled: false  # HTTP 404 — board moved, needs new URL
 
   # -- Switzerland / Austria AI --
 
@@ -953,7 +955,7 @@ tracked_companies:
   - name: Vinted
     careers_url: https://jobs.lever.co/vinted
     notes: "Vilnius LT / Berlin. C2C marketplace unicorn, data science & ML roles."
-    enabled: true
+    enabled: false  # HTTP 404 — board moved, needs new URL
 
   # -- Iberia AI --
 
@@ -983,7 +985,7 @@ tracked_companies:
     careers_url: https://job-boards.greenhouse.io/runwayml
     api: https://boards-api.greenhouse.io/v1/boards/runwayml/jobs
     notes: "Generative AI video and creative tooling platform."
-    enabled: true
+    enabled: false  # HTTP 404 — board moved, needs new URL
 
   - name: Hightouch
     careers_url: https://job-boards.greenhouse.io/hightouch
@@ -1357,7 +1359,7 @@ tracked_companies:
     careers_url: https://boards.greenhouse.io/shopify
     api: https://boards-api.greenhouse.io/v1/boards/shopify/jobs
     notes: "Remote-first (Digital by Default). Global PM roles."
-    enabled: true
+    enabled: false  # HTTP 404 — board moved, needs new URL
 
   - name: Automattic
     careers_url: https://automattic.com/work-with-us/
