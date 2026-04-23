@@ -97,6 +97,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819516 | SecurityScorecard | Senior Product Manager
 - [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819474 | SecurityScorecard | Technical Product Manager
 
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/6956915 | SecurityScorecard | Senior Product Manager
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819480 | SecurityScorecard | Technical Product Manager
+- [ ] https://jobs.lever.co/crypto/4bc9b4c6-db5e-4f2d-abd4-67db5b4884af | Crypto.com | Senior Product Manager, AI Transformation
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
