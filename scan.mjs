@@ -78,6 +78,7 @@ function parseGreenhouse(json, companyName) {
     url: j.absolute_url || '',
     company: companyName,
     location: j.location?.name || '',
+    postedAt: j.updated_at || j.first_published || j.requisition_id || null,
   }));
 }
 
@@ -88,6 +89,7 @@ function parseAshby(json, companyName) {
     url: j.jobUrl || '',
     company: companyName,
     location: j.location || '',
+    postedAt: j.publishedAt || j.updatedAt || null,
   }));
 }
 
@@ -98,10 +100,69 @@ function parseLever(json, companyName) {
     url: j.hostedUrl || '',
     company: companyName,
     location: j.categories?.location || '',
+    postedAt: j.createdAt ? new Date(j.createdAt).toISOString() : null,
   }));
 }
 
 const PARSERS = { greenhouse: parseGreenhouse, ashby: parseAshby, lever: parseLever };
+
+// ── Region classification ───────────────────────────────────────────
+
+const REGIONS = [
+  {
+    name: 'UAE / Dubai',
+    match: /\b(uae|united arab emirates|dubai|abu dhabi|sharjah|riyadh|saudi|ksa|mena|doha|qatar|kuwait|bahrain|oman|muscat)\b/i,
+  },
+  {
+    name: 'India',
+    match: /\b(india|bangalore|bengaluru|mumbai|bombay|chennai|delhi|new delhi|gurgaon|gurugram|noida|pune|hyderabad|kolkata|calcutta|ahmedabad)\b/i,
+  },
+  {
+    name: 'SEA (Singapore / Malaysia / Thailand)',
+    match: /\b(singapore|sg|malaysia|kuala lumpur|penang|thailand|bangkok|chiang mai|indonesia|jakarta|bali|vietnam|hanoi|ho chi minh|philippines|manila|cebu)\b/i,
+  },
+  {
+    name: 'Europe (NL / DK / LU / DE / ES + remote EU)',
+    match: /\b(netherlands|nederland|amsterdam|rotterdam|den haag|utrecht|denmark|danmark|copenhagen|københavn|luxembourg|luxemburg|germany|deutschland|berlin|munich|münchen|hamburg|cologne|köln|frankfurt|spain|españa|madrid|barcelona|valencia|sevilla|remote eu|emea remote|europe remote|remote europe)\b/i,
+  },
+  {
+    name: 'Global Remote (work-from-anywhere)',
+    match: /\b(worldwide|work from anywhere|anywhere|global remote|remote anywhere|remote[- ]*first|distributed)\b/i,
+  },
+  {
+    name: 'Other / Unspecified',
+    match: /.*/,
+  },
+];
+
+function classifyRegion(location) {
+  const loc = (location || '').trim();
+  if (!loc) return 'Other / Unspecified';
+  for (const r of REGIONS) {
+    if (r.match.test(loc)) return r.name;
+  }
+  return 'Other / Unspecified';
+}
+
+function freshnessScore(postedAt) {
+  if (!postedAt) return 0;
+  const t = new Date(postedAt).getTime();
+  return Number.isFinite(t) ? t : 0;
+}
+
+function freshnessLabel(postedAt) {
+  if (!postedAt) return '';
+  const t = new Date(postedAt).getTime();
+  if (!Number.isFinite(t)) return '';
+  const days = Math.floor((Date.now() - t) / (1000 * 60 * 60 * 24));
+  if (days <= 0) return '(today)';
+  if (days === 1) return '(1 day ago)';
+  if (days < 7) return `(${days} days ago)`;
+  if (days < 14) return '(1 week ago)';
+  if (days < 30) return `(${Math.floor(days / 7)} weeks ago)`;
+  if (days < 60) return '(1 month ago)';
+  return `(${Math.floor(days / 30)} months ago)`;
+}
 
 // ── Fetch with timeout ──────────────────────────────────────────────
 
@@ -343,10 +404,27 @@ async function main() {
   }
 
   if (newOffers.length > 0) {
-    console.log('\nNew offers:');
+    // Group by region, sort each region by freshness (newest first)
+    const grouped = new Map();
+    for (const r of REGIONS) grouped.set(r.name, []);
     for (const o of newOffers) {
-      console.log(`  + ${o.company} | ${o.title} | ${o.location || 'N/A'}`);
-      if (o.url) console.log(`      → ${o.url}`);
+      const region = classifyRegion(o.location);
+      grouped.get(region).push(o);
+    }
+    for (const arr of grouped.values()) {
+      arr.sort((a, b) => freshnessScore(b.postedAt) - freshnessScore(a.postedAt));
+    }
+
+    console.log('\nNew offers (grouped by region, freshest first):');
+    for (const [regionName, offers] of grouped) {
+      if (offers.length === 0) continue;
+      console.log(`\n  ── ${regionName} (${offers.length}) ──`);
+      for (const o of offers) {
+        const fresh = freshnessLabel(o.postedAt);
+        const freshSuffix = fresh ? `  ${fresh}` : '';
+        console.log(`  + ${o.company} | ${o.title} | ${o.location || 'N/A'}${freshSuffix}`);
+        if (o.url) console.log(`      → ${o.url}`);
+      }
     }
     if (dryRun) {
       console.log('\n(dry run — run without --dry-run to save results)');
