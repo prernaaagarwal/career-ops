@@ -29,6 +29,20 @@ echo ""
 echo "→ Running portal scrape (scrape-portals.mjs)..."
 node scrape-portals.mjs
 
+# 3b. Portal sweep via headless Claude (uses Claude Max subscription — no API cost)
+# Covers: search_queries in portals.yml + Bayt/Naukrigulf/Gulftalent/Indeed UAE/Instahyre
+# Discovers new ATS-supported companies and appends them to tracked_companies
+echo ""
+echo "→ Running portal sweep via claude -p (headless)..."
+if command -v claude >/dev/null 2>&1; then
+  claude -p --allowed-tools "WebSearch,Read,Write,Edit,Bash" \
+    "$(cat batch/daily-sweep-prompt.md)" \
+    2>&1 | tee -a data/sweep.log \
+    || echo "  (portal sweep failed — continuing with rest of pipeline)"
+else
+  echo "  (claude CLI not on PATH — skipping portal sweep)"
+fi
+
 # 4. Purge stale (>7 days old) from pipeline.md
 echo ""
 echo "→ Purging stale entries (purge-stale.mjs)..."
@@ -37,7 +51,7 @@ node purge-stale.mjs
 # 5. Commit and push results
 echo ""
 echo "→ Committing and pushing..."
-git add -f data/pipeline.md data/scan-history.tsv
+git add -f data/pipeline.md data/scan-history.tsv data/sweep.log
 git commit -m "daily scan $(date +%Y-%m-%d)" || echo "  (nothing to commit)"
 git push
 
