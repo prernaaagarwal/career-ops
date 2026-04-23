@@ -86,6 +86,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/weave/3e2e05c4-e1bc-4345-b422-b4a9dd2314e9 | Weave | Senior Product Manager, AI/ML (Remote)
 - [ ] https://jobs.ashbyhq.com/procurify/36f109d4-4024-4bfe-986c-6997c02b9967 | Procurify | Senior Product Manager, AI (Remote Canada/US)
 
+- [ ] https://job-boards.greenhouse.io/contentful/jobs/7636216 | Contentful | Senior Product Manager (f/m/d)
+- [ ] https://careers.hellofresh.com/global/en/job/7824418?gh_jid=7824418 | HelloFresh | Senior Product Manager II, Personalisation & Data
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
