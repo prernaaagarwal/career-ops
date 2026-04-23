@@ -1391,10 +1391,24 @@ tracked_companies:
     enabled: true
 
   - name: Tabby
-    careers_url: https://tabby.ai/careers
-    scan_method: websearch
-    scan_query: 'site:tabby.ai/careers "Product Manager" OR "Senior PM"'
-    notes: "Dubai/Riyadh. MENA BNPL fintech unicorn."
+    careers_url: https://boards.greenhouse.io/Tabby
+    api: https://boards-api.greenhouse.io/v1/boards/Tabby/jobs
+    notes: "Dubai/Riyadh. MENA BNPL fintech unicorn. Upgraded to Greenhouse API 2026-04-23."
+    enabled: true
+
+  # ====================================================================
+  # Added 2026-04-23 — discovered via WebSearch portal sweep
+  # ====================================================================
+
+  - name: DevRev
+    careers_url: https://job-boards.greenhouse.io/devrev
+    api: https://boards-api.greenhouse.io/v1/boards/devrev/jobs
+    notes: "Bangalore/US. AI-native CRM platform, $150M+ raised, founded by ex-Nutanix. Strong AI PM hiring."
+    enabled: true
+
+  - name: Crypto.com
+    careers_url: https://jobs.lever.co/crypto
+    notes: "Dubai/Singapore/Remote. Crypto exchange with AI PM roles (ignore crypto domain — role is still AI PM)."
     enabled: true
 
   - name: Tamara
