@@ -129,25 +129,25 @@ search_queries:
 
   # -- AI-native platforms (Ashby) --
   - name: Ashby — AI Product Manager
-    query: 'site:jobs.ashbyhq.com "AI Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" remote'
+    query: 'site:jobs.ashbyhq.com "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" remote -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   - name: Ashby — Senior PM
-    query: 'site:jobs.ashbyhq.com "Senior Product Manager" OR "Lead PM" OR "Group PM" remote'
+    query: 'site:jobs.ashbyhq.com "Product Manager" OR "Senior Product Manager" OR "Lead PM" remote -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   # -- Greenhouse --
   - name: Greenhouse — AI PM
-    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "AI Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" remote'
+    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" remote -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   - name: Greenhouse — Technical PM
-    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "Technical Product Manager" OR "Platform Product Manager" OR "Group PM" remote'
+    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "Product Manager" OR "Technical Product Manager" OR "Platform Product Manager" remote -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   # -- Lever --
   - name: Lever — Senior PM
-    query: 'site:jobs.lever.co "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" remote'
+    query: 'site:jobs.lever.co "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" remote -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   - name: Lever — Product Owner
@@ -210,7 +210,7 @@ search_queries:
   # ============================================================
 
   - name: Naukri — Senior PM India
-    query: 'site:naukri.com "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" Bangalore OR Mumbai OR Remote'
+    query: 'site:naukri.com "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" Bangalore OR Mumbai OR Remote -"Principal" -"Director" -"Head of"'
     enabled: true
 
   - name: Naukri — B2B SaaS PM
@@ -218,11 +218,11 @@ search_queries:
     enabled: true
 
   - name: Instahyre — Senior PM India
-    query: 'site:instahyre.com "Senior Product Manager" OR "Lead PM" OR "AI Product Manager" Bangalore OR Remote'
+    query: 'site:instahyre.com "Product Manager" OR "Senior Product Manager" OR "Lead PM" Bangalore OR Remote -"Principal" -"Director" -"Head of"'
     enabled: true
 
   - name: LinkedIn India — Senior PM
-    query: 'site:linkedin.com/jobs "Senior Product Manager" OR "Lead Product Manager" OR "AI PM" Bangalore OR India OR "India Remote"'
+    query: 'site:linkedin.com/jobs "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" Bangalore OR India OR "India Remote" -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   - name: AngelList India — Senior PM
@@ -246,7 +246,7 @@ search_queries:
     enabled: true
 
   - name: LinkedIn UAE — Senior PM
-    query: 'site:linkedin.com/jobs "Senior Product Manager" OR "AI Product Manager" Dubai OR "UAE" OR "United Arab Emirates"'
+    query: 'site:linkedin.com/jobs "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" Dubai OR "UAE" OR "United Arab Emirates" -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   - name: Dubizzle Jobs
@@ -258,7 +258,7 @@ search_queries:
   # ============================================================
 
   - name: MyCareersFuture Singapore
-    query: 'site:mycareersfuture.gov.sg "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager"'
+    query: 'site:mycareersfuture.gov.sg "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" -"Principal" -"Director" -"Head of"'
     enabled: true
 
   - name: e27 SEA — Senior PM
@@ -270,11 +270,11 @@ search_queries:
     enabled: true
 
   - name: LinkedIn SEA — Senior PM
-    query: 'site:linkedin.com/jobs "Senior Product Manager" Singapore OR Malaysia OR Thailand OR "Kuala Lumpur" OR Bangkok'
+    query: 'site:linkedin.com/jobs "Product Manager" OR "Senior Product Manager" Singapore OR Malaysia OR Thailand OR "Kuala Lumpur" OR Bangkok -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   - name: JobStreet — PM SEA
-    query: 'site:jobstreet.com "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" Singapore OR Malaysia'
+    query: 'site:jobstreet.com "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" Singapore OR Malaysia -"Principal" -"Director" -"Head of"'
     enabled: true
 
   # ============================================================
@@ -282,7 +282,7 @@ search_queries:
   # ============================================================
 
   - name: LinkedIn EU — Senior PM remote
-    query: 'site:linkedin.com/jobs "Senior Product Manager" Netherlands OR Denmark OR Luxembourg OR Germany OR Spain "remote"'
+    query: 'site:linkedin.com/jobs "Product Manager" OR "Senior Product Manager" Netherlands OR Denmark OR Luxembourg OR Germany OR Spain "remote" -"Principal" -"Director" -"Head of" -"VP"'
     enabled: true
 
   - name: Honeypot — Europe senior PM
@@ -342,19 +342,19 @@ search_queries:
     enabled: true
 
   - name: Indeed India — Senior PM Bangalore
-    query: 'site:in.indeed.com "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" Bangalore OR Remote'
+    query: 'site:in.indeed.com "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" Bangalore OR Remote -"Principal" -"Director" -"Head of"'
     enabled: true
 
   - name: Indeed India — B2B SaaS PM
-    query: 'site:in.indeed.com "Product Manager" "B2B" OR "SaaS" OR "CCaaS" OR "Salesforce" OR "Martech" Bangalore OR Remote'
+    query: 'site:in.indeed.com "Product Manager" "B2B" OR "SaaS" OR "CCaaS" OR "Salesforce" OR "Martech" Bangalore OR Remote -"Principal" -"Director"'
     enabled: true
 
   - name: Built In India — PM Bangalore
-    query: 'site:builtin.com/jobs India OR Bangalore "Senior Product Manager" OR "AI Product Manager"'
+    query: 'site:builtin.com/jobs India OR Bangalore "Product Manager" OR "Senior Product Manager" -"Principal" -"Director" -"Head of"'
     enabled: true
 
   - name: Glassdoor India — Senior PM
-    query: 'site:glassdoor.co.in "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" Bangalore OR Mumbai'
+    query: 'site:glassdoor.co.in "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" Bangalore OR Mumbai -"Principal" -"Director" -"Head of"'
     enabled: true
 
   - name: Y Combinator — Bengaluru PM
@@ -366,15 +366,15 @@ search_queries:
   # ============================================================
 
   - name: Naukrigulf — Senior PM Dubai
-    query: 'site:naukrigulf.com "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" Dubai OR UAE'
+    query: 'site:naukrigulf.com "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" Dubai OR UAE -"Principal" -"Director" -"Head of"'
     enabled: true
 
   - name: Naukrigulf — B2B SaaS PM UAE
-    query: 'site:naukrigulf.com "Product Manager" "B2B" OR "SaaS" OR "CRM" OR "Salesforce" Dubai OR UAE'
+    query: 'site:naukrigulf.com "Product Manager" "B2B" OR "SaaS" OR "CRM" OR "Salesforce" Dubai OR UAE -"Principal" -"Director"'
     enabled: true
 
   - name: Indeed UAE — Senior PM
-    query: 'site:ae.indeed.com "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" Dubai'
+    query: 'site:ae.indeed.com "Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" Dubai -"Principal" -"Director" -"Head of"'
     enabled: true
 
   - name: Zero Tax Jobs — Dubai PM
@@ -383,6 +383,46 @@ search_queries:
 
   - name: Y Combinator — Dubai PM
     query: 'site:ycombinator.com/jobs Dubai OR UAE "Product Manager" OR "Senior PM"'
+    enabled: true
+
+  # ============================================================
+  # Domain-specific PM searches (profile domains)
+  # ============================================================
+
+  - name: Domain — GenAI / Generative AI PM
+    query: '"Product Manager" "GenAI" OR "Generative AI" OR "generative AI" -"Principal" -"Director" -"Data Scientist" -"ML Engineer"'
+    enabled: true
+
+  - name: Domain — CCaaS / Contact Center AI PM
+    query: '"Product Manager" "CCaaS" OR "contact center AI" OR "contact centre AI" -"Principal" -"Director" -"Data Scientist"'
+    enabled: true
+
+  - name: Domain — CRM / Salesforce PM
+    query: '"Product Manager" "Salesforce" OR "CRM" OR "Sales Cloud" OR "CoPilot" AI -"Principal" -"Director" -"Salesforce Admin" -"Salesforce Developer"'
+    enabled: true
+
+  - name: Domain — IVA / Conversational AI PM
+    query: '"Product Manager" "IVA" OR "Intelligent Virtual Assistant" OR "conversational AI" OR "voice bot" -"Principal" -"Director" -"Data Scientist"'
+    enabled: true
+
+  - name: Domain — CX / Customer Experience AI PM
+    query: '"Product Manager" "CX" OR "customer experience" OR "CX platform" AI OR "AI-powered" -"Principal" -"Director" -"Data Scientist"'
+    enabled: true
+
+  - name: Domain — AI Transformation PM
+    query: '"Product Manager" "AI transformation" OR "AI adoption" OR "digital transformation" AI -"Principal" -"Director" -"Data Scientist"'
+    enabled: true
+
+  - name: Domain — Martech / AdTech PM
+    query: '"Product Manager" "Martech" OR "AdTech" OR "marketing technology" OR "marketing automation" AI -"Principal" -"Director"'
+    enabled: true
+
+  - name: Domain — B2B SaaS AI PM India
+    query: 'site:naukri.com OR site:instahyre.com "Product Manager" "B2B" OR "SaaS" OR "enterprise" AI OR "GenAI" OR "CCaaS" Bangalore OR Remote -"Principal" -"Director"'
+    enabled: true
+
+  - name: Domain — Digital PM
+    query: '"Product Manager" "digital" OR "digital product" OR "digital transformation" OR "digital experience" -"Principal" -"Director" -"Data Scientist" -"ML Engineer"'
     enabled: true
 
   # ============================================================
