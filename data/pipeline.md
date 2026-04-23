@@ -301,3 +301,16 @@ Quick scores — no full A-G reports. Sorted by score descending.
 
 ## Procesadas
 
+
+## Portal Sweep 2026-04-23
+
+- [ ] https://www.jobaaj.com/job/tabby-senior-product-manager-bnpl-merchants-dubai-united-arab-emirates-3-to-5-years-855100 | Tabby | Senior Product Manager, BNPL Merchants | Dubai, UAE
+- [ ] https://careers.nutanix.com/en/jobs/30788/sr-product-manager-aiml-ai-agent-platform/ | Nutanix | Sr. Product Manager (AI/ML, AI Agent) - Platform | Bangalore (hybrid)
+- [ ] https://www.sarvam.ai/careers | Sarvam AI | Product Manager - Models (ASR, TTS, Evals) | Bangalore
+- [ ] https://www.instahyre.com/job-330846-senior-ai-product-manager-at-eltropy-bangalore/ | Eltropy | Senior AI Product Manager | Bangalore
+- [ ] https://www.instahyre.com/job-283357-senior-product-manager-at-axiamatic-2-bangalore/ | Axiamatic | Senior Product Manager (GenAI SaaS) | Bangalore
+- [ ] https://www.instahyre.com/job-331836-product-manager-genai-at-the-modern-data-company-bangalore/ | The Modern Data Company | Product Manager (GenAI) | Bangalore
+- [ ] https://www.instahyre.com/job-252260-senior-product-manager-saas-at-sprouts-bangalore/ | Sprouts.ai | Senior Product Manager (SaaS) | Bangalore
+- [ ] https://nutanix.eightfold.ai/careers/job?pid=2145210&domain=nutanix.com | Nutanix | Product Manager - Platforms | Bangalore
+- [ ] https://www.instahyre.com/job-355709-product-manager-agentic-ai-at-skyfall-ai-bangalore/ | Skyfall AI | Product Manager, Agentic AI | Bangalore
+- [ ] https://jaabz.com/jobs/170956-senior-product-manager | NextMatch AI | Senior Product Manager, AI Ecosystems & Automation | UAE (visa sponsored)
