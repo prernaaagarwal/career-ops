@@ -20,27 +20,27 @@
 # At least 1 positive must match AND 0 negatives must match (case-insensitive).
 
 title_filter:
+  # HOW THIS WORKS:
+  # A role passes if its title contains at least 1 positive keyword AND zero negative keywords.
+  # Because "Product Manager" is a substring match, it automatically catches:
+  #   "CRM Product Manager", "Salesforce Product Owner", "B2B Senior Product Lead",
+  #   "AI Product Manager", "Digital Product Operations Manager", etc.
+  # Domain words (CRM, Salesforce, B2B, CCaaS, Martech, AI, etc.) act as adjectives —
+  # they qualify the Product role, not replace it.
+
   positive:
-    # -- Core PM / PO titles only — NO standalone domain keywords (they cause false positives) --
-    - "Product Manager"
-    - "Product Owner"
-    - "AI Product Manager"
-    - "AI PM"
-    - "Senior Product Manager"
-    - "Senior Product Owner"
-    - "Senior PM"
+    # -- Core Product role titles (domain words work as adjectives automatically) --
+    - "Product Manager"       # catches: Senior PM, CRM PM, Salesforce PM, AI PM, B2B PM, etc.
+    - "Product Owner"         # catches: Senior PO, CRM Product Owner, Agile PO, etc.
+    - "Product Lead"          # catches: B2B Product Lead, Digital Product Lead, etc.
+    - "Product Operations"    # catches: Product Operations Manager, Sr Product Ops Lead, etc.
+    - "Product Strategist"    # catches: Senior Product Strategist, etc.
+    - "Senior PM"             # short-form titles used at some companies
     - "Senior PO"
-    - "Lead Product Manager"
-    - "Lead Product Owner"
     - "Lead PM"
     - "Lead PO"
-    - "Group Product Manager"
     - "Group PM"
-    - "Technical Product Manager"
-    - "Platform Product Manager"
-    - "Product Lead"
-    - "Growth Product Manager"
-    - "Growth PM"
+    - "AI PM"                 # short-form AI PM title
   negative:
     # -- Too junior --
     - "Junior"
@@ -49,60 +49,49 @@ title_filter:
     - "Graduate"
     - "Apprentice"
     - "Entry Level"
-    # -- Too senior (user targets Senior/Lead PM, not Principal/Staff/Director/Head) --
-    - "Principal"
+    # -- Too senior (targeting Senior/Lead, not Principal/Staff/Director/Head/VP) --
+    - "Principal Product"
     - "Staff Product"
+    - "Director of Product"
     - "Director of"
-    - "Director,"
-    - "VP "
+    - "VP of Product"
+    - "VP Product"
+    - "VP,"
     - "Vice President"
     - "Head of Product"
     - "Head of Growth"
-    - "Chief"
+    - "Chief Product"
     - "CPO"
-    # -- Engineering & technical roles --
-    - "Engineering Manager"
+    # -- Engineering roles (not PM, even if "Product" appears nearby) --
     - "Software Engineer"
     - "Data Engineer"
     - "DevOps Engineer"
     - "ML Engineer"
     - "AI Engineer"
     - "Machine Learning Engineer"
-    - "Applied ML"
     - "Solutions Engineer"
     - "Solutions Architect"
     - "Forward Deployed"
-    - "Deployment Engineer"
-    - "Customer Engineer"
-    - "Implementation Engineer"
+    - "Engineering Manager"
     - "Developer Advocate"
     - "DevRel"
     - "Developer Relations"
-    # -- Research & science roles --
+    # -- Research & data science --
     - "Data Scientist"
     - "Research Scientist"
     - "Applied Scientist"
     - "Researcher"
-    # -- Sales & BD roles --
+    # -- Sales & marketing execution (not product strategy) --
     - "Sales Manager"
     - "Sales Representative"
     - "Sales Agent"
     - "Field Sales"
     - "Account Executive"
     - "Account Manager"
-    - "Business Development"
-    - "Sales Development"
-    # -- Operations & consulting --
     - "Customer Success"
-    - "Consultant"
-    - "Business Analyst"
-    - "Data Analyst"
-    - "Operations Manager"
-    - "Delivery Manager"
-    # -- Salesforce admin/dev --
     - "Salesforce Admin"
     - "Salesforce Developer"
-    # -- Tech stack / language-specific (not PM) --
+    # -- Tech stack / language-specific --
     - ".NET"
     - "Java "
     - "iOS"
@@ -121,7 +110,6 @@ title_filter:
     - "Mainframe"
     - "COBOL"
   seniority_boost:
-    # These prefixes signal preferred mid-senior band
     - "Senior"
     - "Lead"
     - "Group"
