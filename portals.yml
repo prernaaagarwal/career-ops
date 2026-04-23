@@ -21,7 +21,7 @@
 
 title_filter:
   positive:
-    # -- Core PM / PO roles (mix-and-match base) --
+    # -- Core PM / PO titles only — NO standalone domain keywords (they cause false positives) --
     - "Product Manager"
     - "Product Owner"
     - "AI Product Manager"
@@ -34,24 +34,13 @@ title_filter:
     - "Lead Product Owner"
     - "Lead PM"
     - "Lead PO"
+    - "Group Product Manager"
+    - "Group PM"
     - "Technical Product Manager"
     - "Platform Product Manager"
-    # -- Domain-qualified PM roles --
-    - "B2B Product"
-    - "SaaS Product"
-    - "CCaaS Product"
-    - "CRM Product"
-    - "Salesforce Product"
-    - "Martech Product"
-    - "MarTech Product"
-    - "CX Product"
-    - "Digital Transformation"
-    # -- Standalone domain keywords (get caught when combined with PM/PO in JD) --
-    - "CCaaS"
-    - "Martech"
-    - "MarTech"
-    - "CRM"
-    - "Salesforce"
+    - "Product Lead"
+    - "Growth Product Manager"
+    - "Growth PM"
   negative:
     # -- Too junior --
     - "Junior"
@@ -60,7 +49,7 @@ title_filter:
     - "Graduate"
     - "Apprentice"
     - "Entry Level"
-    # -- Too senior (user targets mid-senior, not executive) --
+    # -- Too senior (user targets Senior/Lead PM, not Principal/Staff/Director/Head) --
     - "Principal"
     - "Staff Product"
     - "Director of"
@@ -71,20 +60,49 @@ title_filter:
     - "Head of Growth"
     - "Chief"
     - "CPO"
-    # -- Non-PM roles --
+    # -- Engineering & technical roles --
     - "Engineering Manager"
     - "Software Engineer"
     - "Data Engineer"
     - "DevOps Engineer"
+    - "ML Engineer"
+    - "AI Engineer"
+    - "Machine Learning Engineer"
+    - "Applied ML"
     - "Solutions Engineer"
     - "Solutions Architect"
     - "Forward Deployed"
+    - "Deployment Engineer"
+    - "Customer Engineer"
+    - "Implementation Engineer"
     - "Developer Advocate"
+    - "DevRel"
+    - "Developer Relations"
+    # -- Research & science roles --
+    - "Data Scientist"
+    - "Research Scientist"
+    - "Applied Scientist"
+    - "Researcher"
+    # -- Sales & BD roles --
     - "Sales Manager"
+    - "Sales Representative"
+    - "Sales Agent"
+    - "Field Sales"
     - "Account Executive"
+    - "Account Manager"
+    - "Business Development"
+    - "Sales Development"
+    # -- Operations & consulting --
     - "Customer Success"
+    - "Consultant"
+    - "Business Analyst"
+    - "Data Analyst"
+    - "Operations Manager"
+    - "Delivery Manager"
+    # -- Salesforce admin/dev --
     - "Salesforce Admin"
     - "Salesforce Developer"
+    # -- Tech stack / language-specific (not PM) --
     - ".NET"
     - "Java "
     - "iOS"
@@ -103,208 +121,98 @@ title_filter:
     - "Mainframe"
     - "COBOL"
   seniority_boost:
-    # These prefixes add relevance (mid-senior band preferred)
+    # These prefixes signal preferred mid-senior band
     - "Senior"
     - "Lead"
+    - "Group"
     - "AI"
-    - "B2B"
-    - "SaaS"
+    - "Technical"
 
 # -- Search queries --
 # Each query triggers a WebSearch. Use site: to filter by portal.
 # The scanner extracts title, URL, and company from results.
 
 search_queries:
-  # -- Ashby --
-  - name: Ashby — AI PM
-    query: 'site:jobs.ashbyhq.com "AI Product Manager" OR "Senior Product Manager AI" remote'
+  # NOTE: scan.mjs uses the tracked_companies API list, not these search_queries.
+  # These queries are placeholders for future WebSearch-based scanning.
+  # All queries here target PM/PO roles only — no engineering/DevRel/FDE roles.
+
+  # -- AI-native platforms (Ashby) --
+  - name: Ashby — AI Product Manager
+    query: 'site:jobs.ashbyhq.com "AI Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" remote'
     enabled: true
 
-  - name: Ashby — Solutions Architect
-    query: 'site:jobs.ashbyhq.com "Solutions Architect" AI OR automation remote'
-    enabled: true
-
-  - name: Ashby — AI Engineer
-    query: 'site:jobs.ashbyhq.com "AI Engineer" OR "LLM Engineer" OR "Forward Deployed" remote'
-    enabled: true
-
-  - name: Ashby — Agentic
-    query: 'site:jobs.ashbyhq.com "Agentic" OR "AI Agent" OR "Automation Architect" remote'
+  - name: Ashby — Senior PM
+    query: 'site:jobs.ashbyhq.com "Senior Product Manager" OR "Lead PM" OR "Group PM" remote'
     enabled: true
 
   # -- Greenhouse --
   - name: Greenhouse — AI PM
-    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "AI Product Manager" OR "Senior Product Manager" AI remote'
+    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "AI Product Manager" OR "Senior Product Manager" OR "Lead Product Manager" remote'
     enabled: true
 
-  - name: Greenhouse — SA & FDE
-    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "Solutions Architect" OR "Forward Deployed" AI remote'
-    enabled: true
-
-  - name: Greenhouse — AI Engineer
-    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "AI Engineer" OR "LLM" OR "Agentic" remote'
+  - name: Greenhouse — Technical PM
+    query: 'site:boards.greenhouse.io OR site:job-boards.greenhouse.io "Technical Product Manager" OR "Platform Product Manager" OR "Group PM" remote'
     enabled: true
 
   # -- Lever --
-  - name: Lever — AI PM
-    query: 'site:jobs.lever.co "AI Product Manager" OR "Solutions Architect" AI remote'
+  - name: Lever — Senior PM
+    query: 'site:jobs.lever.co "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" remote'
     enabled: true
 
-  - name: Lever — AI Roles
-    query: 'site:jobs.lever.co "AI Engineer" OR "Agentic" OR "LLMOps" OR "Automation" remote'
+  - name: Lever — Product Owner
+    query: 'site:jobs.lever.co "Product Owner" OR "Senior Product Owner" OR "Group Product Manager" remote'
     enabled: true
 
   # -- Wellfound (startups) --
   - name: Wellfound — AI PM
-    query: 'site:wellfound.com "AI Product Manager" OR "AI Solutions" remote'
+    query: 'site:wellfound.com "AI Product Manager" OR "Senior PM" OR "Lead Product Manager" remote'
     enabled: true
 
-  # -- Workable --
-  - name: Workable — AI Roles
-    query: 'site:apply.workable.com "AI" "Product Manager" OR "Solutions Architect" OR "AI Engineer" remote'
+  # -- Remote-friendly boards (PM-specific) --
+  - name: WeWorkRemotely — Senior PM
+    query: 'site:weworkremotely.com "Senior Product Manager" OR "Lead Product Manager" OR "AI PM"'
     enabled: true
 
-  # -- No-Code / Low-Code / Automation --
-  - name: Ashby — No-Code & Automation
-    query: 'site:jobs.ashbyhq.com "no-code" OR "low-code" OR "automation engineer" OR "n8n" OR "Make" OR "Airtable" remote senior'
+  - name: Working Nomads — Senior PM
+    query: 'site:workingnomads.com "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager"'
     enabled: true
 
-  - name: Greenhouse — No-Code & Automation
-    query: 'site:job-boards.greenhouse.io "no-code" OR "low-code" OR "automation engineer" OR "business systems" senior remote'
+  - name: RemoteOK — Senior PM
+    query: 'site:remoteok.com "Senior Product Manager" OR "Lead PM" OR "AI Product Manager"'
     enabled: true
 
-  - name: GTM Engineer — All portals
-    query: '"GTM Engineer" OR "RevOps Engineer" OR "Growth Engineer" automation Airtable OR Make OR Clay remote'
+  - name: Remotive — Senior PM remote
+    query: 'site:remotive.com "Senior Product Manager" OR "Lead Product Manager" OR "AI PM" remote'
     enabled: true
 
-  # -- Voice AI & Conversational AI --
-  - name: Voice AI — FDE & SA
-    query: 'site:job-boards.greenhouse.io OR site:jobs.ashbyhq.com "Voice AI" OR "Conversational AI" OR "Speech" "Solutions" OR "Forward Deployed" OR "Customer Engineer"'
+  - name: Himalayas — Remote Senior PM
+    query: 'site:himalayas.app "Senior Product Manager" OR "Lead Product Manager" OR "AI Product Manager" remote'
     enabled: true
 
-  - name: Voice AI — AI Engineer
-    query: 'site:job-boards.greenhouse.io OR site:jobs.ashbyhq.com "Voice" OR "Speech" "AI Engineer" OR "Deployment" OR "Integration"'
+  - name: YC Jobs — PM roles
+    query: 'site:ycombinator.com/jobs OR site:workatastartup.com "Product Manager" OR "Senior PM" OR "Product Owner" remote'
     enabled: true
 
-  # -- Contact Center AI --
-  - name: Contact Center AI — SA & SE
-    query: '"contact center" OR "customer service" "AI" "Solutions Architect" OR "Solutions Engineer" OR "Forward Deployed" remote'
+  # -- Europe (Spain, Germany, Netherlands, Denmark) --
+  - name: Manfred — Spain Senior PM
+    query: 'site:getmanfred.com/en/job-offers "Product Manager" OR "Senior PM" OR "Product Owner" remote OR Madrid OR Barcelona'
     enabled: true
 
-  # -- FDE specific (cross-portal) --
-  - name: FDE & Deployed Engineer — All portals
-    query: '"Forward Deployed Engineer" OR "Deployed Engineer" OR "Deployment Engineer" AI site:job-boards.greenhouse.io OR site:jobs.ashbyhq.com OR site:jobs.lever.co'
+  - name: Tecnoempleo — Spain PM
+    query: 'site:tecnoempleo.com "Product Manager" OR "Senior PM" "remoto" OR "remote"'
     enabled: true
 
-  # -- RemoteFront (aggregator) --
-  - name: RemoteFront — AI & Automation
-    query: 'site:remotefront.com "AI Engineer" OR "Solutions Engineer" OR "Automation" OR "LLM" OR "Agent" remote'
+  - name: Welcome to the Jungle — Europe PM
+    query: 'site:welcometothejungle.com "Senior Product Manager" OR "AI Product Manager" Amsterdam OR Berlin OR Copenhagen OR Madrid remote'
     enabled: true
 
-  # -- Remote-friendly Europe boards --
-
-  - name: Remotive — AI/DevRel/SA/FDE
-    query: 'site:remotive.com "AI Engineer" OR "Developer Advocate" OR "Solutions Architect" OR "Forward Deployed" OR "DevRel" Europe'
+  - name: EU Remote Jobs — Senior PM
+    query: 'site:euremotejobs.com "Senior Product Manager" OR "Lead Product Manager" OR "AI PM"'
     enabled: true
 
-  - name: WeWorkRemotely — AI & DX
-    query: 'site:weworkremotely.com "AI" OR "DevRel" OR "Solutions Engineer" OR "Forward Deployed" OR "Founding Engineer"'
-    enabled: true
-
-  - name: Working Nomads — AI/DevRel/SA
-    query: 'site:workingnomads.com "AI Engineer" OR "Developer Advocate" OR "Solutions Architect" OR "Forward Deployed"'
-    enabled: true
-
-  - name: EU Remote Jobs — AI/DevRel/SA
-    query: 'site:euremotejobs.com "AI" OR "DevRel" OR "Solutions Architect" OR "Forward Deployed" OR "Founding Engineer"'
-    enabled: true
-
-  - name: RemoteOK — AI/DevRel/SA
-    query: 'site:remoteok.com "AI Engineer" OR "Developer Advocate" OR "Solutions Architect" OR "Forward Deployed" OR "Founding Engineer"'
-    enabled: true
-
-  # -- Specialized AI / Dev-Tools / FDE boards --
-
-  - name: ai-jobs.net — DevRel/SA/FDE
-    query: 'site:ai-jobs.net "Developer Advocate" OR "Solutions Architect" OR "Forward Deployed" OR "DevRel" remote Europe'
-    enabled: true
-
-  - name: ai-jobs.net — Founding/Applied AI
-    query: 'site:ai-jobs.net "Founding Engineer" OR "Applied AI Engineer" OR "Founding" remote'
-    enabled: true
-
-  - name: fwddeploy.com — Forward Deployed roles
-    query: 'site:fwddeploy.com "Forward Deployed" OR "Deployed Engineer" remote Europe OR EMEA'
-    enabled: true
-
-  - name: YC Jobs — DevRel/SA/FDE/Founding
-    query: 'site:ycombinator.com/jobs OR site:workatastartup.com "Forward Deployed" OR "Developer Advocate" OR "Founding Engineer" OR "Solutions Architect" remote'
-    enabled: true
-
-  - name: YC Jobs — Applied AI
-    query: 'site:workatastartup.com "Applied AI" OR "AI Engineer" OR "AI Agent" remote Europe'
-    enabled: true
-
-  # -- Spanish market specialized (high-value for Madrid/Barcelona-based candidates) --
-
-  - name: Manfred — Tech Senior España
-    query: 'site:getmanfred.com/en/job-offers "Solutions Architect" OR "DevRel" OR "Forward Deployed" OR "AI Engineer" OR "Founding"'
-    enabled: true
-
-  - name: Manfred — Remote AI/Senior
-    query: 'site:getmanfred.com "remote" "AI" OR "Senior" OR "Staff" OR "Lead"'
-    enabled: true
-
-  - name: Tecnoempleo — España IT
-    query: 'site:tecnoempleo.com "AI Engineer" OR "Solutions Architect" OR "DevRel" OR "Forward Deployed" OR "Founding Engineer"'
-    enabled: true
-
-  - name: Tecnoempleo — Remoto Senior
-    query: 'site:tecnoempleo.com "remoto" OR "remote" Senior "AI" OR "Architect" OR "Lead"'
-    enabled: true
-
-  - name: JobFluent — Spain startups
-    query: 'site:jobfluent.com Madrid OR Barcelona "AI" OR "Engineer" OR "Solutions" OR "DevRel"'
-    enabled: true
-
-  - name: Welcome to the Jungle — Spain tech
-    query: 'site:welcometothejungle.com Spain OR Madrid OR Barcelona "AI Engineer" OR "Solutions Architect" OR "DevRel" OR "Forward Deployed"'
-    enabled: true
-
-  # -- DevRel-specific boards --
-
-  - name: DevRelX Jobs
-    query: 'site:devrelx.com/jobs remote OR Europe OR EMEA'
-    enabled: true
-
-  - name: TrueUp — DevRel roles
-    query: 'site:trueup.io/devrel OR site:trueup.io "Developer Advocate" OR "DevRel" remote Europe'
-    enabled: true
-
-  - name: Remote Rocketship — DevRel
-    query: 'site:remoterocketship.com/jobs/developer-relations OR site:remoterocketship.com "DevRel" remote'
-    enabled: true
-
-  - name: DevRel Job board
-    query: 'site:devreljob.com remote OR Europe OR EMEA'
-    enabled: true
-
-  # -- European / global aggregators --
-
-  - name: Himalayas — Remote AI/Dev-tools
-    query: 'site:himalayas.app "AI Engineer" OR "Solutions Architect" OR "Developer Advocate" OR "Forward Deployed" OR "Founding Engineer" Europe'
-    enabled: true
-
-  - name: Jooble — España Tech Senior
-    query: 'site:jooble.org "AI Engineer" OR "Solutions Architect" OR "DevRel" Madrid OR remote España'
-    enabled: true
-
-  - name: EU Data Jobs — AI/ML Europe
-    query: 'site:eudatajobs.com "AI" OR "ML" OR "Data" "Engineer" OR "Architect" remote Europe'
-    enabled: true
-
-  - name: HN Who's Hiring — Remote AI
-    query: 'site:news.ycombinator.com OR site:hnrss.org "AI Engineer" OR "Forward Deployed" OR "DevRel" OR "Founding Engineer" remote'
+  - name: HN Who's Hiring — Remote PM
+    query: 'site:news.ycombinator.com "Product Manager" OR "Senior PM" OR "AI PM" remote "work from anywhere"'
     enabled: true
 
   # ============================================================
