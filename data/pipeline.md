@@ -105,6 +105,12 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819483 | SecurityScorecard | Technical Product Manager
 - [ ] https://jobs.lever.co/crypto/72327aa3-8a7c-4b60-a7e3-7246d2d71351 | Crypto.com | Senior Product Manager, AI Transformation
 
+- [ ] https://www.scandit.com/careers/job-description/?gh_jid=7847328 | Scandit | Strategy & Transformation Manager
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/6948728 | SecurityScorecard | Senior Product Manager
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819490 | SecurityScorecard | Technical Product Manager
+- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8332463002 | GitLab | Senior Product Manager, Software Supply Chain Security
+- [ ] https://jobs.lever.co/crypto/b778f1a0-c0b1-4af3-a232-4723789c4f25 | Crypto.com | Senior Product Manager, AI Transformation
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
