@@ -111,6 +111,11 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/gitlab/jobs/8332463002 | GitLab | Senior Product Manager, Software Supply Chain Security
 - [ ] https://jobs.lever.co/crypto/b778f1a0-c0b1-4af3-a232-4723789c4f25 | Crypto.com | Senior Product Manager, AI Transformation
 
+- [ ] https://job-boards.greenhouse.io/vercel/jobs/5979660004 | Vercel | Pricing Product Manager
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819524 | SecurityScorecard | Senior Product Manager
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819495 | SecurityScorecard | Technical Product Manager
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4687591005 | Scale AI | Product Manager, Public Sector GenAI Test & Evaluation (T&E)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
