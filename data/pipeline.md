@@ -116,6 +116,14 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819495 | SecurityScorecard | Technical Product Manager
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4687591005 | Scale AI | Product Manager, Public Sector GenAI Test & Evaluation (T&E)
 
+- [ ] https://jobs.ashbyhq.com/vapi/6d2c731b-64be-45cc-87c8-f6330d29b7f4 | Vapi | Product Manager - Enterprise & Governance Agents
+- [ ] https://jobs.ashbyhq.com/synthesia/7fc7f0ac-7a05-4dba-9036-ffdb99b6a704 | Synthesia | Product Manager, Analytics
+- [ ] https://jobs.ashbyhq.com/perplexity/f25e190e-0508-4707-b575-fcaed358dc13 | Perplexity | Product Manager (Builder)
+- [ ] https://jobs.ashbyhq.com/DeepL/734dfbcf-9cbb-4259-848a-35d304355e77 | DeepL | Group Product Manager | Business Acceleration Track
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7817765 | Smartsheet | Sr. Product Manager I, Security & Safeguard (Hybrid, Bangalore)
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819518 | SecurityScorecard | Senior Product Manager
+- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819497 | SecurityScorecard | Technical Product Manager
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
