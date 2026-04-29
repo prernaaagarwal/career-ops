@@ -124,6 +124,14 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819518 | SecurityScorecard | Senior Product Manager
 - [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819497 | SecurityScorecard | Technical Product Manager
 
+- [ ] https://n26.com/en-eu/careers/positions/7868515?gh_jid=7868515 | N26 | Product Manager - Data Governance & Analytics Engineering
+- [ ] https://n26.com/en-eu/careers/positions/7868456?gh_jid=7868456 | N26 | Product Manager - Lending
+- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7840513 | InMobi | Senior Product Manager — User Store & AI Intelligence Platform
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4675842005 | Scale AI | Product Manager, Gen AI Platform
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4650514005 | Scale AI | Product Manager of AI Applications, Global Public Sector
+- [ ] https://jobs.ashbyhq.com/supabase/b8010a28-109c-46a9-b8b7-c7f9b24077fa | Supabase | Product Manager - Security & Trust (EMEA/AMER)
+- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8512220002 | GitLab | Senior Product Manager, Tenant Scale
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
