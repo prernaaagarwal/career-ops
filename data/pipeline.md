@@ -326,6 +326,26 @@ Quick scores — no full A-G reports. Sorted by score descending.
 ---
 *Scored on 2026-04-23. Run `/career-ops oferta {url}` for full A-G report on any role.*
 
+## Portal Sweep 2026-04-29
+
+<!-- ── India / Bangalore (3) ── -->
+
+- [ ] https://www.instahyre.com/job-364102-product-manager-at-highlevel-bangalore/ | HighLevel | Product Manager | Bangalore, India
+- [ ] https://www.naukri.com/job-listings-product-manager-coderound-ai-bengaluru-4-to-7-years-110326504304 | Coderound AI | Product Manager | Bengaluru, India
+- [ ] https://www.hirist.tech/j/antino-labs-product-manager-roadmap-and-strategy-1582242 | Antino Labs | Product Manager (Roadmap & Strategy) | Bangalore, India
+
+<!-- ── UAE / Dubai (1) ── -->
+
+- [ ] https://www.epam.com/careers/job-listings/job.epamgdo_blt970db2a5c1528fdf_en-us_Dubai_UAE.senior-product-manager-gen-ai_dubai_uae | EPAM | Senior Product Manager, GenAI | Dubai, UAE
+
+<!-- ── SEA / Singapore (5) ── -->
+
+- [ ] https://bebee.com/sg/jobs/senior-product-manager-gen-ai-and-conversational-platformsnew-the-economist-group-asia-pacific-limit--theirstack-655058123 | The Economist Group | Senior Product Manager, GenAI & Conversational Platforms | Singapore
+- [ ] https://www.efinancialcareers.sg/jobs-Singapore-Singapore-Senior_Product_Manager_AI_Transformation.id24152257 | (Financial Services co.) | Senior Product Manager, AI Transformation | Singapore
+- [ ] https://www.mycareersfuture.gov.sg/job/ai-tech-product-manager-vocalbeatsai-76117040069c6077193b2a6733303be0 | VocalBeatsAI | AI Tech Product Manager | Singapore
+- [ ] https://www.mycareersfuture.gov.sg/job/information-technology/ai-product-manager-apar-technologies-1ee10d307a208c849406ec88b0680e93 | APAR Technologies | AI Product Manager | Singapore
+- [ ] https://www.mycareersfuture.gov.sg/job/ai-product-manager-websparks-077be22c1effce888fd4dcad56aae338 | WebSparks | AI Product Manager (Public Healthcare) | Singapore
+
 ## Procesadas
 
 
