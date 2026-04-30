@@ -25,7 +25,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://www.instahyre.com/job-233658-senior-product-manager-artworkflow-ai-ml-at-bizongo-bangalore/ | Bizongo | Senior Product Manager - Artworkflow (AI/ML)
 - [ ] https://www.instahyre.com/job-225519-senior-product-manager-at-whatfix-bangalore/ | Whatfix | Senior Product Manager
-- [ ] https://www.instahyre.com/job-330846-senior-ai-product-manager-at-eltropy-bangalore/ | Eltropy | Senior AI Product Manager
 - [ ] https://www.instahyre.com/job-338035-product-manager-at-yellow-bangalore/ | Yellow.ai | Product Manager
 - [ ] https://www.instahyre.com/job-336925-senior-product-manager-at-google-2-bangalore-hyderabad-work-from-home/ | Google | Senior Product Manager
 - [ ] https://careers.freshworks.com/jobs/F3Nq-ljqWTdm/product-manager | Freshworks | Senior Product Manager
@@ -86,24 +85,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/weave/3e2e05c4-e1bc-4345-b422-b4a9dd2314e9 | Weave | Senior Product Manager, AI/ML (Remote)
 - [ ] https://jobs.ashbyhq.com/procurify/36f109d4-4024-4bfe-986c-6997c02b9967 | Procurify | Senior Product Manager, AI (Remote Canada/US)
 
-- [ ] https://job-boards.greenhouse.io/contentful/jobs/7636216 | Contentful | Senior Product Manager (f/m/d)
-- [ ] https://careers.hellofresh.com/global/en/job/7824418?gh_jid=7824418 | HelloFresh | Senior Product Manager II, Personalisation & Data
 
-- [ ] https://job-boards.greenhouse.io/arizeai/jobs/5978967004 | Arize AI | Partner Product & Solutions Lead
-- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7814028 | InMobi | Senior Product Manager - Sparks
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7821180 | Smartsheet | Product Manager II, Policy & Governance (Hybrid, Bangalore)
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7386364 | Smartsheet | Product Manager II (Remote from Bulgaria)
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7821152 | Smartsheet | Sr. Product Manager II, Identity & Authentication (Hybrid, Bangalore)
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819516 | SecurityScorecard | Senior Product Manager
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819474 | SecurityScorecard | Technical Product Manager
 
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/6956915 | SecurityScorecard | Senior Product Manager
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819480 | SecurityScorecard | Technical Product Manager
-- [ ] https://jobs.lever.co/crypto/4bc9b4c6-db5e-4f2d-abd4-67db5b4884af | Crypto.com | Senior Product Manager, AI Transformation
 
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819520 | SecurityScorecard | Senior Product Manager
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819483 | SecurityScorecard | Technical Product Manager
-- [ ] https://jobs.lever.co/crypto/72327aa3-8a7c-4b60-a7e3-7246d2d71351 | Crypto.com | Senior Product Manager, AI Transformation
 
 - [ ] https://www.scandit.com/careers/job-description/?gh_jid=7847328 | Scandit | Strategy & Transformation Manager
 - [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/6948728 | SecurityScorecard | Senior Product Manager
@@ -131,6 +115,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4650514005 | Scale AI | Product Manager of AI Applications, Global Public Sector
 - [ ] https://jobs.ashbyhq.com/supabase/b8010a28-109c-46a9-b8b7-c7f9b24077fa | Supabase | Product Manager - Security & Trust (EMEA/AMER)
 - [ ] https://job-boards.greenhouse.io/gitlab/jobs/8512220002 | GitLab | Senior Product Manager, Tenant Scale
+
+- [ ] https://n26.com/en-eu/careers/positions/7861428?gh_jid=7861428 | N26 | Product Manager - Data Governance & Analytics Engineering
+- [ ] https://n26.com/en-eu/careers/positions/7861809?gh_jid=7861809 | N26 | Product Manager - Lending
 
 ## Fresh Scan 2026-04-23
 
@@ -351,13 +338,3 @@ Quick scores — no full A-G reports. Sorted by score descending.
 
 ## Portal Sweep 2026-04-23
 
-- [ ] https://www.jobaaj.com/job/tabby-senior-product-manager-bnpl-merchants-dubai-united-arab-emirates-3-to-5-years-855100 | Tabby | Senior Product Manager, BNPL Merchants | Dubai, UAE
-- [ ] https://careers.nutanix.com/en/jobs/30788/sr-product-manager-aiml-ai-agent-platform/ | Nutanix | Sr. Product Manager (AI/ML, AI Agent) - Platform | Bangalore (hybrid)
-- [ ] https://www.sarvam.ai/careers | Sarvam AI | Product Manager - Models (ASR, TTS, Evals) | Bangalore
-- [ ] https://www.instahyre.com/job-330846-senior-ai-product-manager-at-eltropy-bangalore/ | Eltropy | Senior AI Product Manager | Bangalore
-- [ ] https://www.instahyre.com/job-283357-senior-product-manager-at-axiamatic-2-bangalore/ | Axiamatic | Senior Product Manager (GenAI SaaS) | Bangalore
-- [ ] https://www.instahyre.com/job-331836-product-manager-genai-at-the-modern-data-company-bangalore/ | The Modern Data Company | Product Manager (GenAI) | Bangalore
-- [ ] https://www.instahyre.com/job-252260-senior-product-manager-saas-at-sprouts-bangalore/ | Sprouts.ai | Senior Product Manager (SaaS) | Bangalore
-- [ ] https://nutanix.eightfold.ai/careers/job?pid=2145210&domain=nutanix.com | Nutanix | Product Manager - Platforms | Bangalore
-- [ ] https://www.instahyre.com/job-355709-product-manager-agentic-ai-at-skyfall-ai-bangalore/ | Skyfall AI | Product Manager, Agentic AI | Bangalore
-- [ ] https://jaabz.com/jobs/170956-senior-product-manager | NextMatch AI | Senior Product Manager, AI Ecosystems & Automation | UAE (visa sponsored)
