@@ -333,6 +333,24 @@ Quick scores — no full A-G reports. Sorted by score descending.
 - [ ] https://www.mycareersfuture.gov.sg/job/information-technology/ai-product-manager-apar-technologies-1ee10d307a208c849406ec88b0680e93 | APAR Technologies | AI Product Manager | Singapore
 - [ ] https://www.mycareersfuture.gov.sg/job/ai-product-manager-websparks-077be22c1effce888fd4dcad56aae338 | WebSparks | AI Product Manager (Public Healthcare) | Singapore
 
+## Portal Sweep 2026-04-30
+
+<!-- ── India / Bangalore (2) ── -->
+
+- [ ] https://www.instahyre.com/job-279276-arificial-intelligence-ai-product-manager-at-devrev-bangalore/ | DevRev | AI Product Manager | Bangalore, India
+- [ ] https://www.hirist.tech/j/infineon-technical-product-manager-ai-cloud-data-platform-1590462 | Infineon | Technical Product Manager — AI Cloud Data Platform | Bangalore, India
+
+<!-- ── UAE / Dubai (2) ── -->
+
+- [ ] https://www.gulftalent.com/uae/jobs/salesforce-crm-support-product-owner-485008 | Global Corporation (via GulfTalent) | Salesforce CRM Support Product Owner | Dubai, UAE
+- [ ] https://www.talentmate.com/jobs/uae/dubai/senior-product-manager-ai/2604-2417-101 | Talentmate (client) | Senior Product Manager — AI | Dubai, UAE
+
+<!-- ── SEA / Singapore (3) ── -->
+
+- [ ] https://bebee.com/sg/jobs/lead-senior-product-manager-ai-safety-governance-platformai-govtech-singapore-singapore--whatjobs-fb56bcb228b4aa539773abf3466d4c67 | GovTech Singapore | Lead/Senior Product Manager — AI Safety & Governance, PlatformAI | Singapore
+- [ ] https://www.mycareersfuture.gov.sg/job/information-technology/product-manager-cynapse-f6c5bad8ed80a538893d7da190374967 | Cynapse | Product Manager (IT) | Singapore
+- [ ] https://www.mycareersfuture.gov.sg/job/ai-ml-product-manager-percept-solutions-a40a443c0d3ba9b306b2b27ff37e0f4d | Percept Solutions | AI / ML Product Manager | Singapore
+
 ## Procesadas
 
 
