@@ -89,16 +89,7 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://www.scandit.com/careers/job-description/?gh_jid=7847328 | Scandit | Strategy & Transformation Manager
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/6948728 | SecurityScorecard | Senior Product Manager
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819490 | SecurityScorecard | Technical Product Manager
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8332463002 | GitLab | Senior Product Manager, Software Supply Chain Security
-- [ ] https://jobs.lever.co/crypto/b778f1a0-c0b1-4af3-a232-4723789c4f25 | Crypto.com | Senior Product Manager, AI Transformation
 
-- [ ] https://job-boards.greenhouse.io/vercel/jobs/5979660004 | Vercel | Pricing Product Manager
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819524 | SecurityScorecard | Senior Product Manager
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819495 | SecurityScorecard | Technical Product Manager
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4687591005 | Scale AI | Product Manager, Public Sector GenAI Test & Evaluation (T&E)
 
 - [ ] https://jobs.ashbyhq.com/vapi/6d2c731b-64be-45cc-87c8-f6330d29b7f4 | Vapi | Product Manager - Enterprise & Governance Agents
 - [ ] https://jobs.ashbyhq.com/synthesia/7fc7f0ac-7a05-4dba-9036-ffdb99b6a704 | Synthesia | Product Manager, Analytics
@@ -118,6 +109,9 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://n26.com/en-eu/careers/positions/7861428?gh_jid=7861428 | N26 | Product Manager - Data Governance & Analytics Engineering
 - [ ] https://n26.com/en-eu/careers/positions/7861809?gh_jid=7861809 | N26 | Product Manager - Lending
+
+- [ ] https://job-boards.eu.greenhouse.io/polyai/jobs/4713506101 | PolyAI | Group Product Manager
+- [ ] https://jobs.ashbyhq.com/sierra/1e052261-0c89-4ccb-abfa-3820a1596a6e | Sierra | Product Manager, Infrastructure
 
 ## Fresh Scan 2026-04-23
 
