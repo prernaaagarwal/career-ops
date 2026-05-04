@@ -361,6 +361,28 @@ Quick scores — no full A-G reports. Sorted by score descending.
 
 - [ ] https://www.gulftalent.com/uae/jobs/product-manager-ai-transformation-440592 | Apparel Group | Product Manager — AI & Transformation | Dubai, UAE
 
+## Portal Sweep 2026-05-04 (round 2)
+
+<!-- ── India / Bangalore (5) ── -->
+
+- [ ] https://careers.salesforce.com/en/jobs/jr289316/senior-product-manager-service-cloud/ | Salesforce | Senior Product Manager — Service Cloud | Bangalore / Hyderabad, India
+- [ ] https://careers.salesforce.com/en/jobs/jr318182/senior-product-manager/ | Salesforce | Senior Product Manager | Bangalore / Hyderabad, India
+- [ ] https://in.linkedin.com/jobs/view/senior-product-manager-at-senseforth-ai-2923922815 | Senseforth.ai | Senior Product Manager (Conversational AI) | Bangalore, India
+- [ ] https://cutshort.io/job/Product-Manager-Bengaluru-Bangalore-CallHub-gRTI4GdO | CallHub | Product Manager (B2B SaaS) | Bangalore, India
+- [ ] https://wellfound.com/jobs/2821658-product-manager | SocialPilot | Product Manager (B2B SaaS / Martech) | Remote, India
+
+<!-- ── India / NCR (1) ── -->
+
+- [ ] https://www.foundit.in/job/ai-product-owner-gedu-services-noida-51127233 | Gedu Services | AI Product Owner | Noida, India
+
+<!-- ── EMEA / preferred (1) ── -->
+
+- [ ] https://nl.linkedin.com/jobs/view/product-manager-genai-conversational-ai-crm-at-rabobank-4332740262 | Rabobank | Product Manager — GenAI / Conversational AI / CRM | Netherlands
+
+<!-- ── EMEA / borderline (1) ── -->
+
+- [ ] https://wellfound.com/company/builderai/jobs/1977602-senior-product-manager-chatbot-conversationalai | Builder.ai | Senior Product Manager — Chatbot / Conversational AI | London, UK
+
 ## Procesadas
 
 
