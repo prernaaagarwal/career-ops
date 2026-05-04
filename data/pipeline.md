@@ -345,6 +345,22 @@ Quick scores — no full A-G reports. Sorted by score descending.
 - [ ] https://www.mycareersfuture.gov.sg/job/information-technology/product-manager-cynapse-f6c5bad8ed80a538893d7da190374967 | Cynapse | Product Manager (IT) | Singapore
 - [ ] https://www.mycareersfuture.gov.sg/job/ai-ml-product-manager-percept-solutions-a40a443c0d3ba9b306b2b27ff37e0f4d | Percept Solutions | AI / ML Product Manager | Singapore
 
+## Portal Sweep 2026-05-04
+
+<!-- ── India / Bangalore (7) ── -->
+
+- [ ] https://www.iimjobs.com/j/metadomeai-senior-product-manager-conversational-ai-1636582 | Metadome.ai | Senior Product Manager — Conversational AI | Bangalore, India
+- [ ] https://careers.gevernova.com/senior-product-manager-genai/job/R5031052 | GE Vernova | Senior Product Manager — GenAI | Bangalore, India
+- [ ] https://www.iimjobs.com/j/lead-product-manager-b2b-saas-adtech-mediatech-marketing-technology-1677049 | ConsultBae (client) | Lead Product Manager — B2B SaaS / AdTech / Martech | Bangalore / Chennai, India
+- [ ] https://jobs-ta.pwc.com/global/en/job/679089WD/AI-Product-Manager-Senior-Manager | PwC Acceleration Centres | AI Product Manager (Senior Manager) | Bangalore, India
+- [ ] https://www.iimjobs.com/j/ai-product-manager-1676223 | Binary Star SearchX (client) | AI Product Manager | Bangalore, India
+- [ ] https://www.hirist.tech/j/wolters-kluwer-senior-product-manager-csm-cspo-1590322 | Wolters Kluwer | Senior Product Manager (CSM/CSPO) | Bangalore, India
+- [ ] https://www.instahyre.com/job-411138-founding-product-manager-at-clara-ai-bangalore/ | Clara AI | Founding Product Manager | Bangalore, India
+
+<!-- ── UAE / Dubai (1) ── -->
+
+- [ ] https://www.gulftalent.com/uae/jobs/product-manager-ai-transformation-440592 | Apparel Group | Product Manager — AI & Transformation | Dubai, UAE
+
 ## Procesadas
 
 
