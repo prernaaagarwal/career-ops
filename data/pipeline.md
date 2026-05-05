@@ -91,13 +91,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/vapi/6d2c731b-64be-45cc-87c8-f6330d29b7f4 | Vapi | Product Manager - Enterprise & Governance Agents
-- [ ] https://jobs.ashbyhq.com/synthesia/7fc7f0ac-7a05-4dba-9036-ffdb99b6a704 | Synthesia | Product Manager, Analytics
-- [ ] https://jobs.ashbyhq.com/perplexity/f25e190e-0508-4707-b575-fcaed358dc13 | Perplexity | Product Manager (Builder)
-- [ ] https://jobs.ashbyhq.com/DeepL/734dfbcf-9cbb-4259-848a-35d304355e77 | DeepL | Group Product Manager | Business Acceleration Track
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7817765 | Smartsheet | Sr. Product Manager I, Security & Safeguard (Hybrid, Bangalore)
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819518 | SecurityScorecard | Senior Product Manager
-- [ ] https://job-boards.greenhouse.io/securityscorecard/jobs/7819497 | SecurityScorecard | Technical Product Manager
 
 - [ ] https://n26.com/en-eu/careers/positions/7868515?gh_jid=7868515 | N26 | Product Manager - Data Governance & Analytics Engineering
 - [ ] https://n26.com/en-eu/careers/positions/7868456?gh_jid=7868456 | N26 | Product Manager - Lending
@@ -112,6 +105,10 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://job-boards.eu.greenhouse.io/polyai/jobs/4713506101 | PolyAI | Group Product Manager
 - [ ] https://jobs.ashbyhq.com/sierra/1e052261-0c89-4ccb-abfa-3820a1596a6e | Sierra | Product Manager, Infrastructure
+
+- [ ] https://job-boards.greenhouse.io/arizeai/jobs/5987435004 | Arize AI | AI Solutions Manager, SMB
+- [ ] https://n26.com/en-eu/careers/positions/7883144?gh_jid=7883144 | N26 | Product Manager - Savings
+- [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4217529009 | Eltropy | Product Manager – AI & Analytics 
 
 ## Fresh Scan 2026-04-23
 
