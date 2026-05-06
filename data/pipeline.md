@@ -92,13 +92,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://n26.com/en-eu/careers/positions/7868515?gh_jid=7868515 | N26 | Product Manager - Data Governance & Analytics Engineering
-- [ ] https://n26.com/en-eu/careers/positions/7868456?gh_jid=7868456 | N26 | Product Manager - Lending
-- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7840513 | InMobi | Senior Product Manager — User Store & AI Intelligence Platform
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4675842005 | Scale AI | Product Manager, Gen AI Platform
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4650514005 | Scale AI | Product Manager of AI Applications, Global Public Sector
-- [ ] https://jobs.ashbyhq.com/supabase/b8010a28-109c-46a9-b8b7-c7f9b24077fa | Supabase | Product Manager - Security & Trust (EMEA/AMER)
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8512220002 | GitLab | Senior Product Manager, Tenant Scale
 
 - [ ] https://n26.com/en-eu/careers/positions/7861428?gh_jid=7861428 | N26 | Product Manager - Data Governance & Analytics Engineering
 - [ ] https://n26.com/en-eu/careers/positions/7861809?gh_jid=7861809 | N26 | Product Manager - Lending
@@ -109,6 +102,11 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/arizeai/jobs/5987435004 | Arize AI | AI Solutions Manager, SMB
 - [ ] https://n26.com/en-eu/careers/positions/7883144?gh_jid=7883144 | N26 | Product Manager - Savings
 - [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4217529009 | Eltropy | Product Manager – AI & Analytics 
+
+- [ ] https://n26.com/en-eu/careers/positions/7882770?gh_jid=7882770 | N26 | Product Manager - Savings
+- [ ] https://careers.hellofresh.com/global/en/job/7784812?gh_jid=7784812 | HelloFresh | Senior Product Operations Specialist (12 Months Contract)
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4692308005 | Scale AI | Product Manager, Trust & Safety
+- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7337428 | InMobi | Senior Product Manager - Central Data Repository & Data Platform AI
 
 ## Fresh Scan 2026-04-23
 
@@ -308,21 +306,12 @@ Quick scores — no full A-G reports. Sorted by score descending.
 
 <!-- ── India / Bangalore (3) ── -->
 
-- [ ] https://www.instahyre.com/job-364102-product-manager-at-highlevel-bangalore/ | HighLevel | Product Manager | Bangalore, India
-- [ ] https://www.naukri.com/job-listings-product-manager-coderound-ai-bengaluru-4-to-7-years-110326504304 | Coderound AI | Product Manager | Bengaluru, India
-- [ ] https://www.hirist.tech/j/antino-labs-product-manager-roadmap-and-strategy-1582242 | Antino Labs | Product Manager (Roadmap & Strategy) | Bangalore, India
 
 <!-- ── UAE / Dubai (1) ── -->
 
-- [ ] https://www.epam.com/careers/job-listings/job.epamgdo_blt970db2a5c1528fdf_en-us_Dubai_UAE.senior-product-manager-gen-ai_dubai_uae | EPAM | Senior Product Manager, GenAI | Dubai, UAE
 
 <!-- ── SEA / Singapore (5) ── -->
 
-- [ ] https://bebee.com/sg/jobs/senior-product-manager-gen-ai-and-conversational-platformsnew-the-economist-group-asia-pacific-limit--theirstack-655058123 | The Economist Group | Senior Product Manager, GenAI & Conversational Platforms | Singapore
-- [ ] https://www.efinancialcareers.sg/jobs-Singapore-Singapore-Senior_Product_Manager_AI_Transformation.id24152257 | (Financial Services co.) | Senior Product Manager, AI Transformation | Singapore
-- [ ] https://www.mycareersfuture.gov.sg/job/ai-tech-product-manager-vocalbeatsai-76117040069c6077193b2a6733303be0 | VocalBeatsAI | AI Tech Product Manager | Singapore
-- [ ] https://www.mycareersfuture.gov.sg/job/information-technology/ai-product-manager-apar-technologies-1ee10d307a208c849406ec88b0680e93 | APAR Technologies | AI Product Manager | Singapore
-- [ ] https://www.mycareersfuture.gov.sg/job/ai-product-manager-websparks-077be22c1effce888fd4dcad56aae338 | WebSparks | AI Product Manager (Public Healthcare) | Singapore
 
 ## Portal Sweep 2026-04-30
 
