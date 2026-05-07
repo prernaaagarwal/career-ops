@@ -93,8 +93,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://n26.com/en-eu/careers/positions/7861428?gh_jid=7861428 | N26 | Product Manager - Data Governance & Analytics Engineering
-- [ ] https://n26.com/en-eu/careers/positions/7861809?gh_jid=7861809 | N26 | Product Manager - Lending
 
 - [ ] https://job-boards.eu.greenhouse.io/polyai/jobs/4713506101 | PolyAI | Group Product Manager
 - [ ] https://jobs.ashbyhq.com/sierra/1e052261-0c89-4ccb-abfa-3820a1596a6e | Sierra | Product Manager, Infrastructure
@@ -107,6 +105,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://careers.hellofresh.com/global/en/job/7784812?gh_jid=7784812 | HelloFresh | Senior Product Operations Specialist (12 Months Contract)
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4692308005 | Scale AI | Product Manager, Trust & Safety
 - [ ] https://job-boards.greenhouse.io/inmobi/jobs/7337428 | InMobi | Senior Product Manager - Central Data Repository & Data Platform AI
+
+- [ ] https://job-boards.greenhouse.io/arizeai/jobs/5989503004 | Arize AI | AI Solutions Manager, APJ
+- [ ] https://job-boards.greenhouse.io/arizeai/jobs/5989510004 | Arize AI | AI Solutions Manager, EMEA
+- [ ] https://getyourguide.careers/jobs/7887400?gh_jid=7887400 | GetYourGuide | Senior Product Manager, B2B 
 
 ## Fresh Scan 2026-04-23
 
@@ -317,19 +319,12 @@ Quick scores — no full A-G reports. Sorted by score descending.
 
 <!-- ── India / Bangalore (2) ── -->
 
-- [ ] https://www.instahyre.com/job-279276-arificial-intelligence-ai-product-manager-at-devrev-bangalore/ | DevRev | AI Product Manager | Bangalore, India
-- [ ] https://www.hirist.tech/j/infineon-technical-product-manager-ai-cloud-data-platform-1590462 | Infineon | Technical Product Manager — AI Cloud Data Platform | Bangalore, India
 
 <!-- ── UAE / Dubai (2) ── -->
 
-- [ ] https://www.gulftalent.com/uae/jobs/salesforce-crm-support-product-owner-485008 | Global Corporation (via GulfTalent) | Salesforce CRM Support Product Owner | Dubai, UAE
-- [ ] https://www.talentmate.com/jobs/uae/dubai/senior-product-manager-ai/2604-2417-101 | Talentmate (client) | Senior Product Manager — AI | Dubai, UAE
 
 <!-- ── SEA / Singapore (3) ── -->
 
-- [ ] https://bebee.com/sg/jobs/lead-senior-product-manager-ai-safety-governance-platformai-govtech-singapore-singapore--whatjobs-fb56bcb228b4aa539773abf3466d4c67 | GovTech Singapore | Lead/Senior Product Manager — AI Safety & Governance, PlatformAI | Singapore
-- [ ] https://www.mycareersfuture.gov.sg/job/information-technology/product-manager-cynapse-f6c5bad8ed80a538893d7da190374967 | Cynapse | Product Manager (IT) | Singapore
-- [ ] https://www.mycareersfuture.gov.sg/job/ai-ml-product-manager-percept-solutions-a40a443c0d3ba9b306b2b27ff37e0f4d | Percept Solutions | AI / ML Product Manager | Singapore
 
 ## Portal Sweep 2026-05-04
 
