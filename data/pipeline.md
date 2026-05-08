@@ -110,6 +110,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/arizeai/jobs/5989510004 | Arize AI | AI Solutions Manager, EMEA
 - [ ] https://getyourguide.careers/jobs/7887400?gh_jid=7887400 | GetYourGuide | Senior Product Manager, B2B 
 
+- [ ] https://job-boards.greenhouse.io/contentful/jobs/7658079 | Contentful | Senior Product Manager (f/m/d)
+- [ ] https://jobs.lever.co/spotify/aced8bea-4eef-435b-b32f-734ca776d31e | Spotify | Senior Product Manager - Acquisition & Retention
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
