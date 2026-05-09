@@ -94,8 +94,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.eu.greenhouse.io/polyai/jobs/4713506101 | PolyAI | Group Product Manager
-- [ ] https://jobs.ashbyhq.com/sierra/1e052261-0c89-4ccb-abfa-3820a1596a6e | Sierra | Product Manager, Infrastructure
 
 - [ ] https://job-boards.greenhouse.io/arizeai/jobs/5987435004 | Arize AI | AI Solutions Manager, SMB
 - [ ] https://n26.com/en-eu/careers/positions/7883144?gh_jid=7883144 | N26 | Product Manager - Savings
@@ -112,6 +110,13 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://job-boards.greenhouse.io/contentful/jobs/7658079 | Contentful | Senior Product Manager (f/m/d)
 - [ ] https://jobs.lever.co/spotify/aced8bea-4eef-435b-b32f-734ca776d31e | Spotify | Senior Product Manager - Acquisition & Retention
+
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4609736005 | Scale AI | AI Product Manager
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4644742005 | Scale AI | Product Manager
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4670064005 | Scale AI | Product Manager, Data Engine
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4589749005 | Scale AI | Product Manager of AI Applications, Global Public Sector
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4683446005 | Scale AI | Staff Technical Product Manager
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7227587 | Smartsheet | Senior Product Manager I, Developer ecosystem (Remote from Bulgaria)
 
 ## Fresh Scan 2026-04-23
 
