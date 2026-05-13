@@ -96,10 +96,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://n26.com/en-eu/careers/positions/7882770?gh_jid=7882770 | N26 | Product Manager - Savings
-- [ ] https://careers.hellofresh.com/global/en/job/7784812?gh_jid=7784812 | HelloFresh | Senior Product Operations Specialist (12 Months Contract)
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4692308005 | Scale AI | Product Manager, Trust & Safety
-- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7337428 | InMobi | Senior Product Manager - Central Data Repository & Data Platform AI
 
 - [ ] https://job-boards.greenhouse.io/arizeai/jobs/5989503004 | Arize AI | AI Solutions Manager, APJ
 - [ ] https://job-boards.greenhouse.io/arizeai/jobs/5989510004 | Arize AI | AI Solutions Manager, EMEA
@@ -118,6 +114,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/decagon/d53738b5-ca10-4283-be5a-3937aa9e7c59 | Decagon | Senior Agent Product Manager - German Speaking
 - [ ] https://jobs.ashbyhq.com/decagon/123e4aae-9550-4e69-be08-6789e09db07e | Decagon | Senior Agent Product Manager
 - [ ] https://wayve.firststage.co/jobs?gh_jid=8542420002 | Wayve | Product Manager - AI Driver
+
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4694761005 | Glean | Product Manager, Agent Security & Governance
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4694764005 | Glean | Product Manager, AI Quality
 
 ## Fresh Scan 2026-04-23
 
