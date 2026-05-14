@@ -97,9 +97,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/arizeai/jobs/5989503004 | Arize AI | AI Solutions Manager, APJ
-- [ ] https://job-boards.greenhouse.io/arizeai/jobs/5989510004 | Arize AI | AI Solutions Manager, EMEA
-- [ ] https://getyourguide.careers/jobs/7887400?gh_jid=7887400 | GetYourGuide | Senior Product Manager, B2B 
 
 - [ ] https://job-boards.greenhouse.io/contentful/jobs/7658079 | Contentful | Senior Product Manager (f/m/d)
 - [ ] https://jobs.lever.co/spotify/aced8bea-4eef-435b-b32f-734ca776d31e | Spotify | Senior Product Manager - Acquisition & Retention
@@ -117,6 +114,9 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4694761005 | Glean | Product Manager, Agent Security & Governance
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4694764005 | Glean | Product Manager, AI Quality
+
+- [ ] https://getyourguide.careers/jobs/7865219?gh_jid=7865219 | GetYourGuide | Senior Product Manager, Discovery (B2C) 
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7923181 | Smartsheet | Senior Product Manager I – Enterprise Systems Data
 
 ## Fresh Scan 2026-04-23
 
