@@ -98,8 +98,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/contentful/jobs/7658079 | Contentful | Senior Product Manager (f/m/d)
-- [ ] https://jobs.lever.co/spotify/aced8bea-4eef-435b-b32f-734ca776d31e | Spotify | Senior Product Manager - Acquisition & Retention
 
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4609736005 | Scale AI | AI Product Manager
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4644742005 | Scale AI | Product Manager
@@ -117,6 +115,10 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://getyourguide.careers/jobs/7865219?gh_jid=7865219 | GetYourGuide | Senior Product Manager, Discovery (B2C) 
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7923181 | Smartsheet | Senior Product Manager I – Enterprise Systems Data
+
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7746709 | Smartsheet | Sr, Product Manager II - Gantt View (Hybrid in Bangalore)
+- [ ] https://jobs.lever.co/spotify/363ddaa5-7419-4efa-bc5e-7755cb2823f5 | Spotify | Senior Policy Specialist
+- [ ] https://jobs.lever.co/spotify/008e0a44-088b-48f2-b100-cce07e40a45b | Spotify | Senior Product Manager - Advertising
 
 ## Fresh Scan 2026-04-23
 
