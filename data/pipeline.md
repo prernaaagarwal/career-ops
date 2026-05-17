@@ -99,12 +99,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4609736005 | Scale AI | AI Product Manager
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4644742005 | Scale AI | Product Manager
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4670064005 | Scale AI | Product Manager, Data Engine
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4589749005 | Scale AI | Product Manager of AI Applications, Global Public Sector
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4683446005 | Scale AI | Staff Technical Product Manager
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7227587 | Smartsheet | Senior Product Manager I, Developer ecosystem (Remote from Bulgaria)
 
 - [ ] https://jobs.ashbyhq.com/decagon/d53738b5-ca10-4283-be5a-3937aa9e7c59 | Decagon | Senior Agent Product Manager - German Speaking
 - [ ] https://jobs.ashbyhq.com/decagon/123e4aae-9550-4e69-be08-6789e09db07e | Decagon | Senior Agent Product Manager
