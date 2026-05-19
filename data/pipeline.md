@@ -100,9 +100,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/decagon/d53738b5-ca10-4283-be5a-3937aa9e7c59 | Decagon | Senior Agent Product Manager - German Speaking
-- [ ] https://jobs.ashbyhq.com/decagon/123e4aae-9550-4e69-be08-6789e09db07e | Decagon | Senior Agent Product Manager
-- [ ] https://wayve.firststage.co/jobs?gh_jid=8542420002 | Wayve | Product Manager - AI Driver
 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4694761005 | Glean | Product Manager, Agent Security & Governance
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4694764005 | Glean | Product Manager, AI Quality
@@ -113,6 +110,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7746709 | Smartsheet | Sr, Product Manager II - Gantt View (Hybrid in Bangalore)
 - [ ] https://jobs.lever.co/spotify/363ddaa5-7419-4efa-bc5e-7755cb2823f5 | Spotify | Senior Policy Specialist
 - [ ] https://jobs.lever.co/spotify/008e0a44-088b-48f2-b100-cce07e40a45b | Spotify | Senior Product Manager - Advertising
+
+- [ ] https://helsing.ai/jobs/4869481101?gh_jid=4869481101 | Helsing | Product Manager — Electronic Warfare (Offboard & Cross-Platform)
+- [ ] https://sumup.com/careers/positions/8555715002?gh_jid=8555715002 | SumUp | Technical Product Manager - Platform
+- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8548105002 | GitLab | AI Transformation Owner, Marketing
 
 ## Fresh Scan 2026-04-23
 
