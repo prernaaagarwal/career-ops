@@ -101,8 +101,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4694761005 | Glean | Product Manager, Agent Security & Governance
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4694764005 | Glean | Product Manager, AI Quality
 
 - [ ] https://getyourguide.careers/jobs/7865219?gh_jid=7865219 | GetYourGuide | Senior Product Manager, Discovery (B2C) 
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7923181 | Smartsheet | Senior Product Manager I – Enterprise Systems Data
@@ -114,6 +112,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://helsing.ai/jobs/4869481101?gh_jid=4869481101 | Helsing | Product Manager — Electronic Warfare (Offboard & Cross-Platform)
 - [ ] https://sumup.com/careers/positions/8555715002?gh_jid=8555715002 | SumUp | Technical Product Manager - Platform
 - [ ] https://job-boards.greenhouse.io/gitlab/jobs/8548105002 | GitLab | AI Transformation Owner, Marketing
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5220143008 | Anthropic | Product Manager, Developer Productivity
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7941950 | Smartsheet | Sr. Product Manager, Audit & History (Hybrid, Bangalore)
+- [ ] https://jobs.lever.co/spotify/c25dea90-3b36-4d7f-8011-ef1efd5c6e9e | Spotify | Group Product Manager - Messaging
 
 ## Fresh Scan 2026-04-23
 
