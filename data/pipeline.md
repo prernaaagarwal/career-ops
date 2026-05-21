@@ -102,8 +102,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://getyourguide.careers/jobs/7865219?gh_jid=7865219 | GetYourGuide | Senior Product Manager, Discovery (B2C) 
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7923181 | Smartsheet | Senior Product Manager I – Enterprise Systems Data
 
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7746709 | Smartsheet | Sr, Product Manager II - Gantt View (Hybrid in Bangalore)
 - [ ] https://jobs.lever.co/spotify/363ddaa5-7419-4efa-bc5e-7755cb2823f5 | Spotify | Senior Policy Specialist
@@ -116,6 +114,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5220143008 | Anthropic | Product Manager, Developer Productivity
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7941950 | Smartsheet | Sr. Product Manager, Audit & History (Hybrid, Bangalore)
 - [ ] https://jobs.lever.co/spotify/c25dea90-3b36-4d7f-8011-ef1efd5c6e9e | Spotify | Group Product Manager - Messaging
+
+- [ ] https://jobs.ashbyhq.com/photoroom/5ded7e4c-de4d-4723-824e-41ce861666c6 | Photoroom | Senior Product Manager, Self-serve
+- [ ] https://sumup.com/careers/positions/8529498002?gh_jid=8529498002 | SumUp | Senior Technical Product Manager
+- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7912490 | InMobi | Product Manager- ML Decision Systems (Demand Side Platform)
 
 ## Fresh Scan 2026-04-23
 
