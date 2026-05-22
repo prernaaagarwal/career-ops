@@ -103,9 +103,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7746709 | Smartsheet | Sr, Product Manager II - Gantt View (Hybrid in Bangalore)
-- [ ] https://jobs.lever.co/spotify/363ddaa5-7419-4efa-bc5e-7755cb2823f5 | Spotify | Senior Policy Specialist
-- [ ] https://jobs.lever.co/spotify/008e0a44-088b-48f2-b100-cce07e40a45b | Spotify | Senior Product Manager - Advertising
 
 - [ ] https://helsing.ai/jobs/4869481101?gh_jid=4869481101 | Helsing | Product Manager — Electronic Warfare (Offboard & Cross-Platform)
 - [ ] https://sumup.com/careers/positions/8555715002?gh_jid=8555715002 | SumUp | Technical Product Manager - Platform
@@ -118,6 +115,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/photoroom/5ded7e4c-de4d-4723-824e-41ce861666c6 | Photoroom | Senior Product Manager, Self-serve
 - [ ] https://sumup.com/careers/positions/8529498002?gh_jid=8529498002 | SumUp | Senior Technical Product Manager
 - [ ] https://job-boards.greenhouse.io/inmobi/jobs/7912490 | InMobi | Product Manager- ML Decision Systems (Demand Side Platform)
+
+- [ ] https://getyourguide.careers/jobs/7552392?gh_jid=7552392 | GetYourGuide | Senior Product Manager, Connectivity 
+- [ ] https://sumup.com/careers/positions/8558272002?gh_jid=8558272002 | SumUp | Senior Technical Product Manager
+- [ ] https://jobs.ashbyhq.com/synthesia/2732bc00-620f-49ab-a0dc-001631d977df | Synthesia | Group Product Manager 
 
 ## Fresh Scan 2026-04-23
 
