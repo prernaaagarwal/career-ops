@@ -120,6 +120,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://sumup.com/careers/positions/8558272002?gh_jid=8558272002 | SumUp | Senior Technical Product Manager
 - [ ] https://jobs.ashbyhq.com/synthesia/2732bc00-620f-49ab-a0dc-001631d977df | Synthesia | Group Product Manager 
 
+- [ ] https://jobs.ashbyhq.com/decagon/4ef4e97e-43b3-420f-be6f-1d0aab181149 | Decagon | Senior Agent Product Manager - Germany
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7951915 | Smartsheet | Product Manager II - Growth (Remote Eligible)
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7684865 | Smartsheet | Senior Product Manager, Field Systems (Salesforce)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
