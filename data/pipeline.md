@@ -104,25 +104,24 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://helsing.ai/jobs/4869481101?gh_jid=4869481101 | Helsing | Product Manager — Electronic Warfare (Offboard & Cross-Platform)
-- [ ] https://sumup.com/careers/positions/8555715002?gh_jid=8555715002 | SumUp | Technical Product Manager - Platform
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8548105002 | GitLab | AI Transformation Owner, Marketing
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5220143008 | Anthropic | Product Manager, Developer Productivity
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7941950 | Smartsheet | Sr. Product Manager, Audit & History (Hybrid, Bangalore)
-- [ ] https://jobs.lever.co/spotify/c25dea90-3b36-4d7f-8011-ef1efd5c6e9e | Spotify | Group Product Manager - Messaging
 
-- [ ] https://jobs.ashbyhq.com/photoroom/5ded7e4c-de4d-4723-824e-41ce861666c6 | Photoroom | Senior Product Manager, Self-serve
-- [ ] https://sumup.com/careers/positions/8529498002?gh_jid=8529498002 | SumUp | Senior Technical Product Manager
-- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7912490 | InMobi | Product Manager- ML Decision Systems (Demand Side Platform)
 
-- [ ] https://getyourguide.careers/jobs/7552392?gh_jid=7552392 | GetYourGuide | Senior Product Manager, Connectivity 
-- [ ] https://sumup.com/careers/positions/8558272002?gh_jid=8558272002 | SumUp | Senior Technical Product Manager
-- [ ] https://jobs.ashbyhq.com/synthesia/2732bc00-620f-49ab-a0dc-001631d977df | Synthesia | Group Product Manager 
 
 - [ ] https://jobs.ashbyhq.com/decagon/4ef4e97e-43b3-420f-be6f-1d0aab181149 | Decagon | Senior Agent Product Manager - Germany
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7951915 | Smartsheet | Product Manager II - Growth (Remote Eligible)
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7684865 | Smartsheet | Senior Product Manager, Field Systems (Salesforce)
+
+- [ ] https://job-boards.eu.greenhouse.io/polyai/jobs/4654856101 | PolyAI | Senior Product Manager
+- [ ] https://job-boards.greenhouse.io/intercom/jobs/5916272 | Intercom | Senior Product Manager 
+- [ ] https://jobs.lever.co/qonto/d1f66e47-fa5b-49ed-9cbe-d357add5362c | Qonto | Senior Product Manager - Savings
+- [ ] https://wayve.firststage.co/jobs?gh_jid=8568841002 | Wayve | Product Manager, Driving Features
+- [ ] https://jobs.lever.co/spotify/cc21db45-9354-496b-b1a1-d5f293c4feb8 | Spotify | Senior Product Manager – Financial Engineering - Tax Solutions
+- [ ] https://jobs.ashbyhq.com/photoroom/b75841ab-f3de-468c-893a-256d58b00c60 | Photoroom | Senior Product Manager, SMB E-commerce Growth
+- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7715011 | InMobi | Senior Product Manager- ML Decision Systems (Demand Side Platform)
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4699779005 | Scale AI | Product Manager, Enterprise Core Platform
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7822040 | Smartsheet | Senior Product Manager I – Monetization & Billing
+- [ ] https://jobs.lever.co/crypto/3542aa7a-d550-4b67-9b6d-53a0d85ed863 | Crypto.com | Senior Product Manager, Predictions (Exchange)
 
 ## Fresh Scan 2026-04-23
 
