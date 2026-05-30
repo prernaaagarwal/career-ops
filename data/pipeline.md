@@ -123,6 +123,8 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7822040 | Smartsheet | Senior Product Manager I – Monetization & Billing
 - [ ] https://jobs.lever.co/crypto/3542aa7a-d550-4b67-9b6d-53a0d85ed863 | Crypto.com | Senior Product Manager, Predictions (Exchange)
 
+- [ ] https://jobs.lever.co/crypto/75834c40-a57f-4720-9cda-8b54283c1e5e | Crypto.com | Senior Product Manager, Predictions (Exchange)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
