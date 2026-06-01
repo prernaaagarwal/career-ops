@@ -108,9 +108,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/decagon/4ef4e97e-43b3-420f-be6f-1d0aab181149 | Decagon | Senior Agent Product Manager - Germany
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7951915 | Smartsheet | Product Manager II - Growth (Remote Eligible)
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7684865 | Smartsheet | Senior Product Manager, Field Systems (Salesforce)
 
 - [ ] https://job-boards.eu.greenhouse.io/polyai/jobs/4654856101 | PolyAI | Senior Product Manager
 - [ ] https://job-boards.greenhouse.io/intercom/jobs/5916272 | Intercom | Senior Product Manager 
