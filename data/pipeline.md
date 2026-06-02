@@ -122,6 +122,11 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://jobs.lever.co/crypto/75834c40-a57f-4720-9cda-8b54283c1e5e | Crypto.com | Senior Product Manager, Predictions (Exchange)
 
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4701618005 | Glean | Product Manager, Connectors
+- [ ] https://jobs.ashbyhq.com/supabase/47bcfdb8-b954-423e-8a9e-85256434575c | Supabase | Product Manager - Platform
+- [ ] https://jobs.ashbyhq.com/supabase/636481f3-dc9e-4a9d-999f-06f87e173cc9 | Supabase | Product Manager - Postgres Platform
+- [ ] https://jobs.ashbyhq.com/supabase/f2f28afa-4b42-43c7-b977-48f5b686fba2 | Supabase | Core Product Lead
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
