@@ -127,6 +127,15 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/supabase/636481f3-dc9e-4a9d-999f-06f87e173cc9 | Supabase | Product Manager - Postgres Platform
 - [ ] https://jobs.ashbyhq.com/supabase/f2f28afa-4b42-43c7-b977-48f5b686fba2 | Supabase | Core Product Lead
 
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4701912005 | Glean | Product Manager, Enterprise Intelligence
+- [ ] https://jobs.ashbyhq.com/n8n/42e72645-d99a-4545-97b7-53ba3a699893 | n8n | AI Product Manager
+- [ ] https://jobs.ashbyhq.com/synthesia/c2ba6d4d-f991-4432-a9c8-1514a93b08bb | Synthesia | Product Manager, New Product Bet 
+- [ ] https://jobs.ashbyhq.com/synthesia/31e1dca3-74fd-4f74-8f40-5bb19f4034bb | Synthesia | Product Manager, Enterprise
+- [ ] https://jobs.ashbyhq.com/supabase/202e9ca8-3c98-4dea-add5-0f7e2e98800c | Supabase | Product Manager - AI 
+- [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4195007009 | Eltropy | Senior Product Manager (Integrations)
+- [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4215676009 | Eltropy | Senior Product Manager - Telephony
+- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8568868002 | GitLab | Senior Product Manager, AI Platform Management
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
