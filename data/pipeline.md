@@ -136,6 +136,12 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4215676009 | Eltropy | Senior Product Manager - Telephony
 - [ ] https://job-boards.greenhouse.io/gitlab/jobs/8568868002 | GitLab | Senior Product Manager, AI Platform Management
 
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702368005 | Glean | Product Manager, Core Experience
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702369005 | Glean | Product Manager, Enterprise Intelligence
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702367005 | Glean | Product Manager, Growth
+- [ ] https://sumup.com/careers/positions/8537352002?gh_jid=8537352002 | SumUp | Product Manager
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7978806 | Smartsheet | Sr, Product Manager II - Data Links (Hybrid, Bangalore)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
