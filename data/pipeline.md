@@ -109,16 +109,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.eu.greenhouse.io/polyai/jobs/4654856101 | PolyAI | Senior Product Manager
-- [ ] https://job-boards.greenhouse.io/intercom/jobs/5916272 | Intercom | Senior Product Manager 
-- [ ] https://jobs.lever.co/qonto/d1f66e47-fa5b-49ed-9cbe-d357add5362c | Qonto | Senior Product Manager - Savings
-- [ ] https://wayve.firststage.co/jobs?gh_jid=8568841002 | Wayve | Product Manager, Driving Features
-- [ ] https://jobs.lever.co/spotify/cc21db45-9354-496b-b1a1-d5f293c4feb8 | Spotify | Senior Product Manager – Financial Engineering - Tax Solutions
-- [ ] https://jobs.ashbyhq.com/photoroom/b75841ab-f3de-468c-893a-256d58b00c60 | Photoroom | Senior Product Manager, SMB E-commerce Growth
-- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7715011 | InMobi | Senior Product Manager- ML Decision Systems (Demand Side Platform)
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4699779005 | Scale AI | Product Manager, Enterprise Core Platform
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7822040 | Smartsheet | Senior Product Manager I – Monetization & Billing
-- [ ] https://jobs.lever.co/crypto/3542aa7a-d550-4b67-9b6d-53a0d85ed863 | Crypto.com | Senior Product Manager, Predictions (Exchange)
 
 - [ ] https://jobs.lever.co/crypto/75834c40-a57f-4720-9cda-8b54283c1e5e | Crypto.com | Senior Product Manager, Predictions (Exchange)
 
@@ -141,6 +131,11 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702367005 | Glean | Product Manager, Growth
 - [ ] https://sumup.com/careers/positions/8537352002?gh_jid=8537352002 | SumUp | Product Manager
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7978806 | Smartsheet | Sr, Product Manager II - Data Links (Hybrid, Bangalore)
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5247640008 | Anthropic | Product Manager, Claude Code Model Performance 
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702147005 | Glean | Product Manager, Core Experience
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702151005 | Glean | Product Manager, Growth
+- [ ] https://jobs.ashbyhq.com/photoroom/f7cf95df-3479-49fa-bff6-ce7c31c0c136 | Photoroom | Growth Product Manager
 
 ## Fresh Scan 2026-04-23
 
