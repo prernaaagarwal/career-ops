@@ -110,7 +110,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.lever.co/crypto/75834c40-a57f-4720-9cda-8b54283c1e5e | Crypto.com | Senior Product Manager, Predictions (Exchange)
 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4701618005 | Glean | Product Manager, Connectors
 - [ ] https://jobs.ashbyhq.com/supabase/47bcfdb8-b954-423e-8a9e-85256434575c | Supabase | Product Manager - Platform
@@ -136,6 +135,8 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702147005 | Glean | Product Manager, Core Experience
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702151005 | Glean | Product Manager, Growth
 - [ ] https://jobs.ashbyhq.com/photoroom/f7cf95df-3479-49fa-bff6-ce7c31c0c136 | Photoroom | Growth Product Manager
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5124623008 | Anthropic | Product Manager, Compute Platform
 
 ## Fresh Scan 2026-04-23
 
