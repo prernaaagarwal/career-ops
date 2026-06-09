@@ -111,10 +111,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4701618005 | Glean | Product Manager, Connectors
-- [ ] https://jobs.ashbyhq.com/supabase/47bcfdb8-b954-423e-8a9e-85256434575c | Supabase | Product Manager - Platform
-- [ ] https://jobs.ashbyhq.com/supabase/636481f3-dc9e-4a9d-999f-06f87e173cc9 | Supabase | Product Manager - Postgres Platform
-- [ ] https://jobs.ashbyhq.com/supabase/f2f28afa-4b42-43c7-b977-48f5b686fba2 | Supabase | Core Product Lead
 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4701912005 | Glean | Product Manager, Enterprise Intelligence
 - [ ] https://jobs.ashbyhq.com/n8n/42e72645-d99a-4545-97b7-53ba3a699893 | n8n | AI Product Manager
@@ -137,6 +133,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/photoroom/f7cf95df-3479-49fa-bff6-ce7c31c0c136 | Photoroom | Growth Product Manager
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5124623008 | Anthropic | Product Manager, Compute Platform
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/4936029008 | Anthropic | Product Manager, Platform
+- [ ] https://jobs.ashbyhq.com/attio/51876281-f2ca-4375-b07d-af54544fc27c | Attio | Product Lead
 
 ## Fresh Scan 2026-04-23
 
