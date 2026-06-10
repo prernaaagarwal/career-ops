@@ -112,14 +112,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4701912005 | Glean | Product Manager, Enterprise Intelligence
-- [ ] https://jobs.ashbyhq.com/n8n/42e72645-d99a-4545-97b7-53ba3a699893 | n8n | AI Product Manager
-- [ ] https://jobs.ashbyhq.com/synthesia/c2ba6d4d-f991-4432-a9c8-1514a93b08bb | Synthesia | Product Manager, New Product Bet 
-- [ ] https://jobs.ashbyhq.com/synthesia/31e1dca3-74fd-4f74-8f40-5bb19f4034bb | Synthesia | Product Manager, Enterprise
-- [ ] https://jobs.ashbyhq.com/supabase/202e9ca8-3c98-4dea-add5-0f7e2e98800c | Supabase | Product Manager - AI 
-- [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4195007009 | Eltropy | Senior Product Manager (Integrations)
-- [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4215676009 | Eltropy | Senior Product Manager - Telephony
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8568868002 | GitLab | Senior Product Manager, AI Platform Management
 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702368005 | Glean | Product Manager, Core Experience
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702369005 | Glean | Product Manager, Enterprise Intelligence
@@ -136,6 +128,9 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/4936029008 | Anthropic | Product Manager, Platform
 - [ ] https://jobs.ashbyhq.com/attio/51876281-f2ca-4375-b07d-af54544fc27c | Attio | Product Lead
+
+- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7975920 | InMobi | Group Product Manager - Monetization
+- [ ] https://jobs.lever.co/qonto/599b0148-94b7-43cd-9b97-231467376e39 | Qonto | Senior Product Manager for our AI Lab
 
 ## Fresh Scan 2026-04-23
 
