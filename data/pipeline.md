@@ -113,11 +113,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702368005 | Glean | Product Manager, Core Experience
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702369005 | Glean | Product Manager, Enterprise Intelligence
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702367005 | Glean | Product Manager, Growth
-- [ ] https://sumup.com/careers/positions/8537352002?gh_jid=8537352002 | SumUp | Product Manager
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/7978806 | Smartsheet | Sr, Product Manager II - Data Links (Hybrid, Bangalore)
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5247640008 | Anthropic | Product Manager, Claude Code Model Performance 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702147005 | Glean | Product Manager, Core Experience
@@ -131,6 +126,8 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://job-boards.greenhouse.io/inmobi/jobs/7975920 | InMobi | Group Product Manager - Monetization
 - [ ] https://jobs.lever.co/qonto/599b0148-94b7-43cd-9b97-231467376e39 | Qonto | Senior Product Manager for our AI Lab
+
+- [ ] https://n26.com/en-eu/careers/positions/7996996?gh_jid=7996996 | N26 | Senior Product Manager - Conversational Banking
 
 ## Fresh Scan 2026-04-23
 
