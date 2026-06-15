@@ -114,12 +114,7 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5247640008 | Anthropic | Product Manager, Claude Code Model Performance 
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702147005 | Glean | Product Manager, Core Experience
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4702151005 | Glean | Product Manager, Growth
-- [ ] https://jobs.ashbyhq.com/photoroom/f7cf95df-3479-49fa-bff6-ce7c31c0c136 | Photoroom | Growth Product Manager
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5124623008 | Anthropic | Product Manager, Compute Platform
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/4936029008 | Anthropic | Product Manager, Platform
 - [ ] https://jobs.ashbyhq.com/attio/51876281-f2ca-4375-b07d-af54544fc27c | Attio | Product Lead
@@ -128,6 +123,13 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.lever.co/qonto/599b0148-94b7-43cd-9b97-231467376e39 | Qonto | Senior Product Manager for our AI Lab
 
 - [ ] https://n26.com/en-eu/careers/positions/7996996?gh_jid=7996996 | N26 | Senior Product Manager - Conversational Banking
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5253339008 | Anthropic | Product Manager, Enterprise
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5254623008 | Anthropic | Product Manager, GTM Experiences
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5139628008 | Anthropic |  Product Manager, Safeguards Rare Harms
+- [ ] https://n26.com/en-eu/careers/positions/7996650?gh_jid=7996650 | N26 | Senior Product Manager - Conversational Banking
+- [ ] https://jobs.ashbyhq.com/lovable/f1c3bdd3-683b-409f-b0a1-5a39f9c7dd72 | Lovable | Product Manager (Partnerships)
+- [ ] https://job-boards.eu.greenhouse.io/amplemarket/jobs/4066993101 | Amplemarket | Senior Product Manager
 
 ## Fresh Scan 2026-04-23
 
