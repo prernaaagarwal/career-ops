@@ -116,11 +116,7 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/4936029008 | Anthropic | Product Manager, Platform
-- [ ] https://jobs.ashbyhq.com/attio/51876281-f2ca-4375-b07d-af54544fc27c | Attio | Product Lead
 
-- [ ] https://job-boards.greenhouse.io/inmobi/jobs/7975920 | InMobi | Group Product Manager - Monetization
-- [ ] https://jobs.lever.co/qonto/599b0148-94b7-43cd-9b97-231467376e39 | Qonto | Senior Product Manager for our AI Lab
 
 - [ ] https://n26.com/en-eu/careers/positions/7996996?gh_jid=7996996 | N26 | Senior Product Manager - Conversational Banking
 
@@ -130,6 +126,12 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://n26.com/en-eu/careers/positions/7996650?gh_jid=7996650 | N26 | Senior Product Manager - Conversational Banking
 - [ ] https://jobs.ashbyhq.com/lovable/f1c3bdd3-683b-409f-b0a1-5a39f9c7dd72 | Lovable | Product Manager (Partnerships)
 - [ ] https://job-boards.eu.greenhouse.io/amplemarket/jobs/4066993101 | Amplemarket | Senior Product Manager
+
+- [ ] https://job-boards.greenhouse.io/arizeai/jobs/6030903004 | Arize AI | AI Solutions Manager, Digital Native
+- [ ] https://job-boards.greenhouse.io/arizeai/jobs/6030902004 | Arize AI | AI Solutions Manager, East
+- [ ] https://jobs.ashbyhq.com/sierra/758beaca-db59-4e46-9867-7a93989735a7 | Sierra | Product Manager, Agent Development - Flagship Deployment
+- [ ] https://jobs.ashbyhq.com/n8n/0bfb0054-67f6-4bf2-84de-9b36dfcb0e41 | n8n | Senior Product Manager (Enterprise)
+- [ ] https://jobs.ashbyhq.com/cohere/87e9fd4e-49ac-4242-97be-7da6f718020d | Cohere | Product Manager, Integrations
 
 ## Fresh Scan 2026-04-23
 
