@@ -132,6 +132,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/n8n/0bfb0054-67f6-4bf2-84de-9b36dfcb0e41 | n8n | Senior Product Manager (Enterprise)
 - [ ] https://jobs.ashbyhq.com/cohere/87e9fd4e-49ac-4242-97be-7da6f718020d | Cohere | Product Manager, Integrations
 
+- [ ] https://jobs.ashbyhq.com/sierra/4f0e65ba-b262-4d79-b926-3988f8eb0c00 | Sierra | Product Manager, Agent Development (Brazilian Portuguese speaking)
+- [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4202642009 | Eltropy | Sr Product Manager - AI Agents
+- [ ] https://jobs.lever.co/qonto/53f5103c-e7eb-4b7f-baa4-777968faf405 | Qonto | Senior Product Manager [Accounting expertise] - German speaking 🇩🇪
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
