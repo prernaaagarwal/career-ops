@@ -119,12 +119,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5253339008 | Anthropic | Product Manager, Enterprise
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5254623008 | Anthropic | Product Manager, GTM Experiences
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5139628008 | Anthropic |  Product Manager, Safeguards Rare Harms
-- [ ] https://n26.com/en-eu/careers/positions/7996650?gh_jid=7996650 | N26 | Senior Product Manager - Conversational Banking
-- [ ] https://jobs.ashbyhq.com/lovable/f1c3bdd3-683b-409f-b0a1-5a39f9c7dd72 | Lovable | Product Manager (Partnerships)
-- [ ] https://job-boards.eu.greenhouse.io/amplemarket/jobs/4066993101 | Amplemarket | Senior Product Manager
 
 - [ ] https://job-boards.greenhouse.io/arizeai/jobs/6030903004 | Arize AI | AI Solutions Manager, Digital Native
 - [ ] https://job-boards.greenhouse.io/arizeai/jobs/6030902004 | Arize AI | AI Solutions Manager, East
@@ -135,6 +129,8 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/sierra/4f0e65ba-b262-4d79-b926-3988f8eb0c00 | Sierra | Product Manager, Agent Development (Brazilian Portuguese speaking)
 - [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4202642009 | Eltropy | Sr Product Manager - AI Agents
 - [ ] https://jobs.lever.co/qonto/53f5103c-e7eb-4b7f-baa4-777968faf405 | Qonto | Senior Product Manager [Accounting expertise] - German speaking 🇩🇪
+
+- [ ] https://jobs.ashbyhq.com/decagon/7d9e30a4-249b-4032-930c-4bd7bc8addb1 | Decagon | Senior Agent Product Manager - Sydney
 
 ## Fresh Scan 2026-04-23
 
