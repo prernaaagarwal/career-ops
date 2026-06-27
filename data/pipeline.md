@@ -120,15 +120,7 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/arizeai/jobs/6030903004 | Arize AI | AI Solutions Manager, Digital Native
-- [ ] https://job-boards.greenhouse.io/arizeai/jobs/6030902004 | Arize AI | AI Solutions Manager, East
-- [ ] https://jobs.ashbyhq.com/sierra/758beaca-db59-4e46-9867-7a93989735a7 | Sierra | Product Manager, Agent Development - Flagship Deployment
-- [ ] https://jobs.ashbyhq.com/n8n/0bfb0054-67f6-4bf2-84de-9b36dfcb0e41 | n8n | Senior Product Manager (Enterprise)
-- [ ] https://jobs.ashbyhq.com/cohere/87e9fd4e-49ac-4242-97be-7da6f718020d | Cohere | Product Manager, Integrations
 
-- [ ] https://jobs.ashbyhq.com/sierra/4f0e65ba-b262-4d79-b926-3988f8eb0c00 | Sierra | Product Manager, Agent Development (Brazilian Portuguese speaking)
-- [ ] https://job-boards.greenhouse.io/eltropyinc/jobs/4202642009 | Eltropy | Sr Product Manager - AI Agents
-- [ ] https://jobs.lever.co/qonto/53f5103c-e7eb-4b7f-baa4-777968faf405 | Qonto | Senior Product Manager [Accounting expertise] - German speaking 🇩🇪
 
 - [ ] https://jobs.ashbyhq.com/decagon/7d9e30a4-249b-4032-930c-4bd7bc8addb1 | Decagon | Senior Agent Product Manager - Sydney
 
@@ -136,6 +128,18 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://wayve.firststage.co/jobs?gh_jid=8602635002 | Wayve | Automotive Security Product Lead
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8014598 | Smartsheet | Sr. Product Manager II - AI Platform (Remote Eligible)
 - [ ] https://jobs.lever.co/crypto/6133e525-f5f4-49ec-9935-ce2d4eb37916 | Crypto.com | Senior Product Manager, Trading
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5179882008 | Anthropic | Product Operations Manager, Feedback Loops
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5281348008 | Anthropic | Web Product Manager
+- [ ] https://jobs.ashbyhq.com/langchain/5ac59bcb-0245-4a82-bab0-0ebdeae07ccd | LangChain | Product Manager, Fleet
+- [ ] https://careers.hellofresh.com/global/en/job/8018870?gh_jid=8018870 | HelloFresh | Product Manager
+- [ ] https://careers.hellofresh.com/global/en/job/8025707?gh_jid=8025707 | HelloFresh | Senior Product Manager
+- [ ] https://wayve.firststage.co/jobs?gh_jid=8602633002 | Wayve | Automotive Security Product Lead
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8031164 | Smartsheet | Principal Customer Excellence Transformation Manager (Remote Eligible) 
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8025622 | Smartsheet | Product Operations Manager (Hybrid, Bangalore)
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8025713 | Smartsheet | Sr. Product Operations Manager I (Remote Eligible in Bulgaria)
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4611776005 | Scale AI | Senior AI Product Manager, Finance Agents
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4709281005 | Scale AI | Senior AI Product Manager, Healthcare Agents
 
 ## Fresh Scan 2026-04-23
 
