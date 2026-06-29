@@ -122,7 +122,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/decagon/7d9e30a4-249b-4032-930c-4bd7bc8addb1 | Decagon | Senior Agent Product Manager - Sydney
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5247407008 | Anthropic | Research Product Manager, Model Behaviors
 - [ ] https://wayve.firststage.co/jobs?gh_jid=8602635002 | Wayve | Automotive Security Product Lead
@@ -140,6 +139,14 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8025713 | Smartsheet | Sr. Product Operations Manager I (Remote Eligible in Bulgaria)
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4611776005 | Scale AI | Senior AI Product Manager, Finance Agents
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4709281005 | Scale AI | Senior AI Product Manager, Healthcare Agents
+
+- [ ] https://jobs.ashbyhq.com/decagon/9109be1c-b6e3-430f-a964-887253ef891a | Decagon | Product Manager, Duet
+- [ ] https://jobs.ashbyhq.com/legora/2dfdbd92-5307-49a0-80ab-fa95824474f0 | Legora | Senior Product Manager - Billing and Pricing 
+- [ ] https://jobs.ashbyhq.com/legora/32801e6a-236e-49f0-80e0-3f9090d01b27 | Legora | Senior Product Manager - UX Core
+- [ ] https://jobs.ashbyhq.com/legora/5b15c4aa-effa-4b9c-95bc-c061c70dfca9 | Legora | Senior Product Manager 
+- [ ] https://jobs.ashbyhq.com/legora/e8e16cf6-f073-49ce-96d4-92a1e271de9b | Legora | Product Operations Manager
+- [ ] https://jobs.ashbyhq.com/legora/ff561bd0-36a7-4471-8c79-3e2dc830854f | Legora | Senior Product Manager - Enterprise
+- [ ] https://jobs.lever.co/crypto/6ee0a331-abc7-4248-bd0a-eeac848ad87a | Crypto.com | Senior Product Manager, Trading
 
 ## Fresh Scan 2026-04-23
 
