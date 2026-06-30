@@ -123,10 +123,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5247407008 | Anthropic | Research Product Manager, Model Behaviors
-- [ ] https://wayve.firststage.co/jobs?gh_jid=8602635002 | Wayve | Automotive Security Product Lead
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8014598 | Smartsheet | Sr. Product Manager II - AI Platform (Remote Eligible)
-- [ ] https://jobs.lever.co/crypto/6133e525-f5f4-49ec-9935-ce2d4eb37916 | Crypto.com | Senior Product Manager, Trading
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5179882008 | Anthropic | Product Operations Manager, Feedback Loops
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5281348008 | Anthropic | Web Product Manager
