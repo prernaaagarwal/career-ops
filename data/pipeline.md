@@ -144,6 +144,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/legora/ff561bd0-36a7-4471-8c79-3e2dc830854f | Legora | Senior Product Manager - Enterprise
 - [ ] https://jobs.lever.co/crypto/6ee0a331-abc7-4248-bd0a-eeac848ad87a | Crypto.com | Senior Product Manager, Trading
 
+- [ ] https://job-boards.greenhouse.io/celonis/jobs/7788415003?gh_jid=7788415003 | Celonis | Application Product Manager - (AI System Transformations)
+- [ ] https://jobs.lever.co/spotify/07641cac-402a-44fd-ba42-9cb75473fc0a | Spotify | Senior Product Manager - Design Systems
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
