@@ -147,6 +147,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/celonis/jobs/7788415003?gh_jid=7788415003 | Celonis | Application Product Manager - (AI System Transformations)
 - [ ] https://jobs.lever.co/spotify/07641cac-402a-44fd-ba42-9cb75473fc0a | Spotify | Senior Product Manager - Design Systems
 
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4710996005 | Glean | Product Manager, API Platform
+- [ ] https://n26.com/en-eu/careers/positions/7673342?gh_jid=7673342 | N26 | Product Manager - AI Products
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
