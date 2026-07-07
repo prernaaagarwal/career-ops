@@ -124,31 +124,15 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5179882008 | Anthropic | Product Operations Manager, Feedback Loops
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5281348008 | Anthropic | Web Product Manager
-- [ ] https://jobs.ashbyhq.com/langchain/5ac59bcb-0245-4a82-bab0-0ebdeae07ccd | LangChain | Product Manager, Fleet
-- [ ] https://careers.hellofresh.com/global/en/job/8018870?gh_jid=8018870 | HelloFresh | Product Manager
-- [ ] https://careers.hellofresh.com/global/en/job/8025707?gh_jid=8025707 | HelloFresh | Senior Product Manager
-- [ ] https://wayve.firststage.co/jobs?gh_jid=8602633002 | Wayve | Automotive Security Product Lead
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8031164 | Smartsheet | Principal Customer Excellence Transformation Manager (Remote Eligible) 
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8025622 | Smartsheet | Product Operations Manager (Hybrid, Bangalore)
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8025713 | Smartsheet | Sr. Product Operations Manager I (Remote Eligible in Bulgaria)
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4611776005 | Scale AI | Senior AI Product Manager, Finance Agents
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4709281005 | Scale AI | Senior AI Product Manager, Healthcare Agents
 
-- [ ] https://jobs.ashbyhq.com/decagon/9109be1c-b6e3-430f-a964-887253ef891a | Decagon | Product Manager, Duet
-- [ ] https://jobs.ashbyhq.com/legora/2dfdbd92-5307-49a0-80ab-fa95824474f0 | Legora | Senior Product Manager - Billing and Pricing 
-- [ ] https://jobs.ashbyhq.com/legora/32801e6a-236e-49f0-80e0-3f9090d01b27 | Legora | Senior Product Manager - UX Core
-- [ ] https://jobs.ashbyhq.com/legora/5b15c4aa-effa-4b9c-95bc-c061c70dfca9 | Legora | Senior Product Manager 
-- [ ] https://jobs.ashbyhq.com/legora/e8e16cf6-f073-49ce-96d4-92a1e271de9b | Legora | Product Operations Manager
-- [ ] https://jobs.ashbyhq.com/legora/ff561bd0-36a7-4471-8c79-3e2dc830854f | Legora | Senior Product Manager - Enterprise
-- [ ] https://jobs.lever.co/crypto/6ee0a331-abc7-4248-bd0a-eeac848ad87a | Crypto.com | Senior Product Manager, Trading
 
 - [ ] https://job-boards.greenhouse.io/celonis/jobs/7788415003?gh_jid=7788415003 | Celonis | Application Product Manager - (AI System Transformations)
 - [ ] https://jobs.lever.co/spotify/07641cac-402a-44fd-ba42-9cb75473fc0a | Spotify | Senior Product Manager - Design Systems
 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4710996005 | Glean | Product Manager, API Platform
 - [ ] https://n26.com/en-eu/careers/positions/7673342?gh_jid=7673342 | N26 | Product Manager - AI Products
+
+- [ ] https://www.scandit.com/careers/job-description/?gh_jid=8043068 | Scandit | Product Manager (ShelfView)
 
 ## Fresh Scan 2026-04-23
 
