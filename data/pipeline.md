@@ -126,13 +126,17 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/celonis/jobs/7788415003?gh_jid=7788415003 | Celonis | Application Product Manager - (AI System Transformations)
-- [ ] https://jobs.lever.co/spotify/07641cac-402a-44fd-ba42-9cb75473fc0a | Spotify | Senior Product Manager - Design Systems
 
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4710996005 | Glean | Product Manager, API Platform
-- [ ] https://n26.com/en-eu/careers/positions/7673342?gh_jid=7673342 | N26 | Product Manager - AI Products
 
 - [ ] https://www.scandit.com/careers/job-description/?gh_jid=8043068 | Scandit | Product Manager (ShelfView)
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5164820008 | Anthropic | Product Manager, Safeguards Generalist-2 
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5179891008 | Anthropic | Product Operations Manager, Research Product
+- [ ] https://n26.com/en-eu/careers/positions/8050888?gh_jid=8050888 | N26 | Product Manager - Product Factory
+- [ ] https://job-boards.greenhouse.io/celonis/jobs/7798590003?gh_jid=7798590003 | Celonis | Application Product Manager - AI System Transformations
+- [ ] https://job-boards.greenhouse.io/celonis/jobs/7788767003?gh_jid=7788767003 | Celonis | Product Manager – Decision Intelligence 
+- [ ] https://careers.hellofresh.com/global/en/job/8044889?gh_jid=8044889 | HelloFresh | Operational Transformation Manager 
+- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8597805002 | GitLab | Senior Product Manager, Plan to Code
 
 ## Fresh Scan 2026-04-23
 
