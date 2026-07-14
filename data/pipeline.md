@@ -128,7 +128,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://www.scandit.com/careers/job-description/?gh_jid=8043068 | Scandit | Product Manager (ShelfView)
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5164820008 | Anthropic | Product Manager, Safeguards Generalist-2 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5179891008 | Anthropic | Product Operations Manager, Research Product
@@ -137,6 +136,8 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/celonis/jobs/7788767003?gh_jid=7788767003 | Celonis | Product Manager – Decision Intelligence 
 - [ ] https://careers.hellofresh.com/global/en/job/8044889?gh_jid=8044889 | HelloFresh | Operational Transformation Manager 
 - [ ] https://job-boards.greenhouse.io/gitlab/jobs/8597805002 | GitLab | Senior Product Manager, Plan to Code
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5096878008 | Anthropic | Research Product Manager, Labs
 
 ## Fresh Scan 2026-04-23
 
