@@ -139,6 +139,13 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5096878008 | Anthropic | Research Product Manager, Labs
 
+- [ ] https://job-boards.greenhouse.io/airtable/jobs/8400814002 | Airtable | Product Manager
+- [ ] https://job-boards.greenhouse.io/celonis/jobs/7798592003?gh_jid=7798592003 | Celonis | Application Product Manager - AI System Transformations
+- [ ] https://jobs.ashbyhq.com/photoroom/cfe36a59-a475-44dd-925b-5cb4f93ec831 | Photoroom | Senior Product Manager, SMB e-commerce Growth
+- [ ] https://jobs.ashbyhq.com/photoroom/3bd8a6ab-496b-4f54-b9df-eb0b13fb46d2 | Photoroom | Senior Product Manager, Core Product
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8064530 | Smartsheet | Sr. Product Manager II, Audit & History (Hybrid, Bangalore)
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8064552 | Smartsheet | Sr, Product Manager II - Gantt View (Hybrid, Bangalore)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
