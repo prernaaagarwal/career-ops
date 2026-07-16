@@ -129,13 +129,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5164820008 | Anthropic | Product Manager, Safeguards Generalist-2 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5179891008 | Anthropic | Product Operations Manager, Research Product
-- [ ] https://n26.com/en-eu/careers/positions/8050888?gh_jid=8050888 | N26 | Product Manager - Product Factory
-- [ ] https://job-boards.greenhouse.io/celonis/jobs/7798590003?gh_jid=7798590003 | Celonis | Application Product Manager - AI System Transformations
-- [ ] https://job-boards.greenhouse.io/celonis/jobs/7788767003?gh_jid=7788767003 | Celonis | Product Manager – Decision Intelligence 
-- [ ] https://careers.hellofresh.com/global/en/job/8044889?gh_jid=8044889 | HelloFresh | Operational Transformation Manager 
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8597805002 | GitLab | Senior Product Manager, Plan to Code
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5096878008 | Anthropic | Research Product Manager, Labs
 
@@ -145,6 +138,8 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/photoroom/3bd8a6ab-496b-4f54-b9df-eb0b13fb46d2 | Photoroom | Senior Product Manager, Core Product
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8064530 | Smartsheet | Sr. Product Manager II, Audit & History (Hybrid, Bangalore)
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8064552 | Smartsheet | Sr, Product Manager II - Gantt View (Hybrid, Bangalore)
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5097490008 | Anthropic | Product Manager, Safeguards (Verticals)
 
 ## Fresh Scan 2026-04-23
 
