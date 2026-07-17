@@ -141,6 +141,8 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5097490008 | Anthropic | Product Manager, Safeguards (Verticals)
 
+- [ ] https://job-boards.greenhouse.io/inmobi/jobs/8030079 | InMobi | Product Manager - Central Data Repository for People Analytics & AI/Automation 
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
