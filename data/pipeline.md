@@ -143,6 +143,9 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://job-boards.greenhouse.io/inmobi/jobs/8030079 | InMobi | Product Manager - Central Data Repository for People Analytics & AI/Automation 
 
+- [ ] https://getyourguide.careers/jobs/8071476?gh_jid=8071476 | GetYourGuide | Group Product Manager, B2C
+- [ ] https://jobs.ashbyhq.com/workos/257e30d0-eaa3-4ce1-a47d-2b2c4f65cf1a | WorkOS | Product Manager - Growth
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
