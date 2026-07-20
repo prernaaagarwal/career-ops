@@ -146,6 +146,8 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://getyourguide.careers/jobs/8071476?gh_jid=8071476 | GetYourGuide | Group Product Manager, B2C
 - [ ] https://jobs.ashbyhq.com/workos/257e30d0-eaa3-4ce1-a47d-2b2c4f65cf1a | WorkOS | Product Manager - Growth
 
+- [ ] https://jobs.lever.co/spotify/e99f0469-bee8-464f-96b7-70909a4ac073 | Spotify | Group Product Manager - Backend Experience (Core Infrastructure)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
