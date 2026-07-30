@@ -156,6 +156,11 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/inmobi/jobs/8076327 | InMobi | Group Product Manager - Accelerate
 - [ ] https://job-boards.greenhouse.io/inmobi/jobs/8076340 | InMobi | Product Manager - Accelerate
 
+- [ ] https://jobs.ashbyhq.com/decagon/3a417528-0fbc-4780-8e76-1ad32429e861 | Decagon | Senior Agent Product Manager
+- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/8066995 | GetYourGuide | Go-To-Market Product Operations Manager
+- [ ] https://careers.hellofresh.com/global/en/job/8093756?gh_jid=8093756 | HelloFresh | Senior Strategic Product Manager (M/F/X)
+- [ ] https://www.scandit.com/careers/job-description/?gh_jid=8093936 | Scandit | Senior Product Manager (ShelfView)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
