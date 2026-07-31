@@ -161,6 +161,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://careers.hellofresh.com/global/en/job/8093756?gh_jid=8093756 | HelloFresh | Senior Strategic Product Manager (M/F/X)
 - [ ] https://www.scandit.com/careers/job-description/?gh_jid=8093936 | Scandit | Senior Product Manager (ShelfView)
 
+- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/7649294 | GetYourGuide | Lead Product Manager, B2C
+- [ ] https://n26.com/en-eu/careers/positions/8079658?gh_jid=8079658 | N26 | Lead Product Manager - Conversational Banking
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8097699 | Smartsheet | Sr. Product Manager II (Remote Eligible)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
