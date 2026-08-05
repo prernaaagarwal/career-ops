@@ -137,24 +137,7 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/deepgram/3a12f539-7734-46fa-9e3b-28e041e56074 | Deepgram | Senior Product Manager, Enterprise
-- [ ] https://jobs.ashbyhq.com/sierra/dc443fd1-14bd-493c-9397-c3713c78321c | Sierra | Product Manager, Agent Development
-- [ ] https://jobs.ashbyhq.com/sierra/9b94e279-5869-4a33-b50f-9aa01ff61a22 | Sierra | Product Manager, Agent Development (Spanish speaking)
-- [ ] https://helsing.ai/jobs/4936025101?gh_jid=4936025101 | Helsing | Product Manager
-- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/8071476 | GetYourGuide | Group Product Manager, B2C
-- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/7657103 | GetYourGuide | Lead Product Manager, Paid Search
-- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/7865219 | GetYourGuide | Senior Product Manager, B2C (Landing Pages)  
-- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/7552392 | GetYourGuide | Senior Product Manager, Connectivity 
-- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/7887400 | GetYourGuide | Senior Product Manager, Supplier Portal  
-- [ ] https://jobs.ashbyhq.com/legora/53ae82a6-d5d6-4565-88aa-c6a2feccc736 | Legora | Senior Product Manager 
-- [ ] https://jobs.ashbyhq.com/supabase/23c9ce7e-6b7b-4316-8f00-8f318e902441 | Supabase | Product Manager - Marketplace
-- [ ] https://jobs.ashbyhq.com/perplexity/fb1815de-07d9-4933-8746-979dbcb00870 | Perplexity | AI Strategist, Legal
-- [ ] https://jobs.ashbyhq.com/perplexity/31dfcb60-a0df-4983-b3a4-d653cdc0aa8f | Perplexity | AI Strategist, Financial Services
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8638232002 | GitLab | AI Transformation Owner, CRO
 
-- [ ] https://job-boards.greenhouse.io/intercom/jobs/8090570 | Intercom |  Senior Product Manager 
-- [ ] https://job-boards.greenhouse.io/inmobi/jobs/8076327 | InMobi | Group Product Manager - Accelerate
-- [ ] https://job-boards.greenhouse.io/inmobi/jobs/8076340 | InMobi | Product Manager - Accelerate
 
 - [ ] https://jobs.ashbyhq.com/decagon/3a417528-0fbc-4780-8e76-1ad32429e861 | Decagon | Senior Agent Product Manager
 - [ ] https://job-boards.greenhouse.io/getyourguide/jobs/8066995 | GetYourGuide | Go-To-Market Product Operations Manager
@@ -164,6 +147,13 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/getyourguide/jobs/7649294 | GetYourGuide | Lead Product Manager, B2C
 - [ ] https://n26.com/en-eu/careers/positions/8079658?gh_jid=8079658 | N26 | Lead Product Manager - Conversational Banking
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8097699 | Smartsheet | Sr. Product Manager II (Remote Eligible)
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5251866008 | Anthropic | Product Manager, Claude Tag
+- [ ] https://jobs.ashbyhq.com/n8n/d418f8fb-b2f2-405e-8f22-db73dcf4e8b4 | n8n | Senior Product Manager - Core Platform
+- [ ] https://jobs.ashbyhq.com/legora/34c4aecc-a808-480b-a585-61e489b0eac4 | Legora | Associate, Applied Research, AI Transformation
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720501005 | Scale AI | Senior AI Product Manager, Code
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720213005 | Scale AI | Senior AI Product Manager, Cybersecurity
+- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720216005 | Scale AI | Senior AI Product Manager, Leaderboard
 
 ## Fresh Scan 2026-04-23
 
