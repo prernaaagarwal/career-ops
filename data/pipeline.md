@@ -139,14 +139,7 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/decagon/3a417528-0fbc-4780-8e76-1ad32429e861 | Decagon | Senior Agent Product Manager
-- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/8066995 | GetYourGuide | Go-To-Market Product Operations Manager
-- [ ] https://careers.hellofresh.com/global/en/job/8093756?gh_jid=8093756 | HelloFresh | Senior Strategic Product Manager (M/F/X)
-- [ ] https://www.scandit.com/careers/job-description/?gh_jid=8093936 | Scandit | Senior Product Manager (ShelfView)
 
-- [ ] https://job-boards.greenhouse.io/getyourguide/jobs/7649294 | GetYourGuide | Lead Product Manager, B2C
-- [ ] https://n26.com/en-eu/careers/positions/8079658?gh_jid=8079658 | N26 | Lead Product Manager - Conversational Banking
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8097699 | Smartsheet | Sr. Product Manager II (Remote Eligible)
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5251866008 | Anthropic | Product Manager, Claude Tag
 - [ ] https://jobs.ashbyhq.com/n8n/d418f8fb-b2f2-405e-8f22-db73dcf4e8b4 | n8n | Senior Product Manager - Core Platform
@@ -154,6 +147,18 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720501005 | Scale AI | Senior AI Product Manager, Code
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720213005 | Scale AI | Senior AI Product Manager, Cybersecurity
 - [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720216005 | Scale AI | Senior AI Product Manager, Leaderboard
+
+- [ ] https://jobs.ashbyhq.com/decagon/e27fcbdf-891c-4b2f-9c47-d2bdc26eb2d4 | Decagon | Product Manager, Enterprise Agent Platform
+- [ ] https://jobs.ashbyhq.com/decagon/95524337-b5e7-4156-9022-af5c192f174d | Decagon | Senior Agent Product Manager, Healthcare
+- [ ] https://helsing.ai/jobs/4947377101?gh_jid=4947377101 | Helsing | Product Manager, Autonomous Systems Command & Control
+- [ ] https://careers.hellofresh.com/global/en/job/8105337?gh_jid=8105337 | HelloFresh | Senior Product Manager II, Menu Planning (all genders)  
+- [ ] https://careers.hellofresh.com/global/en/job/8095950?gh_jid=8095950 | HelloFresh | Senior Product Manager, Intelligent Platforms (m/f/x)
+- [ ] https://n26.com/en-eu/careers/positions/8043854?gh_jid=8043854 | N26 | Product Manager - Product Factory
+- [ ] https://n26.com/en-eu/careers/positions/8108810?gh_jid=8108810 | N26 | Senior Product Manager - Banking Scalability Platform
+- [ ] https://jobs.ashbyhq.com/synthesia/e934a7ac-b668-46c0-9953-eed4504658b7 | Synthesia | Product Manager, Interactive Avatars
+- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8684348002 | GitLab | Senior Product Manager, Growth
+- [ ] https://jobs.lever.co/crypto/fbb256a2-46a3-41b7-942d-5ba87018c0dc | Crypto.com | Lead Product Manager - Exchange, Trading
+- [ ] https://jobs.lever.co/crypto/f6a19e4d-1150-476a-8566-ea0e7f2fd96a | Crypto.com | Senior Product Manager - Predictions, OG
 
 ## Fresh Scan 2026-04-23
 
