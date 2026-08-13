@@ -141,12 +141,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5251866008 | Anthropic | Product Manager, Claude Tag
-- [ ] https://jobs.ashbyhq.com/n8n/d418f8fb-b2f2-405e-8f22-db73dcf4e8b4 | n8n | Senior Product Manager - Core Platform
-- [ ] https://jobs.ashbyhq.com/legora/34c4aecc-a808-480b-a585-61e489b0eac4 | Legora | Associate, Applied Research, AI Transformation
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720501005 | Scale AI | Senior AI Product Manager, Code
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720213005 | Scale AI | Senior AI Product Manager, Cybersecurity
-- [ ] https://job-boards.greenhouse.io/scaleai/jobs/4720216005 | Scale AI | Senior AI Product Manager, Leaderboard
 
 - [ ] https://jobs.ashbyhq.com/decagon/e27fcbdf-891c-4b2f-9c47-d2bdc26eb2d4 | Decagon | Product Manager, Enterprise Agent Platform
 - [ ] https://jobs.ashbyhq.com/decagon/95524337-b5e7-4156-9022-af5c192f174d | Decagon | Senior Agent Product Manager, Healthcare
@@ -159,6 +153,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/gitlab/jobs/8684348002 | GitLab | Senior Product Manager, Growth
 - [ ] https://jobs.lever.co/crypto/fbb256a2-46a3-41b7-942d-5ba87018c0dc | Crypto.com | Lead Product Manager - Exchange, Trading
 - [ ] https://jobs.lever.co/crypto/f6a19e4d-1150-476a-8566-ea0e7f2fd96a | Crypto.com | Senior Product Manager - Predictions, OG
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5386182008 | Anthropic | Product Manager, New Markets and Monetization
+- [ ] https://jobs.ashbyhq.com/n8n/bcf96878-d41a-479d-b506-7753356077c4 | n8n | Senior Product Manager (Enterprise)
+- [ ] https://jobs.lever.co/spotify/07fa27d0-48cd-4315-8a3c-aa492dff4554 | Spotify | Product Manager - Podcast
 
 ## Fresh Scan 2026-04-23
 
