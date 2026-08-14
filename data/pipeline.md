@@ -158,6 +158,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/n8n/bcf96878-d41a-479d-b506-7753356077c4 | n8n | Senior Product Manager (Enterprise)
 - [ ] https://jobs.lever.co/spotify/07fa27d0-48cd-4315-8a3c-aa492dff4554 | Spotify | Product Manager - Podcast
 
+- [ ] https://jobs.ashbyhq.com/vapi/0ec4a11b-09ec-43ed-aa79-e4718bebec1e | Vapi | Senior Product Manager
+- [ ] https://jobs.lever.co/spotify/7f870908-eeb0-43ee-90be-46f19bcd4b85 | Spotify | Product Manager - Podcast
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
