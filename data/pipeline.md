@@ -161,6 +161,11 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/vapi/0ec4a11b-09ec-43ed-aa79-e4718bebec1e | Vapi | Senior Product Manager
 - [ ] https://jobs.lever.co/spotify/7f870908-eeb0-43ee-90be-46f19bcd4b85 | Spotify | Product Manager - Podcast
 
+- [ ] https://jobs.ashbyhq.com/deepgram/8fd3acd1-31c0-4dad-a249-a8d3d5d79cc9 | Deepgram | Enterprise AI Strategist, Deepgram for Restaurants
+- [ ] https://jobs.ashbyhq.com/photoroom/4886fd85-2b2c-4dca-bf48-1dbc370629bc | Photoroom | Product Manager, Editing Foundations
+- [ ] https://wayve.firststage.co/jobs?gh_jid=8702742002 | Wayve | Product Manager, AI Driver
+- [ ] https://jobs.ashbyhq.com/lovable/725b8529-5c3e-4b23-867e-8e2766bc9629 | Lovable | Product Manager (Identity & Access Management)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
