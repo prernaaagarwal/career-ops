@@ -142,17 +142,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/decagon/e27fcbdf-891c-4b2f-9c47-d2bdc26eb2d4 | Decagon | Product Manager, Enterprise Agent Platform
-- [ ] https://jobs.ashbyhq.com/decagon/95524337-b5e7-4156-9022-af5c192f174d | Decagon | Senior Agent Product Manager, Healthcare
-- [ ] https://helsing.ai/jobs/4947377101?gh_jid=4947377101 | Helsing | Product Manager, Autonomous Systems Command & Control
-- [ ] https://careers.hellofresh.com/global/en/job/8105337?gh_jid=8105337 | HelloFresh | Senior Product Manager II, Menu Planning (all genders)  
-- [ ] https://careers.hellofresh.com/global/en/job/8095950?gh_jid=8095950 | HelloFresh | Senior Product Manager, Intelligent Platforms (m/f/x)
-- [ ] https://n26.com/en-eu/careers/positions/8043854?gh_jid=8043854 | N26 | Product Manager - Product Factory
-- [ ] https://n26.com/en-eu/careers/positions/8108810?gh_jid=8108810 | N26 | Senior Product Manager - Banking Scalability Platform
-- [ ] https://jobs.ashbyhq.com/synthesia/e934a7ac-b668-46c0-9953-eed4504658b7 | Synthesia | Product Manager, Interactive Avatars
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8684348002 | GitLab | Senior Product Manager, Growth
-- [ ] https://jobs.lever.co/crypto/fbb256a2-46a3-41b7-942d-5ba87018c0dc | Crypto.com | Lead Product Manager - Exchange, Trading
-- [ ] https://jobs.lever.co/crypto/f6a19e4d-1150-476a-8566-ea0e7f2fd96a | Crypto.com | Senior Product Manager - Predictions, OG
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5386182008 | Anthropic | Product Manager, New Markets and Monetization
 - [ ] https://jobs.ashbyhq.com/n8n/bcf96878-d41a-479d-b506-7753356077c4 | n8n | Senior Product Manager (Enterprise)
@@ -165,6 +154,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/photoroom/4886fd85-2b2c-4dca-bf48-1dbc370629bc | Photoroom | Product Manager, Editing Foundations
 - [ ] https://wayve.firststage.co/jobs?gh_jid=8702742002 | Wayve | Product Manager, AI Driver
 - [ ] https://jobs.ashbyhq.com/lovable/725b8529-5c3e-4b23-867e-8e2766bc9629 | Lovable | Product Manager (Identity & Access Management)
+
+- [ ] https://jobs.ashbyhq.com/synthesia/85e7b0df-f603-416b-a7bd-3331b6576186 | Synthesia | Product Manager (Senior/Staff-level)
+- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8697043002 | GitLab | Senior Product Manager, Secret Detection and Vulnerability Research
 
 ## Fresh Scan 2026-04-23
 
