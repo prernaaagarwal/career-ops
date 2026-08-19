@@ -158,6 +158,8 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.ashbyhq.com/synthesia/85e7b0df-f603-416b-a7bd-3331b6576186 | Synthesia | Product Manager (Senior/Staff-level)
 - [ ] https://job-boards.greenhouse.io/gitlab/jobs/8697043002 | GitLab | Senior Product Manager, Secret Detection and Vulnerability Research
 
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8140456 | Smartsheet | Senior Product Manager II - Applied AI (Remote Eligible)
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
