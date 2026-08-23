@@ -143,22 +143,24 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5386182008 | Anthropic | Product Manager, New Markets and Monetization
-- [ ] https://jobs.ashbyhq.com/n8n/bcf96878-d41a-479d-b506-7753356077c4 | n8n | Senior Product Manager (Enterprise)
-- [ ] https://jobs.lever.co/spotify/07fa27d0-48cd-4315-8a3c-aa492dff4554 | Spotify | Product Manager - Podcast
 
-- [ ] https://jobs.ashbyhq.com/vapi/0ec4a11b-09ec-43ed-aa79-e4718bebec1e | Vapi | Senior Product Manager
-- [ ] https://jobs.lever.co/spotify/7f870908-eeb0-43ee-90be-46f19bcd4b85 | Spotify | Product Manager - Podcast
 
-- [ ] https://jobs.ashbyhq.com/deepgram/8fd3acd1-31c0-4dad-a249-a8d3d5d79cc9 | Deepgram | Enterprise AI Strategist, Deepgram for Restaurants
-- [ ] https://jobs.ashbyhq.com/photoroom/4886fd85-2b2c-4dca-bf48-1dbc370629bc | Photoroom | Product Manager, Editing Foundations
-- [ ] https://wayve.firststage.co/jobs?gh_jid=8702742002 | Wayve | Product Manager, AI Driver
-- [ ] https://jobs.ashbyhq.com/lovable/725b8529-5c3e-4b23-867e-8e2766bc9629 | Lovable | Product Manager (Identity & Access Management)
 
 - [ ] https://jobs.ashbyhq.com/synthesia/85e7b0df-f603-416b-a7bd-3331b6576186 | Synthesia | Product Manager (Senior/Staff-level)
 - [ ] https://job-boards.greenhouse.io/gitlab/jobs/8697043002 | GitLab | Senior Product Manager, Secret Detection and Vulnerability Research
 
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8140456 | Smartsheet | Senior Product Manager II - Applied AI (Remote Eligible)
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5393452008 | Anthropic | Product Manager, Public Sector
+- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8716179002 | GitLab | AI Transformation Owner, Product & Design
+- [ ] https://jobs.lever.co/crypto/fd1b5ab4-60f7-4aa4-9db1-d7deda6b8143 | Crypto.com | Senior Product Manager - Fiat Onboarding, OG
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5397741008 | Anthropic | Product Manager, Business Technology
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5393526008 | Anthropic | Product Manager, Cybersecurity 
+- [ ] https://job-boards.greenhouse.io/vercel/jobs/6147956004 | Vercel | Product Manager, Observability
+- [ ] https://wayve.firststage.co/jobs?gh_jid=8735092002 | Wayve | Technical Product Manager - Development Vehicles
+- [ ] https://jobs.ashbyhq.com/supabase/9773ea1b-e25b-437c-bdbd-3fce0c69101e | Supabase | Product Manager - Branching
+- [ ] https://jobs.ashbyhq.com/supabase/68a397e7-8a1a-4566-ae41-e8c61dd6ed93 | Supabase | Product Manager - Strategic Partner Integrations (Bay Area based)
 
 ## Fresh Scan 2026-04-23
 
