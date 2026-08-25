@@ -146,8 +146,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/synthesia/85e7b0df-f603-416b-a7bd-3331b6576186 | Synthesia | Product Manager (Senior/Staff-level)
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8697043002 | GitLab | Senior Product Manager, Secret Detection and Vulnerability Research
 
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8140456 | Smartsheet | Senior Product Manager II - Applied AI (Remote Eligible)
 
@@ -161,6 +159,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://wayve.firststage.co/jobs?gh_jid=8735092002 | Wayve | Technical Product Manager - Development Vehicles
 - [ ] https://jobs.ashbyhq.com/supabase/9773ea1b-e25b-437c-bdbd-3fce0c69101e | Supabase | Product Manager - Branching
 - [ ] https://jobs.ashbyhq.com/supabase/68a397e7-8a1a-4566-ae41-e8c61dd6ed93 | Supabase | Product Manager - Strategic Partner Integrations (Bay Area based)
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5397737008 | Anthropic | Product Manager, Business Technology
+- [ ] https://jobs.ashbyhq.com/sierra/cb841dfe-5d21-44ae-8496-fca6b5587ae6 | Sierra | Product Manager, Agent Development - Public Sector
+- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8154568 | Smartsheet | Product Manager II (Remote Eligible)
 
 ## Fresh Scan 2026-04-23
 
