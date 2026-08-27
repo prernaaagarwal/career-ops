@@ -148,9 +148,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5393452008 | Anthropic | Product Manager, Public Sector
-- [ ] https://job-boards.greenhouse.io/gitlab/jobs/8716179002 | GitLab | AI Transformation Owner, Product & Design
-- [ ] https://jobs.lever.co/crypto/fd1b5ab4-60f7-4aa4-9db1-d7deda6b8143 | Crypto.com | Senior Product Manager - Fiat Onboarding, OG
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5397741008 | Anthropic | Product Manager, Business Technology
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5393526008 | Anthropic | Product Manager, Cybersecurity 
@@ -164,6 +161,11 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8154568 | Smartsheet | Product Manager II (Remote Eligible)
 
 - [ ] https://careers.hellofresh.com/global/en/job/8152752?gh_jid=8152752 | HelloFresh | Editorial Product Manager [Maternity Cover]  - All Genders
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5390791008 | Anthropic | Applied AI Strategist, EMEA
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5406106008 | Anthropic | Product Manager, Growth
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4726336005 | Glean | Product Manager
+- [ ] https://jobs.ashbyhq.com/decagon/2e561f25-77bd-4199-b5c4-3618f1743a0d | Decagon | Senior Agent Product Manager
 
 ## Fresh Scan 2026-04-23
 
