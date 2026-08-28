@@ -167,6 +167,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4726336005 | Glean | Product Manager
 - [ ] https://jobs.ashbyhq.com/decagon/2e561f25-77bd-4199-b5c4-3618f1743a0d | Decagon | Senior Agent Product Manager
 
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5407337008 | Anthropic | Product Manager, Beneficial Deployments (Labs)
+- [ ] https://job-boards.greenhouse.io/celonis/jobs/7885761003?gh_jid=7885761003 | Celonis | Senior Application Product Manager - Oracle & AI
+- [ ] https://n26.com/en-eu/careers/positions/8153081?gh_jid=8153081 | N26 | Lead Product Manager - Customer Due Diligence
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
