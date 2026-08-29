@@ -171,6 +171,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/celonis/jobs/7885761003?gh_jid=7885761003 | Celonis | Senior Application Product Manager - Oracle & AI
 - [ ] https://n26.com/en-eu/careers/positions/8153081?gh_jid=8153081 | N26 | Lead Product Manager - Customer Due Diligence
 
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5409934008 | Anthropic | Product Manager, Multi-Cloud Trust & Safety
+- [ ] https://n26.com/en-eu/careers/positions/8141402?gh_jid=8141402 | N26 | Lead Product Manager - Customer Due Diligence
+- [ ] https://sumup.com/careers/positions/8750435002?gh_jid=8750435002 | SumUp | Senior Product Manager- Hardware
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
