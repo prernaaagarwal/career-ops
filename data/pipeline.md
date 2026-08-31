@@ -169,6 +169,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://n26.com/en-eu/careers/positions/8141402?gh_jid=8141402 | N26 | Lead Product Manager - Customer Due Diligence
 - [ ] https://sumup.com/careers/positions/8750435002?gh_jid=8750435002 | SumUp | Senior Product Manager- Hardware
 
+- [ ] https://jobs.ashbyhq.com/sierra/bc98b50a-d6ea-42b8-b1c6-f55099d1bb1c | Sierra | Product Manager, Agent Development - Financial Services
+- [ ] https://wayve.firststage.co/jobs?gh_jid=8682187002 | Wayve | Technical Product Manager - Robotaxi   
+
 ## Fresh Scan 2026-04-23
 
 <!-- ── UAE / Dubai ── -->
