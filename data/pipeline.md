@@ -150,9 +150,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5397737008 | Anthropic | Product Manager, Business Technology
-- [ ] https://jobs.ashbyhq.com/sierra/cb841dfe-5d21-44ae-8496-fca6b5587ae6 | Sierra | Product Manager, Agent Development - Public Sector
-- [ ] https://job-boards.greenhouse.io/smartsheet/jobs/8154568 | Smartsheet | Product Manager II (Remote Eligible)
 
 - [ ] https://careers.hellofresh.com/global/en/job/8152752?gh_jid=8152752 | HelloFresh | Editorial Product Manager [Maternity Cover]  - All Genders
 
@@ -171,6 +168,8 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://jobs.ashbyhq.com/sierra/bc98b50a-d6ea-42b8-b1c6-f55099d1bb1c | Sierra | Product Manager, Agent Development - Financial Services
 - [ ] https://wayve.firststage.co/jobs?gh_jid=8682187002 | Wayve | Technical Product Manager - Robotaxi   
+
+- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5394887008 | Anthropic | Product Manager, Claude Science
 
 ## Fresh Scan 2026-04-23
 
