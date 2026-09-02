@@ -151,7 +151,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://careers.hellofresh.com/global/en/job/8152752?gh_jid=8152752 | HelloFresh | Editorial Product Manager [Maternity Cover]  - All Genders
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5390791008 | Anthropic | Applied AI Strategist, EMEA
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5406106008 | Anthropic | Product Manager, Growth
@@ -170,6 +169,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://wayve.firststage.co/jobs?gh_jid=8682187002 | Wayve | Technical Product Manager - Robotaxi   
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5394887008 | Anthropic | Product Manager, Claude Science
+
+- [ ] https://jobs.ashbyhq.com/n8n/98d8bc2f-ee58-4732-8977-61a761aac8b0 | n8n | Senior Product Manager - Core Experience
+- [ ] https://n26.com/en-eu/careers/positions/8105374?gh_jid=8105374 | N26 | Senior Product Manager - Banking Scalability Platform
 
 ## Fresh Scan 2026-04-23
 
