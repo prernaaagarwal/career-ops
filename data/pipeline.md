@@ -152,14 +152,7 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5390791008 | Anthropic | Applied AI Strategist, EMEA
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5406106008 | Anthropic | Product Manager, Growth
-- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4726336005 | Glean | Product Manager
-- [ ] https://jobs.ashbyhq.com/decagon/2e561f25-77bd-4199-b5c4-3618f1743a0d | Decagon | Senior Agent Product Manager
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5407337008 | Anthropic | Product Manager, Beneficial Deployments (Labs)
-- [ ] https://job-boards.greenhouse.io/celonis/jobs/7885761003?gh_jid=7885761003 | Celonis | Senior Application Product Manager - Oracle & AI
-- [ ] https://n26.com/en-eu/careers/positions/8153081?gh_jid=8153081 | N26 | Lead Product Manager - Customer Due Diligence
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5409934008 | Anthropic | Product Manager, Multi-Cloud Trust & Safety
 - [ ] https://n26.com/en-eu/careers/positions/8141402?gh_jid=8141402 | N26 | Lead Product Manager - Customer Due Diligence
@@ -172,6 +165,16 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://jobs.ashbyhq.com/n8n/98d8bc2f-ee58-4732-8977-61a761aac8b0 | n8n | Senior Product Manager - Core Experience
 - [ ] https://n26.com/en-eu/careers/positions/8105374?gh_jid=8105374 | N26 | Senior Product Manager - Banking Scalability Platform
+
+- [ ] https://job-boards.greenhouse.io/celonis/jobs/7885800003?gh_jid=7885800003 | Celonis | Senior Application Product Manager - Supply Chain - Procurement 
+- [ ] https://jobs.ashbyhq.com/perplexity/3c9c051f-e6ca-4a70-9abf-1f640e154ee1 | Perplexity | Product Manager, Mobile Apps
+- [ ] https://jobs.ashbyhq.com/perplexity/6f3c5131-2efa-400c-8248-44203a4dbfbb | Perplexity | Product Manager, Core Experience
+- [ ] https://jobs.ashbyhq.com/perplexity/7f880194-7276-4b46-8a50-58b48da8882e | Perplexity | Product Manager, AI Capabilities
+- [ ] https://jobs.ashbyhq.com/perplexity/fa088d92-b08b-43f7-9232-275b0ae08827 | Perplexity | Product Manager, Growth
+- [ ] https://jobs.ashbyhq.com/perplexity/182ab2ec-6fb1-409b-a2dc-63c7832b0a13 | Perplexity | Product Manager, SMB Growth
+- [ ] https://jobs.lever.co/spotify/7f0a8faa-f4f5-4db9-9f51-4101d6a29b34 | Spotify | Product Manager - Customer Service Platform
+
+- [ ] https://job-boards.greenhouse.io/celonis/jobs/7984249003?gh_jid=7984249003 | Celonis | Senior Application Product Manager - Supply Chain - Procurement 
 
 ## Fresh Scan 2026-04-23
 
