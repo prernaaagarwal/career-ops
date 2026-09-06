@@ -154,9 +154,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5409934008 | Anthropic | Product Manager, Multi-Cloud Trust & Safety
-- [ ] https://n26.com/en-eu/careers/positions/8141402?gh_jid=8141402 | N26 | Lead Product Manager - Customer Due Diligence
-- [ ] https://sumup.com/careers/positions/8750435002?gh_jid=8750435002 | SumUp | Senior Product Manager- Hardware
 
 - [ ] https://jobs.ashbyhq.com/sierra/bc98b50a-d6ea-42b8-b1c6-f55099d1bb1c | Sierra | Product Manager, Agent Development - Financial Services
 - [ ] https://wayve.firststage.co/jobs?gh_jid=8682187002 | Wayve | Technical Product Manager - Robotaxi   
@@ -175,6 +172,10 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.lever.co/spotify/7f0a8faa-f4f5-4db9-9f51-4101d6a29b34 | Spotify | Product Manager - Customer Service Platform
 
 - [ ] https://job-boards.greenhouse.io/celonis/jobs/7984249003?gh_jid=7984249003 | Celonis | Senior Application Product Manager - Supply Chain - Procurement 
+
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4731372005 | Glean | Product Manager, API Platform
+- [ ] https://careers.hellofresh.com/global/en/job/8167337?gh_jid=8167337 | HelloFresh | Senior Product Manager II, Consumer (all genders) 
+- [ ] https://jobs.lever.co/spotify/e7b01c1e-4246-4f31-83ea-9219c8b22c83 | Spotify | Senior Product Manager - Audiobooks Format Foundations
 
 ## Fresh Scan 2026-04-23
 
