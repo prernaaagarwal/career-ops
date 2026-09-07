@@ -155,8 +155,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/sierra/bc98b50a-d6ea-42b8-b1c6-f55099d1bb1c | Sierra | Product Manager, Agent Development - Financial Services
-- [ ] https://wayve.firststage.co/jobs?gh_jid=8682187002 | Wayve | Technical Product Manager - Robotaxi   
 
 - [ ] https://job-boards.greenhouse.io/anthropic/jobs/5394887008 | Anthropic | Product Manager, Claude Science
 
@@ -176,6 +174,8 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4731372005 | Glean | Product Manager, API Platform
 - [ ] https://careers.hellofresh.com/global/en/job/8167337?gh_jid=8167337 | HelloFresh | Senior Product Manager II, Consumer (all genders) 
 - [ ] https://jobs.lever.co/spotify/e7b01c1e-4246-4f31-83ea-9219c8b22c83 | Spotify | Senior Product Manager - Audiobooks Format Foundations
+
+- [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4731388005 | Glean | Product Manager, API Platform
 
 ## Fresh Scan 2026-04-23
 
