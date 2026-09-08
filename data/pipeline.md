@@ -156,7 +156,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/anthropic/jobs/5394887008 | Anthropic | Product Manager, Claude Science
 
 - [ ] https://jobs.ashbyhq.com/n8n/98d8bc2f-ee58-4732-8977-61a761aac8b0 | n8n | Senior Product Manager - Core Experience
 - [ ] https://n26.com/en-eu/careers/positions/8105374?gh_jid=8105374 | N26 | Senior Product Manager - Banking Scalability Platform
@@ -176,6 +175,9 @@ Format: `- [ ] {url} | {company} | {title}`
 - [ ] https://jobs.lever.co/spotify/e7b01c1e-4246-4f31-83ea-9219c8b22c83 | Spotify | Senior Product Manager - Audiobooks Format Foundations
 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4731388005 | Glean | Product Manager, API Platform
+
+- [ ] https://n26.com/en-eu/careers/positions/8172838?gh_jid=8172838 | N26 | Product Manager
+- [ ] https://sumup.com/careers/positions/8602383002?gh_jid=8602383002 | SumUp | Senior Product Manager - SuperApp
 
 ## Fresh Scan 2026-04-23
 
