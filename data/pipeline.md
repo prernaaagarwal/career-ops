@@ -157,8 +157,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://jobs.ashbyhq.com/n8n/98d8bc2f-ee58-4732-8977-61a761aac8b0 | n8n | Senior Product Manager - Core Experience
-- [ ] https://n26.com/en-eu/careers/positions/8105374?gh_jid=8105374 | N26 | Senior Product Manager - Banking Scalability Platform
 
 - [ ] https://job-boards.greenhouse.io/celonis/jobs/7885800003?gh_jid=7885800003 | Celonis | Senior Application Product Manager - Supply Chain - Procurement 
 - [ ] https://jobs.ashbyhq.com/perplexity/3c9c051f-e6ca-4a70-9abf-1f640e154ee1 | Perplexity | Product Manager, Mobile Apps
@@ -178,6 +176,11 @@ Format: `- [ ] {url} | {company} | {title}`
 
 - [ ] https://n26.com/en-eu/careers/positions/8172838?gh_jid=8172838 | N26 | Product Manager
 - [ ] https://sumup.com/careers/positions/8602383002?gh_jid=8602383002 | SumUp | Senior Product Manager - SuperApp
+
+- [ ] https://n26.com/en-eu/careers/positions/8184770?gh_jid=8184770 | N26 | Product Manager
+- [ ] https://job-boards.greenhouse.io/hightouch/jobs/6185678004 | Hightouch | Product Manager, Marketing Orchestration
+- [ ] https://job-boards.greenhouse.io/hightouch/jobs/6185521004 | Hightouch | Product Manager, Real Time
+- [ ] https://jobs.lever.co/spotify/a57db22d-dc0d-4f36-9a2e-34acdf1ec046 | Spotify | Senior Product Manager - Subscriptions
 
 ## Fresh Scan 2026-04-23
 
