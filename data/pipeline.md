@@ -159,7 +159,6 @@ Format: `- [ ] {url} | {company} | {title}`
 
 
 
-- [ ] https://job-boards.greenhouse.io/celonis/jobs/7984249003?gh_jid=7984249003 | Celonis | Senior Application Product Manager - Supply Chain - Procurement 
 
 - [ ] https://job-boards.greenhouse.io/gleanwork/jobs/4731372005 | Glean | Product Manager, API Platform
 - [ ] https://careers.hellofresh.com/global/en/job/8167337?gh_jid=8167337 | HelloFresh | Senior Product Manager II, Consumer (all genders) 
